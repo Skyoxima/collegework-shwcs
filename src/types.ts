@@ -1,6 +1,5 @@
 export interface ObjCodebaseBody {
     "lang": string
-    "code_lines": Array<string>
     "code_string_literal": string
     "comments": {[key: string]: string} | {}
 }

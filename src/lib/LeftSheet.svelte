@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Codebase, currentProject , CodebaseEntries} from '../state.svelte';
+  import { currentProject, CodebaseEntries} from '../state.svelte';
   import type { ObjCodebaseBody, subject } from '../types';
   import RightArrow from './SVGAsComponent/RightArrow.svelte';
 
@@ -12,8 +12,8 @@
   }
 </script>
 
-<div id="left-sheet-wrapper" class={["fixed top-0 w-[40%] h-full transition-[left] duration-[500ms]", sheetMode ? 'left-0' : '-left-[40%]']}>
-  <section id="left-sheet" class="w-full h-full bg-kwdr-fg border-r-4 border-r-kwdr-fg--muted overflow-y-scroll custom-scrollbar">
+<aside id="left-sheet-wrapper" class={["fixed top-0 w-[40%] h-full transition-[left] duration-[500ms]", sheetMode ? 'left-0' : '-left-[40%]']}>
+  <div id="left-sheet" class="w-full h-full bg-kwdr-fg border-r-4 border-r-kwdr-fg--muted overflow-y-scroll custom-scrollbar">
     <h2 class="p-2 sticky top-0 bg-kwdr-fg--muted text-2xl text-kwdr-bg">Subjects</h2>
       {#each CodebaseEntries as [subjectName, codeItem]}
         <article>
@@ -23,12 +23,12 @@
           {/each}
         </article>
       {/each}
-  </section>
+  </div>
 
   <button id="left-sheet-ctrl" class="absolute top-1/2 -translate-y-1/2 left-full w-10 aspect-[2/3] bg-kwdr-fg--muted flex justify-center items-center rounded-r-sm cursor-pointer" onclick={() => {sheetMode = !sheetMode}}>
     <RightArrow className={sheetMode ? 'rotate-180' : ''} />
   </button>
-</div>
+</aside>
 
 <style>
   .subject {

@@ -1,7 +1,7 @@
 import RawObjCodebase from './data/Object_based_Codebase.json'
 import type { ObjCodebase, ObjCodebaseBody, subject } from './types';
 
-export const Codebase: ObjCodebase = RawObjCodebase;
+const Codebase: ObjCodebase = RawObjCodebase;
 const subjects = Object.keys(Codebase) as subject[]
 export const CodebaseEntries = Object.entries(Codebase) as [subject, ObjCodebaseBody][]
 
