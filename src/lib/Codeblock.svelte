@@ -7,7 +7,7 @@
   import { currentProject } from "../state.svelte";
 
   async function processCode(lang: string, codeString: string) {
-    const markdown = "```" + lang + "\n" + codeString;
+    const markdown = "```" + lang + " showLineNumbers" + "\n" + codeString;
 
     const file = await unified()
       .use(remarkParse)
@@ -42,6 +42,33 @@
   div :global {
     pre [data-line] {
       padding: 0 1rem;
+    }
+
+    code[data-line-numbers] {
+      counter-reset: line;
+    } 
+
+    code[data-line-numbers] > [data-line]::before {
+      counter-increment: line;
+      content: counter(line);
+
+      display: inline-block;
+      width: 0.75rem;
+      margin-right: 2rem;
+      text-align: right;
+      color: gray;
+    }
+
+    code[data-line-numbers-max-digits="2"] > [data-line]::before {
+      width: 1.25rem;
+    }
+
+    code[data-line-numbers-max-digits="3"] > [data-line]::before {
+      width: 1.75rem;
+    }
+
+    code[data-line-numbers-max-digits="4"] > [data-line]::before {
+      width: 2.25rem;
     }
   }
 </style>
