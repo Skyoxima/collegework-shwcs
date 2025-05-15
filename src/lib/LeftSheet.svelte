@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentProject, CodebaseEntries} from '../state.svelte';
+  import { currentProject, CodebaseEntries, currHltdLine } from '../state.svelte';
   import type { ObjCodebaseBody, subject } from '../types';
   import RightArrow from './SVGAsComponent/RightArrow.svelte';
 
@@ -9,6 +9,7 @@
     currentProject.subject = subject;
     currentProject.projectName = projectName;
     currentProject.projectBody = projectBody;
+    currHltdLine.value = 0;
   }
 </script>
 

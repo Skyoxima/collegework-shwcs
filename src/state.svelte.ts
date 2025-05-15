@@ -13,3 +13,5 @@ export let currentProject = $state({
   projectName: "Quicksort.py",
   projectBody: initProjectBody
 })
+
+export let currHltdLine = $state({value: 0})

@@ -4,7 +4,12 @@
   import remarkRehype from "remark-rehype";
   import rehypePrettyCode from "rehype-pretty-code";
   import rehypeStringify from "rehype-stringify";
-  import { currentProject } from "../state.svelte";
+  import { currHltdLine, currentProject } from "../state.svelte";
+  import type { Action } from "svelte/action";  
+
+  // $inspect(currHltdLine);
+  // $inspect(currentProject);
+
 
   async function processCode(lang: string, codeString: string) {
     const markdown = "```" + lang + " showLineNumbers" + "\n" + codeString;
@@ -17,8 +22,8 @@
       })
       .use(rehypeStringify)
       .process(markdown);
-
     
+    // console.log("processCode ran")
     return file.toString();
   }
   
@@ -27,11 +32,27 @@
     currentProject.projectBody.lang,
     currentProject.projectBody.code_string_literal
   ));
+
+
+  const lineHlt: Action = (node: HTMLElement) => {
+    //? Should I use an effect, because I do want to make the block inside reactive to currrentHltdLine.
+    $effect(() => {
+      // When there indeed is some line to highlight
+      if (currHltdLine.value > 0) {
+        const allLines = node.querySelectorAll('[data-line]');
+        // remove existing highlights first 
+        allLines.forEach((ele) => {
+          ele.classList.remove('highlighted-line')
+        })
+        allLines[currHltdLine.value - 1].classList.add('highlighted-line');
+      }
+    })
+  }
 </script>
 
 <section id="code-side" class="w-full py-2 px-4 rounded-2xl bg-kwdr-bg text-sm overflow-auto custom-scrollbar">
   {#await processedCode then htmlString}
-  <div>
+  <div use:lineHlt>
     {@html htmlString}
   </div>
   {/await}
@@ -44,6 +65,7 @@
       padding: 0 1rem;
     }
 
+    /* This is for line numbers */
     code[data-line-numbers] {
       counter-reset: line;
     } 
@@ -69,6 +91,11 @@
 
     code[data-line-numbers-max-digits="4"] > [data-line]::before {
       width: 2.25rem;
+    }
+    /* Line number styling ends here. */
+
+    span.highlighted-line {
+      background: color-mix(in srgb, var(--color-kwdr-fg--muted) 25%, transparent);
     }
   }
 </style>

@@ -8,8 +8,6 @@
     return `${semesterFull[0]}ester-${semesterFull[1]}`
   })
   
-
-  $inspect(subjectName).with(console.log)
 </script>
 
 <div
