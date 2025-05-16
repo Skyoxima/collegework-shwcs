@@ -22,7 +22,7 @@
       <article>
         <h2 class="subject px-2">{subjectName}</h2>
         {#each Object.entries(codeItem) as [projectName, projectBody]}
-        <button class="mx-2 block hover:bg-kwdr-fg--muted/50 transition-[background] duration-500 cursor-pointer" onclick={() => {handleProjectClick(subjectName, projectName, projectBody)}}>&nbsp;{projectName}&nbsp;</button>
+        <button class={["mx-2 block hover:bg-kwdr-fg--muted/50 transition-[background] duration-500 cursor-pointer", currentProject.projectName === projectName ? "border-b-2 border-b-kwdr-bg/25" : ""]} onclick={() => {handleProjectClick(subjectName, projectName, projectBody)}}>&nbsp;{projectName}&nbsp;</button>
         {/each}
       </article>
       {/each}
