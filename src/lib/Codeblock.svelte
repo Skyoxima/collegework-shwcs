@@ -10,7 +10,6 @@
   // $inspect(currHltdLine);
   // $inspect(currentProject);
 
-
   async function processCode(lang: string, codeString: string) {
     const markdown = "```" + lang + " showLineNumbers" + "\n" + codeString;
 
@@ -33,24 +32,32 @@
     currentProject.projectBody.code_string_literal
   ));
 
-
   const lineHlt: Action = (node: HTMLElement) => {
-    //? Should I use an effect, because I do want to make the block inside reactive to currrentHltdLine.
     $effect(() => {
       // When there indeed is some line to highlight
       if (currHltdLine.value > 0) {
         const allLines = node.querySelectorAll('[data-line]');
         // remove existing highlights first 
         allLines.forEach((ele) => {
-          ele.classList.remove('highlighted-line')
+          ele.classList.remove('highlighted-line');
         })
-        allLines[currHltdLine.value - 1].classList.add('highlighted-line');
+
+        // now apply/update the highlight
+        const hltLine = allLines[currHltdLine.value - 1] as HTMLSpanElement;
+        hltLine.classList.add('highlighted-line');
+
+        // scrolling to the line being highlighted
+        hltLine.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "start"
+        });        
       }
     })
   }
 </script>
 
-<section id="code-side" class="w-full py-2 px-4 rounded-2xl bg-kwdr-bg text-sm overflow-auto custom-scrollbar">
+<section id="code-side" class="w-full py-2 rounded-2xl bg-kwdr-bg text-sm overflow-auto custom-scrollbar">
   {#await processedCode then htmlString}
   <div use:lineHlt>
     {@html htmlString}
