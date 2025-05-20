@@ -1,6 +1,7 @@
 <script lang="ts">
   import Codeblock from "./Codeblock.svelte";
   import CommentBlock from "./CommentBlock.svelte";
+  import OutputBlock from "./OutputBlock.svelte";
   import ProjectHeader from "./ProjectHeader.svelte";
 
 </script>
@@ -12,7 +13,10 @@
     <!-- Main Split -->
     <div class="w-full h-[72vh] flex gap-2.5">
       <Codeblock />
-      <CommentBlock />
+      <section class="flex flex-col w-full gap-2.5">
+        <CommentBlock />
+        <OutputBlock />
+      </section>
     </div>
   </section>
 </main>

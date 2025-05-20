@@ -10,7 +10,8 @@
         "37": "// i goes from 1 to 3, this is a column-wise traversal, [1,1] [2,1] [3,1]",
         "40": "// infinity",
         "100": "// +1 because >> for e.g: rows ~ 0, 1, 2, 3 and columns ~ 0, 1, 2, 3, 4, 5, 6, 7, 8"
-      }
+      },
+      "OP_ss_dir": "OP_ss/DP_Coinchange.c"
     },
     "DP_Longest_Common_Subsequence.c": {
       "lang": "c",
@@ -28,7 +29,8 @@
         "108": "// Y - 0 to n2 - 1",
         "109": "// soln_mx 0 to n1 and 0 to n2",
         "110": "// LCS - 0 to n2 - 1, same as Y"
-      }
+      },
+      "OP_ss_dir": "OP_ss/DP_Longest_Common_Subsequence.c"
     },
     "DP_Matrix_Multiplication.c": {
       "lang": "c",
@@ -47,22 +49,26 @@
         "75": "// number of TBR diagonals to be traversed",
         "83": "// clarification purpose",
         "84": "// of all values for all k, choosing the minimum one"
-      }
+      },
+      "OP_ss_dir": "OP_ss/DP_Matrix_Multiplication.c"
     },
     "Greedy_Coinchange.c": {
       "lang": "c",
       "code_string_literal": "#include <stdio.h>\n#include <stdlib.h>\n\nvoid main()\n{\n  int i, j, k = 0, noofcoins, temp, sum;\n  system(\"cls\");\n  printf(\"Enter the number of coins: \");\n  scanf(\"%d\", &noofcoins);\n  int *coins = (int *)malloc(noofcoins * sizeof(int));\n\n  printf(\"Enter the coins: (preferably descending order): \");\n  for (i = 0; i < noofcoins; i++)\n    scanf(\"%d\", &coins[i]);\n\n  for (i = 1; i < noofcoins; i++)\n    for (j = 0; j < noofcoins - i; j++)\n      if (coins[j + 1] > coins[j])\n      {\n        temp = coins[j + 1];\n        coins[j + 1] = coins[j];\n        coins[j] = temp;\n      }\n\n  printf(\"\\nEnter the Sum to be repaid: \");\n  scanf(\"%d\", &sum);\n\n  int *selected_coins = (int *)malloc(sum * sizeof(int));\n  while (sum > 0)\n  {\n    for (i = 0; i < noofcoins; i++)\n      if (coins[i] <= sum)\n      {\n        sum -= coins[i];\n        selected_coins[k++] = coins[i];\n        break;\n      }\n  }\n  printf(\"\\nSelected Coins: \");\n  for (i = 0; i < k; i++)\n    printf(\"%d \", selected_coins[i]);\n}",
-      "comments": {}
+      "comments": {},
+      "OP_ss_dir": "OP_ss/Greedy_Coinchange.c"
     },
     "Greedy_Job_Scheduling.c": {
       "lang": "c",
       "code_string_literal": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Job\n{\n  int jobno, deadline, profit;\n} Job;\n\nvoid main()\n{\n  int i, j, k, noofjobs, MDL = -1, INDL, total_profit = 0, isnc = 0;\n  Job temp;\n  printf(\"\\nEnter the number of jobs: \");\n  scanf(\"%d\", &noofjobs);\n  Job jobs[noofjobs];\n\n  printf(\"Enter the profits for each job: \");\n  for (i = 0; i < noofjobs; i++)\n    scanf(\"%d\", &jobs[i].profit);\n\n  printf(\"Enter the deadline for each job: \");\n  for (i = 0; i < noofjobs; i++)\n  {\n    scanf(\"%d\", &jobs[i].deadline);\n    if (jobs[i].deadline > MDL)\n      MDL = jobs[i].deadline;\n    jobs[i].jobno = i + 1;\n  }\n\n  for (i = 1; i < noofjobs; i++)\n    for (j = 0; j < noofjobs - i; j++)\n    {\n      if (jobs[j + 1].profit > jobs[j].profit)\n      {\n        temp = jobs[j + 1];\n        jobs[j + 1] = jobs[j];\n        jobs[j] = temp;\n      }\n    }\n\n  Job schedule[MDL];\n  Job not_completed[MDL];\n  for (i = 0; i < MDL; i++)\n    schedule[i].jobno = 0;\n\n  for (i = 0; i < noofjobs; i++)\n  {\n    INDL = jobs[i].deadline;\n    for (j = INDL - 1; j >= 0; j--)\n    {\n      if (schedule[j].jobno == 0)\n      {\n        schedule[j] = jobs[i];\n        total_profit += schedule[j].profit;\n        break;\n      }\n      if (j == 0)\n        not_completed[isnc++] = jobs[i];\n    }\n  }\n\n  printf(\"\\n\\nOptimal Job Sequence: \\n\");\n  for (i = 0; i < MDL; i++)\n    if (schedule[i].jobno != 0)\n      printf(\"J%d - Completed at %d\\n\", schedule[i].jobno, i + 1);\n\n  printf(\"Jobs not scheduled: \");\n  for (i = 0; i < isnc; i++)\n    printf(\"J%d \", not_completed[i].jobno);\n\n  printf(\"\\n\\nMaximum profit: \\033[1m\\033[38;5;223m%d units.\\033[0m\", total_profit);\n}",
-      "comments": {}
+      "comments": {},
+      "OP_ss_dir": "OP_ss/Greedy_Job_Scheduling.c"
     },
     "KMP_String_Matching.py": {
       "lang": "py",
       "code_string_literal": "text = [i for i in input(\"Enter the main String: \")]\nlt = len(text)\npattern = [i for i in input(\"Enter the Pattern: \")]\nlp = len(pattern)\noccurences = [999]\ntemp = [999]\nfor i in pattern:\n  if i not in temp:\n    temp.append(i)\n    occurences.append(0)\n  else:\n    temp.append('\\0')\n    occurences.append(temp.index(i))\npattern.insert(0, '\\0')\nprint(pattern, occurences)\n\ni = 0\nj = 0\nwhile (i < lt):\n  if (text[i] == pattern[j + 1]):\n    i += 1\n    j += 1\n    if (j == lp):\n      print(\"Pattern found at index\", i - lp, \"of the main string\")\n      break\n\n  elif ((text[i] != pattern[j + 1]) and j != 0):\n    j = occurences[j]\n  elif (text[i] != pattern[j + 1]) and j == 0:\n    i += 1\n\nif (j < lp):\n  print(\"Pattern not found...\")\n",
-      "comments": {}
+      "comments": {},
+      "OP_ss_dir": "OP_ss/KMP_String_Matching.py"
     },
     "Knapsack_Problem.c": {
       "lang": "c",
@@ -75,7 +81,38 @@
         "95": "// Item** test;  //if you really want to use '->' operator, pointer to a pointer(first index of a dynamically allocated array)",
         "102": "// test = item_list;",
         "127": "// ANSI escape sequence for formatted text, format (color) should only apply if the last item is not whole"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Knapsack_Problem.c"
+    },
+    "Kruskals_Algorithm_w_Dynamic_Graph.c": {
+      "lang": "c",
+      "code_string_literal": "//\n//\n//\n\n#include <stdio.h>\n#include <stdlib.h>\n#define MAX 30\n\ntypedef struct Graph_Edge\n{\n  int src, dest, weight; //\n} Edge;\n\ntypedef struct Graph_Node\n{\n  int data;                 //\n  int weight;               //\n  struct Graph_Node *link;  //\n  Edge indv_edge_list[MAX]; //\n  int no_of_edges;\n} Node;\n\n//\nEdge edge_list[3 * MAX];\nint total_edge_count = 0;\n\ntypedef struct Graph\n{\n  Node *head[MAX]; //\n} Graph;\n\nGraph *readGraph(int n) //\n{\n  int i, j, links, from, to, weight;\n  Graph *graph = (Graph *)malloc(sizeof(Graph));\n\n  for (i = 0; i < n; i++)\n  {\n    graph->head[i] = (Node *)malloc(sizeof(Node));\n    graph->head[i]->link = NULL;\n    graph->head[i]->data = i;\n    graph->head[i]->weight = 0; //\n\n    printf(\"\\nFor Node %d:\\n\", i);\n    printf(\"Enter the number of Edges: \");\n    scanf(\"%d\", &links);\n    graph->head[i]->no_of_edges = links;\n\n    for (j = 0; j < links; j++)\n    {\n      printf(\"Enter edge (format:- dest, weight): \");\n      scanf(\"%d, %d\", &to, &weight);\n\n      //\n      edge_list[total_edge_count].src = i;\n      edge_list[total_edge_count].dest = to;\n      edge_list[total_edge_count].weight = weight;\n      total_edge_count += 1;\n\n      //\n      graph->head[i]->indv_edge_list[j].src = i;\n      graph->head[i]->indv_edge_list[j].dest = to;\n      graph->head[i]->indv_edge_list[j].weight = weight;\n\n      Node *temp = (Node *)malloc(sizeof(Node));\n      temp->data = to;\n      temp->weight = weight; //\n      temp->link = NULL;\n\n      Node *current = graph->head[i]; //\n      while (current->link != NULL)\n        current = current->link;\n\n      current->link = temp;\n    }\n  }\n\n  return graph;\n}\n\nvoid adj_list(Graph *graph, int n)\n{\n  printf(\"Adjacency List:\\n\");\n  for (int i = 0; i < n; i++)\n  {\n    Node *p = graph->head[i];\n    for (p = graph->head[i]; p->link != NULL; p = p->link)\n    {\n      printf(\"%d (%d) --> \", p->data, p->weight);\n    }\n    printf(\"%d (%d) --> NULL\", p->data, p->weight);\n    printf(\"\\n\");\n  }\n}\n\nvoid print_edges_per_Node(Graph *graph, int n)\n{\n  int i, j;\n\n  for (i = 0; i < n; i++)\n  {\n    printf(\"\\nFor Node %d:\\n\", i);\n    for (j = 0; j < graph->head[i]->no_of_edges; j++)\n    {\n      printf(\"Source: %d, Destination: %d, Weight: %d\\n\",\n              graph->head[i]->indv_edge_list[j].src,\n              graph->head[i]->indv_edge_list[j].dest,\n              graph->head[i]->indv_edge_list[j].weight); //\n    }\n  }\n}\n\nvoid sort_edges_by_weight(Edge *total_edge_list)\n{\n  int i, j;\n  Edge temp;\n  for (i = 1; i < total_edge_count; i++)\n  {\n    for (j = 0; j < total_edge_count - i; j++)\n    {\n      if (total_edge_list[j].weight > total_edge_list[j + 1].weight)\n      {\n        temp = total_edge_list[j];\n        total_edge_list[j] = total_edge_list[j + 1];\n        total_edge_list[j + 1] = temp;\n      }\n    }\n  }\n}\n\nEdge *remove_repeats(Edge *total_edge_list, Edge *new_list)\n{\n  int i, j = 0, k = 0;\n\n  for (i = 0; i < total_edge_count; i++)\n  {\n    for (j = i + 1; j < total_edge_count; j++)\n    {\n      if ((total_edge_list[j].weight == total_edge_list[i].weight) && (total_edge_list[j].src == total_edge_list[i].dest && total_edge_list[j].dest == total_edge_list[i].src))\n      {\n        new_list[k] = total_edge_list[i];\n        k++;\n        break;\n      }\n    }\n  }\n  return new_list;\n}\n\nvoid update_parent(int *parents_array, Edge curr_edge, int noofnodes)\n{\n  int i;\n  for (i = 0; i < noofnodes; i++)\n    if (parents_array[i] == parents_array[curr_edge.dest])\n      parents_array[i] = parents_array[curr_edge.src];\n}\n\nvoid Kruskals(Edge *prcsd_edge_list, int noofnodes)\n{\n  Edge *MST = (Edge *)malloc((noofnodes - 1) * sizeof(Edge));\n  int *parents = (int *)malloc(((noofnodes) * sizeof(int)));\n  int i = 0, j, k = 0, min_cost = 0;\n\n  for (j = 0; j < noofnodes; j++)\n    parents[j] = j;\n\n  for (i = 0; i < total_edge_count / 2; i++)\n  {\n    if (k == noofnodes - 1)\n      break;\n\n    if (parents[prcsd_edge_list[i].src] != parents[prcsd_edge_list[i].dest])\n    {\n      MST[k] = prcsd_edge_list[i];\n      update_parent(parents, prcsd_edge_list[i], noofnodes);\n      k++;\n    }\n  }\n\n  printf(\"\\n\\nThe Minimum Spanning Tree: \");\n  for (j = 0; j < (noofnodes - 1); j++)\n  {\n    printf(\"\\n%d -> %d : %d\", MST[j].src, MST[j].dest, MST[j].weight);\n    min_cost += MST[j].weight;\n  }\n  printf(\"\\nCost of the Minimum Spanning Tree: %d units.\", min_cost);\n}\n\nvoid main()\n{\n  int i, j, noofnodes, count;\n  Graph *Main_Graph = NULL;\n  system(\"cls\");\n  Edge new_list[3 * MAX];\n\n  printf(\"Enter the number of Nodes required in the Graph: \");\n  scanf(\"%d\", &noofnodes);\n\n  Main_Graph = readGraph(noofnodes); //\n  printf(\"\\n\");\n\n  adj_list(Main_Graph, noofnodes); //\n  printf(\"\\n\\n\");\n\n  printf(\"\\nAll the Edges: \\n\");\n  for (i = 0; i < total_edge_count; i++)\n    printf(\"(%d, %d, %d) \", edge_list[i].src, edge_list[i].dest, edge_list[i].weight);\n\n  sort_edges_by_weight(edge_list); //\n  printf(\"\\nAll the Edges (Sorted by weights): \\n\");\n  for (i = 0; i < total_edge_count; i++)\n    printf(\"(%d, %d, %d) \", edge_list[i].src, edge_list[i].dest, edge_list[i].weight);\n\n  remove_repeats(edge_list, new_list); //\n  printf(\"\\nRepeats removed: \\n\");\n  for (i = 0; i < total_edge_count / 2; i++)\n    printf(\"(%d, %d, %d) \", new_list[i].src, new_list[i].dest, new_list[i].weight);\n\n  Kruskals(new_list, noofnodes);\n  system(\"pause\");\n}\n\n//\n//\n",
+      "comments": {
+        "1": "// Dynamic Graph Implementation (HN Sir method)",
+        "2": "//  Here we first take in the number of nodes the graph will have.",
+        "3": "//  Then we ask the edges it will make with others, along with respective weights of that edges.",
+        "11": "// each edge has 3 values: source, destination and weight",
+        "16": "// has the node/vertex Number",
+        "17": "//! when the node is the destination, in the adjacency list the weight to get to it will be stored here",
+        "18": "// address of the node the current node is connected to cause linked list",
+        "19": "//?-- TRY THIS? --done",
+        "23": "//! Global array for all the edges, had to keep it global cause readGraph is returning 'graph'",
+        "29": "// array of Node type linked list",
+        "32": "// taking in the number of nodes",
+        "42": "//*each starting node's weight-to-get-to will be zero",
+        "54": "//! this is essentially making a list of all the edges, global 'edge_list'",
+        "60": "//! this is giving each node's edge_list a 'Edge' type data",
+        "67": "// weight to get to this node",
+        "70": "//*Node currently indexed by i in the head array of the Graph Structure",
+        "108": "// for this one, 'source' can be removed...",
+        "199": "//!",
+        "202": "//!",
+        "209": "//!",
+        "214": "//!",
+        "223": "// in the Node structure definition, I have written data and weight separately to write comments, no other reason",
+        "224": "// What if each node has an array of Edges, just that it will only contain all the edges that node is the source of -- implemented"
+      },
+      "OP_ss_dir": "OP_ss/Kruskals_Algorithm_w_Dynamic_Graph.c"
     },
     "MergeSort.py": {
       "lang": "py",
@@ -86,7 +123,8 @@
         "12": "# auxiliary array to temporarily store sorted sub-arrays",
         "24": "# emptying sub-array if necessary",
         "35": "# main array being sorted using auxiliary array's content for each call of merge function"
-      }
+      },
+      "OP_ss_dir": "OP_ss/MergeSort.py"
     },
     "Minmax.py": {
       "lang": "py",
@@ -97,7 +135,25 @@
         "9": "# more than 2 elements sub-arrays",
         "14": "# For combinations, code reachable only when sub-array(s) at hand as 2 elements at the most",
         "26": "# * if block is the recursion ending statement group"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Minmax.py"
+    },
+    "Prims_Algorithm_w_Dynamic_Graph.c": {
+      "lang": "c",
+      "code_string_literal": "#include <stdio.h>\n#include <stdlib.h>\n#define MAX 20\n\ntypedef struct Graph_Edge\n{\n  int src, dest, weight;\n} Edge;\n\ntypedef struct Edges_array\n{\n  Edge *edge_list; //\n  int noofedges;\n} Edge_list;\n\ntypedef struct Graph_Node\n{\n  int data;\n  int weight;\n  struct Graph_Node *link;\n  Edge_list indv_edge_list;\n} Node;\n\ntypedef struct Graph\n{\n  Node *head[MAX]; //\n} Graph;\n\nGraph *readGraph(int n, Edge_list *all_edges) //\n{\n  int i, j, links, from, to, weight;\n  Graph *graph = (Graph *)malloc(sizeof(Graph));\n  all_edges->edge_list = (Edge *)malloc((n * (n - 1)) * sizeof(Edge)); //\n  all_edges->noofedges = 0;\n\n  for (i = 0; i < n; i++)\n  {\n    graph->head[i] = (Node *)malloc(sizeof(Node));\n    graph->head[i]->link = NULL;\n    graph->head[i]->data = i;\n    graph->head[i]->weight = 0;\n\n    printf(\"\\nFor Node %d:\\n\", i);\n    printf(\"Enter the number of Edges: \");\n    scanf(\"%d\", &links);\n    graph->head[i]->indv_edge_list.edge_list = (Edge *)malloc(links * sizeof(Edge));\n    graph->head[i]->indv_edge_list.noofedges = 0;\n\n    for (j = 0; j < links; j++)\n    {\n      printf(\"Enter edge (format:- dest, weight): \");\n      scanf(\"%d, %d\", &to, &weight);\n\n      //\n      graph->head[i]->indv_edge_list.edge_list[j].src = i;\n      graph->head[i]->indv_edge_list.edge_list[j].dest = to;\n      graph->head[i]->indv_edge_list.edge_list[j].weight = weight;\n      graph->head[i]->indv_edge_list.noofedges++;\n\n      Node *temp = (Node *)malloc(sizeof(Node));\n      temp->data = to;\n      temp->weight = weight;\n      temp->link = NULL;\n\n      Node *current = graph->head[i];\n      while (current->link != NULL)\n        current = current->link;\n\n      current->link = temp;\n\n      all_edges->edge_list[all_edges->noofedges].src = i;\n      all_edges->edge_list[all_edges->noofedges].dest = to;\n      all_edges->edge_list[all_edges->noofedges].weight = weight;\n      all_edges->noofedges++;\n    }\n  }\n\n  return graph;\n}\n\nvoid adj_list(Graph *graph, int n)\n{\n  printf(\"Adjacency List:\\n\");\n  for (int i = 0; i < n; i++)\n  {\n    Node *p = graph->head[i];\n    for (p = graph->head[i]; p->link != NULL; p = p->link)\n    {\n      printf(\"[%d] (%d) --> \", p->data, p->weight);\n    }\n    printf(\"[%d] (%d) --> NULL\", p->data, p->weight);\n    printf(\"\\n\");\n  }\n}\n\nEdge find_min_weight_edge(Edge_list obj1, int *included) //\n{\n  int i, s, d;\n  Edge min;\n  min.weight = 32767;\n\n  for (i = 0; i < obj1.noofedges; i++)\n  {\n    s = obj1.edge_list[i].src;\n    d = obj1.edge_list[i].dest;\n\n    if (!(included[s] == 1 && included[d] == 1))\n    {\n      if (min.weight > obj1.edge_list[i].weight)\n        min = obj1.edge_list[i];\n    }\n  }\n\n  return min;\n}\n\nEdge_list Prims(Graph *graph, int noofnodes, Edge_list all_edges)\n{\n  int i, j, k;\n  Edge min_edge;\n  Edge_list MST;\n  int *included = (int *)malloc(noofnodes * sizeof(int));\n\n  min_edge.weight = 32767; //\n  MST.edge_list = (Edge *)malloc((noofnodes - 1) * sizeof(Edge));\n  MST.noofedges = 0;\n\n  for (i = 0; i < noofnodes; i++) //\n    included[i] = 0;\n\n  min_edge = find_min_weight_edge(all_edges, included);\n  included[min_edge.src] = 1; //\n  min_edge.weight = 32767;\n\n  while (MST.noofedges != noofnodes - 1)\n  {\n    for (i = 0; i < noofnodes; i++)\n    {\n      if (included[i] == 1)\n        if (find_min_weight_edge(graph->head[i]->indv_edge_list, included).weight < min_edge.weight)\n          min_edge = find_min_weight_edge(graph->head[i]->indv_edge_list, included);\n    }\n\n    MST.edge_list[MST.noofedges] = min_edge;\n    included[min_edge.dest] = 1;\n    min_edge.weight = 32767;\n    MST.noofedges++;\n  }\n  return MST;\n}\n\nvoid main()\n{\n  int i, j, noofnodes, final_cost = 0;\n  Graph *Main_Graph = NULL;\n  Edge_list all_edges, MST;\n  Edge_list *p_all_edges = &all_edges; //\n  system(\"cls\");\n\n  printf(\"Enter the number of Nodes required in the Graph: \");\n  scanf(\"%d\", &noofnodes);\n\n  Main_Graph = readGraph(noofnodes, p_all_edges);\n  printf(\"\\n\");\n\n  adj_list(Main_Graph, noofnodes);\n  printf(\"\\n\");\n\n  printf(\"\\nAll the Edges: \\n\");\n  for (i = 0; i < all_edges.noofedges; i++)\n    printf(\"(%d, %d, %d) \", all_edges.edge_list[i].src, all_edges.edge_list[i].dest, all_edges.edge_list[i].weight);\n\n  MST = Prims(Main_Graph, noofnodes, all_edges);\n  printf(\"\\n\\nEdges included in the Minimum Spanning Tree:\");\n  for (i = 0; i < MST.noofedges; i++)\n  {\n    printf(\"\\n%d <-> %d : %d \", MST.edge_list[i].src, MST.edge_list[i].dest, MST.edge_list[i].weight);\n    final_cost += MST.edge_list[i].weight;\n  }\n  printf(\"\\n\\nCost of the Minimum Spanning Tree: \\033[1;32m%d units.\\033[0m\\n\", final_cost);\n  system(\"pause\");\n}",
+      "comments": {
+        "12": "// dynamic array of edges",
+        "26": "// array of pointers of Node type linked list, pointers used cause malloc will be used to form a SLL",
+        "29": "// taking in the number of nodes and a pointer to the object of Edge_list",
+        "33": "// maximum possible total no. of edges for an directed (bidrected) graph having 'n' vertices",
+        "54": "// a bit too lengthy haha",
+        "96": "// returns minimum edge of a node",
+        "124": "// set infinite (so that the first one is always considered minimum)",
+        "128": "// for excluding already included node (in the MST) checking",
+        "132": "// marking the first node (node which is the source of minimum weight among all the edges of the graph) as included.",
+        "157": "// a pointer to the Edge_list object has to be made to pass it in the readGraph function and create the whole edgelist without having to return the Edge_list object as readGraph is returning a Graph* already"
+      },
+      "OP_ss_dir": "OP_ss/Prims_Algorithm_w_Dynamic_Graph.c"
     },
     "QuickSort.py": {
       "lang": "py",
@@ -111,7 +167,8 @@
         "19": "# ! first condition to prevent 'out of bounds' index for the last pass",
         "29": "# to prevent self swapping, none 1 element sub-array case",
         "32": "# * end is the 'indexer' to the pivot element placed at it's sorted position"
-      }
+      },
+      "OP_ss_dir": "OP_ss/QuickSort.py"
     }
   },
   "Sem_IV-SF": {
@@ -122,7 +179,8 @@
         "12": "#! slicing done to prevent overfilling",
         "83": "#* while it is not a deadlock and not all processes have been scheduled",
         "95": "#* returns a list which has the sum of individual elements of pa and av"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Bankers_Algorithm.py"
     },
     "Booths_Algorithm.py": {
       "lang": "py",
@@ -143,7 +201,8 @@
         "164": "# have to convert to string to mitigate reference assignment of modified list",
         "178": "# printing the Operations table",
         "183": "# printing the final answer"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Booths_Algorithm.py"
     },
     "Disk_Scheduling.py": {
       "lang": "py",
@@ -177,7 +236,8 @@
         "203": "#* go for the right tracks first ascendingly",
         "208": "#!",
         "209": "#* then go for the left tracks also ascendingly"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Disk_Scheduling.py"
     },
     "Fixed_Memory_Placement(Static).py": {
       "lang": "py",
@@ -186,7 +246,8 @@
         "36": "#actually what is filled in the block",
         "37": "#what is the wastage",
         "38": "#status_check = True, this block cannot be used again?"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Fixed_Memory_Placement(Static).py"
     },
     "Memory_Page_Replacement.py": {
       "lang": "py",
@@ -197,7 +258,8 @@
         "74": "#there is no future occurence of page in frame in memory[i], highest priority to replace",
         "77": "#simpler to control the for-in loop in this case",
         "101": "#! calling a value of the dictionary which is a function hence parameters are also passed here"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Memory_Page_Replacement.py"
     },
     "Non_Preemptive_Task_Scheduling.py": {
       "lang": "py",
@@ -208,7 +270,8 @@
         "89": "#! using formula WT = TAT - BT",
         "141": "# All burst times equal",
         "143": "# All arrival times equal"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Non_Preemptive_Task_Scheduling.py"
     },
     "Non_Restoring_Division.py": {
       "lang": "py",
@@ -227,7 +290,8 @@
         "153": "#*steps of the algorithm",
         "165": "#* Q[LSB] = A[MSB]'",
         "181": "#getting final answer in decimal"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Non_Restoring_Division.py"
     },
     "Preemptive_Task_Scheduling.py": {
       "lang": "py",
@@ -238,7 +302,8 @@
         "96": "#! using formula WT = TAT - BT",
         "97": "# (alternatively, formula can be WT = FTprev - ATcurr)",
         "194": "# check the queue first"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Preemptive_Task_Scheduling.py"
     },
     "Restoring_Division.py": {
       "lang": "py",
@@ -257,7 +322,8 @@
         "153": "#*steps of the algorithm",
         "163": "#! Restoration of A",
         "175": "#getting final answer in decimal"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Restoring_Division.py"
     }
   },
   "Sem_V-IS": {
@@ -266,7 +332,8 @@
       "code_string_literal": "#\n\ndef caesar_encrypt(plain_text: str, key: int):\n  cipher_text = \"\"\n  for i in plain_text:\n    cipher_text += chr(((ord(i) + key - 32) % 95) + 32)\n  return cipher_text\n\ndef caesar_decrypt(cipher_text: str, key: int):\n  plain_text = \"\"\n  for i in cipher_text:\n    plain_text += chr(((ord(i) - key - 32) % 95) + 32)\n  return plain_text\n\ndef caesar_cipher():\n  plain_text = input(\"Enter the plain text: \")\n  key = int(input(\"Enter the key (shift, preferably 0 < key < 95): \"))\n  cipher_text = caesar_encrypt(plain_text, key)\n  print(\"Encrypted Text: \", cipher_text)\n  plain_text = caesar_decrypt(cipher_text, key)\n  print(\"Decrypted Text: \", plain_text)\n\ncaesar_cipher()",
       "comments": {
         "1": "#~ A simple python program to implement caesar cipher encryption and decryption using 95 valid (keyboard type-able) characters"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Caesar_Cipher_95.py"
     },
     "Columnar_Transposition.py": {
       "lang": "py",
@@ -279,12 +346,14 @@
         "17": "# if characters are equal and the index of the char. in the o.g keylist is not already used, use it as the column index for the enc_mx",
         "25": "# Decryption -> fill the columns with slices of cipher_text based on the same ascending-arrangement of the key",
         "32": "# I've not imported this from the encryption block to keep the essence of messaging between 2 users, receiver will have to process the key on their own"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Columnar_Transposition.py"
     },
     "DH_Key_Exchange.py": {
       "lang": "py",
       "code_string_literal": "def DHKE():\n  g, p = 5, 23\n  a, b = 4, 3\n  Xa = (g ** a) % p\n  Xb = (g ** b) % p\n  SSA = (Xb ** a) % p\n  SSB = (Xa ** b) % p\n  if SSA == SSB:\n    print(\"Connection Established\")\n\nDHKE()",
-      "comments": {}
+      "comments": {},
+      "OP_ss_dir": "OP_ss/DH_Key_Exchange.py"
     },
     "Double_Columnar_Transposition.py": {
       "lang": "py",
@@ -294,7 +363,8 @@
         "2": "#!NTS at the end \u2193",
         "24": "# if padding required then only call the padding function ",
         "26": "# length of plaintext should always be taken after padding"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Double_Columnar_Transposition.py"
     },
     "Electronic_Code_Book.py": {
       "lang": "py",
@@ -315,7 +385,8 @@
         "75": "# getting the required setup of blocks of 128 bits (same as plain_text)",
         "82": "# Since XOR was the last thing done when encrypting, it will be the first thing done when decrypting (also XOR because XORing an XOR brings us back to the starting bits)",
         "87": "# now the XOR'ed bits are to be circular right shifted, i.e the reverse direction"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Electronic_Code_Book.py"
     },
     "Hill_Cipher_3x3.py": {
       "lang": "py",
@@ -339,7 +410,8 @@
         "102": "# print(round(np.linalg.det(key_mx)) % 26, \"\".join([decimal_char_eqv[j] for i in key_mx for j in i]))",
         "106": "# passing plain_text just so I can call the return_reqd_matrices function",
         "110": "# print(det_key_mx)"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Hill_Cipher_3x3.py"
     },
     "Playfair_Cipher.py": {
       "lang": "py",
@@ -354,11 +426,12 @@
         "52": "# print(f\"{pair}: {r1, c1}, {r2, c2}\")",
         "61": "#! Showing all possible texts to the receiver if the decrypted text contains 'I' (maybe reduces security levels but I feel it enhances receiver's exp)",
         "66": "# counts from 0 till all Is i.e no change to all Is as well as all Is changed to J"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Playfair_Cipher.py"
     },
     "Simplified_DES.py": {
       "lang": "py",
-      "code_string_literal": "#\n\nfrom copy import deepcopy\ndef dec_to_binary(dec_num):\n  def mechanism(num):\n    if num >= 1:\n      mechanism(num // 2)\n      bin_list.append(num % 2)\n  bin_list = []\n  mechanism(dec_num)\n  return bin_list\n\ndef ascii_list_binarizer(ascii_list):\n  binary_list = []\n  for num in ascii_list:\n    bin_num = dec_to_binary(num)\n    while len(bin_num) != 8:        #\n      bin_num.insert(0, 0)\n    binary_list.extend(bin_num)\n  return binary_list\n\ndef dynamic_list_pooler(list_, pool_size):\n  pooled_list = []\n  for i in range(pool_size, len(list_) + 1, pool_size):\n    pooled_list.append(list_[i-pool_size: i])\n  return pooled_list\n\ndef bin_to_decimal(eight_bits):\n  dec_number = 0\n  for i in range(len(eight_bits) - 1, -1, -1):\n    if eight_bits[i] == 1:\n      dec_number += 2 ** (len(eight_bits) - 1 - i)\n  return dec_number\n\ndef bin_list_asciirizer(bin_list, poolrange = 8):\n  ascii_list = []\n  for block_inx in range(poolrange, len(bin_list) + 1, poolrange):\n    ascii_list.append(bin_to_decimal(bin_list[block_inx-poolrange: block_inx]))\n  return ascii_list\n\ndef expansion_permutation(RPT):\n  RPT_8_4 = dynamic_list_pooler(RPT, 4)\n  RPT_8_6 = []\n  for i in range(len(RPT_8_4)):\n    RPT_8_6.append(deepcopy(RPT_8_4[i]))\n    RPT_8_6[-1].insert(0, RPT_8_4[(i - 1) % 8][-1])\n    RPT_8_6[-1].append(RPT_8_4[(i + 1) % 8][0])\n  \n  #\n  RPT_48 = []\n  [(RPT_48.extend(i)) for i in RPT_8_6]\n  return RPT_48\n\ndef s_box_substitution(RPT_48, s_box):\n  RPT_8_6 = dynamic_list_pooler(RPT_48, 6)\n  RPT_8_4 = []\n  for block in RPT_8_6:\n    RPT_8_4.append(dec_to_binary(s_box[bin_to_decimal([block[0], block[-1]])][bin_to_decimal(block[1:5])]))\n    while len(RPT_8_4[-1]) != 4:    #\n      RPT_8_4[-1].insert(0, 0)\n  \n  RPT_32 = []\n  [RPT_32.extend(i) for i in RPT_8_4]\n  return RPT_32\n\ndef function_block(RPT_32, key_48, s_box):\n  #\n  RPT_48 = expansion_permutation(RPT_32)\n  \n  #\n  for i in range(len(RPT_48)):\n    RPT_48[i] = RPT_48[i] ^ key_48[i]\n\n  #\n  RPT_32 = s_box_substitution(RPT_48, s_box)  \n  return RPT_32\n\ndef simplified_DES_encryption(pt_64, keys_48, s_box, noofrounds = 2):\n  cipher_text = \"\"\n  curr_round = 1\n  LPT, RPT = pt_64[:32], pt_64[32:]\n  while curr_round <= noofrounds:\n    #\n    pRPT = function_block(RPT, keys_48[curr_round - 1], s_box[curr_round - 1])\n    xRPT = [x ^ y for x, y in zip(LPT, pRPT)]\n    LPT = RPT\n    RPT = xRPT\n    curr_round += 1\n  #\n  ct_64 = RPT + LPT\n  cipher_text = \"\".join(list(map(lambda x: chr(x), bin_list_asciirizer(ct_64))))\n  return cipher_text, ct_64\n\ndef simplified_DES():\n  s_box_1 = [[14,\t4, 13, 1,\t2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7], \n  [0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8], \n  [4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0], \n  [15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13]]\n\n  s_box_2 = [[15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10],\n  [3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5],\n  [0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15],\n  [13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9]]\n\n  plain_text = input(\"Enter the 8 character text: \")[:8]\n  pt_64 = ascii_list_binarizer(list(map(lambda x: ord(x), list(plain_text))))\n  key_1 = input(\"Enter the first key: \")[:6]\n  key_1_48 = ascii_list_binarizer(list(map(lambda x: ord(x), list(key_1))))\n  key_2 = input(\"Enter the second key: \")[:6]\n  key_2_48 = ascii_list_binarizer(list(map(lambda x: ord(x), list(key_2))))\n\n  cipher_text, ct_64 = simplified_DES_encryption(pt_64, keys_48 = (key_1_48, key_2_48, key_1_48), s_box = (s_box_1, s_box_2, s_box_1), noofrounds = 3)\n  print(\"\\033[38;5;197mCipher Text:\", cipher_text, \"\\033[0m\")\n  plain_text, pt_64 = simplified_DES_encryption(ct_64, keys_48 = (key_1_48, key_2_48, key_1_48), s_box = (s_box_1, s_box_2, s_box_1), noofrounds = 3)\n  print(\"\\033[38;5;197mDeciphered Text:\", plain_text, \"\\033[0m\")\n\nsimplified_DES()",
+      "code_string_literal": "#\n\nfrom copy import deepcopy\ndef dec_to_binary(dec_num):\n  def mechanism(num):\n    if num >= 1:\n      mechanism(num // 2)\n      bin_list.append(num % 2)\n  bin_list = []\n  mechanism(dec_num)\n  return bin_list\n\ndef ascii_list_binarizer(ascii_list):\n  binary_list = []\n  for num in ascii_list:\n    bin_num = dec_to_binary(num)\n    while len(bin_num) != 8:        #\n      bin_num.insert(0, 0)\n    binary_list.extend(bin_num)\n  return binary_list\n\ndef dynamic_list_pooler(list_, pool_size):\n  pooled_list = []\n  for i in range(pool_size, len(list_) + 1, pool_size):\n    pooled_list.append(list_[i-pool_size: i])\n  return pooled_list\n\ndef bin_to_decimal(eight_bits):\n  dec_number = 0\n  for i in range(len(eight_bits) - 1, -1, -1):\n    if eight_bits[i] == 1:\n      dec_number += 2 ** (len(eight_bits) - 1 - i)\n  return dec_number\n\ndef bin_list_asciirizer(bin_list, poolrange = 8):\n  ascii_list = []\n  for block_inx in range(poolrange, len(bin_list) + 1, poolrange):\n    ascii_list.append(bin_to_decimal(bin_list[block_inx-poolrange: block_inx]))\n  return ascii_list\n\ndef expansion_permutation(RPT):\n  RPT_8_4 = dynamic_list_pooler(RPT, 4)\n  RPT_8_6 = []\n  for i in range(len(RPT_8_4)):\n    RPT_8_6.append(deepcopy(RPT_8_4[i]))\n    RPT_8_6[-1].insert(0, RPT_8_4[(i - 1) % 8][-1])\n    RPT_8_6[-1].append(RPT_8_4[(i + 1) % 8][0])\n  \n  #\n  RPT_48 = []\n  [(RPT_48.extend(i)) for i in RPT_8_6]\n  return RPT_48\n\ndef s_box_substitution(RPT_48, s_box):\n  RPT_8_6 = dynamic_list_pooler(RPT_48, 6)\n  RPT_8_4 = []\n  for block in RPT_8_6:\n    RPT_8_4.append(dec_to_binary(s_box[bin_to_decimal([block[0], block[-1]])][bin_to_decimal(block[1:5])]))\n    while len(RPT_8_4[-1]) != 4:    #\n      RPT_8_4[-1].insert(0, 0)\n  \n  RPT_32 = []\n  [RPT_32.extend(i) for i in RPT_8_4]\n  return RPT_32\n\ndef function_block(RPT_32, key_48, s_box):\n  #\n  RPT_48 = expansion_permutation(RPT_32)\n  \n  #\n  for i in range(len(RPT_48)):\n    RPT_48[i] = RPT_48[i] ^ key_48[i]\n\n  #\n  RPT_32 = s_box_substitution(RPT_48, s_box)  \n  return RPT_32\n\ndef simplified_DES_encryption(pt_64, keys_48, s_box, noofrounds = 2):\n  cipher_text = \"\"\n  curr_round = 1\n  LPT, RPT = pt_64[:32], pt_64[32:]\n  while curr_round <= noofrounds:\n    #\n    pRPT = function_block(RPT, keys_48[curr_round - 1], s_box[curr_round - 1])\n    xRPT = [x ^ y for x, y in zip(LPT, pRPT)]\n    LPT = RPT\n    RPT = xRPT\n    curr_round += 1\n  #\n  ct_64 = RPT + LPT\n  cipher_text = \"\".join(list(map(lambda x: chr(x), bin_list_asciirizer(ct_64))))\n  return cipher_text, ct_64\n\ndef simplified_DES():\n  s_box_1 = [[14,\t4, 13, 1,\t2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7], \n  [0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8], \n  [4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0], \n  [15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13]]\n\n  s_box_2 = [[15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10],\n  [3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5],\n  [0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15],\n  [13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9]]\n\n  s_box_3 = [[12, 1, 10, 15, 9,\t2, 6,\t8, 0, 13, 3, 4,\t14,\t7, 5, 11],\n\t[10, 15, 4,\t2, 7,\t12,\t9, 5,\t6, 1, 13,\t14,\t0, 11, 3,\t8],\n\t[9,\t14,\t15,\t5, 2,\t8, 12, 3,\t7, 0,\t4, 10, 1,\t13,\t11,\t6],\n\t[4,\t3, 2,\t12,\t9, 5,\t15,\t10,\t11,\t14,\t1, 7,\t6, 0,\t8, 13]]  \n\n  plain_text = input(\"Enter the 8 character text: \")[:8]\n  pt_64 = ascii_list_binarizer(list(map(lambda x: ord(x), list(plain_text))))\n  key_1 = input(\"Enter the first key: \")[:6]\n  key_1_48 = ascii_list_binarizer(list(map(lambda x: ord(x), list(key_1))))\n  key_2 = input(\"Enter the second key: \")[:6]\n  key_2_48 = ascii_list_binarizer(list(map(lambda x: ord(x), list(key_2))))\n  key_3_48 = ascii_list_binarizer(list(map(lambda x: ord(x), list(reversed(key_2)))))\n  print(\"A \\033[38;5;189mthird key\\033[0m has been derived internally from the keys entered.\")\n\n  cipher_text, ct_64 = simplified_DES_encryption(pt_64, keys_48 = (key_1_48, key_2_48, key_1_48), s_box = (s_box_1, s_box_2, s_box_3), noofrounds = 3)\n  print(\"\\033[38;5;119mCipher Text:\", cipher_text, \"\\033[0m\")\n  plain_text, pt_64 = simplified_DES_encryption(ct_64, keys_48 = (key_1_48, key_2_48, key_1_48), s_box = (s_box_3, s_box_2, s_box_1), noofrounds = 3)\n  print(\"\\033[38;5;197mDeciphered Text:\", plain_text, \"\\033[0m\")\n\nsimplified_DES()",
       "comments": {
         "1": "#~ Implementing a simplified version of Data Encryption Standard (DES) (64 bits (8 chars.) input)",
         "17": "# regulation -> compulsorily 8 bits to represent every number",
@@ -369,11 +442,12 @@
         "74": "#~ Reducing the 48 RPT bits to 32",
         "83": "# do the crisscross",
         "89": "# now do the final \"straight\" output"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Simplified_DES.py"
     },
     "Simplified_RSA_Algorithm.py": {
       "lang": "py",
-      "code_string_literal": "import math\n#\ndef make_closest_prime(number, *exclude):\n  i = 2\n  while i <= int(number / 2) + 1:\n    if number % i == 0:\n      number += 1\n      while number in exclude:\n        number += 1\n      i = 2\n    else:\n      i += 1\n  return number\n\ndef relatively_prime_finder(totient, *exclude):\n  for i in range(2, int(totient / 2) + 1):           #\n    if math.gcd(i, totient) == 1:\n      if i not in exclude:\n        return i\n\ndef extended_euclidean_algorithm(\u03a6n, e):\n  exe_table = {'x': [1, 0], 'y': [0, 1], 'r': [\u03a6n, e], 'q': [-1]}         #\n  \n  while exe_table['r'][-1] != 1:                                         #\n    exe_table['q'].append(int(exe_table['r'][-2] / exe_table['r'][-1]))  #\n    exe_table['x'].append(exe_table['x'][-2] - exe_table['x'][-1] * exe_table['q'][-1])   #\n    exe_table['y'].append(exe_table['y'][-2] - exe_table['y'][-1] * exe_table['q'][-1])\n    exe_table['r'].append(exe_table['r'][-2] % exe_table['r'][-1])\n\n  return (exe_table['y'][-1]) % \u03a6n         #\n\ndef RSA():\n  PT = int(input(\"Enter the number to be encrypted: \"))\n  print(\"Enter p and q which are public, mutually accepted numbers between the sender and the receiver\")\n  p = len(input(\"Enter the string p, (length should be > 3): \"))\n  if p < 10:\n    raise ValueError(\"Cannot have number lesser than 10 for 'p'\")\n  while True:\n    q = len(input(\"Enter the passphrase q, (length should be > 10 and not as same as p): \"))\n    if q < 10:\n      raise ValueError(\"Cannot have number lesser than 10 for 'q'\")\n    elif q == p:\n      print(\"Length of q cannot be p!\")\n    else:    \n      break\n  p = make_closest_prime(p)\n  q = make_closest_prime(q, p)\n\n  print(f\"p = {p}, q = {q}\")\n  n = p * q\n  \u03a6n = (p - 1) * (q - 1)\n  print(f\"n = {n}, \u03a6n = {\u03a6n}\")\n  e = relatively_prime_finder(\u03a6n, p, q)\n  print(f\"e = {e}\")\n  d = extended_euclidean_algorithm(\u03a6n, e)\n  print(\"d = \", d)\n\n  PT %= n\n  print(\"Plain Text: \", PT)\n  CT = (PT ** e) % n \n  print(\"Cipher Text: \", CT)\n\n  PT = (CT ** d) % n \n  print(\"Plain Text: \", PT)\n\nRSA()",
+      "code_string_literal": "import math\n#\ndef make_closest_prime(number, *exclude):\n  i = 2\n  while i <= int(number / 2) + 1:\n    if number % i == 0:\n      number += 1\n      while number in exclude:\n        number += 1\n      i = 2\n    else:\n      i += 1\n  return number\n\ndef relatively_prime_finder(totient, *exclude):\n  for i in range(2, int(totient / 2) + 1):           #\n    if math.gcd(i, totient) == 1:\n      if i not in exclude:\n        return i\n\ndef extended_euclidean_algorithm(\u03a6n, e):\n  exe_table = {'x': [1, 0], 'y': [0, 1], 'r': [\u03a6n, e], 'q': [-1]}         #\n  \n  while exe_table['r'][-1] != 1:                                         #\n    exe_table['q'].append(int(exe_table['r'][-2] / exe_table['r'][-1]))  #\n    exe_table['x'].append(exe_table['x'][-2] - exe_table['x'][-1] * exe_table['q'][-1])   #\n    exe_table['y'].append(exe_table['y'][-2] - exe_table['y'][-1] * exe_table['q'][-1])\n    exe_table['r'].append(exe_table['r'][-2] % exe_table['r'][-1])\n\n  return (exe_table['y'][-1]) % \u03a6n         #\n\ndef RSA():\n  PT = int(input(\"Enter the number to be encrypted: \"))\n  print(\"Enter p and q which are public, mutually accepted numbers between the sender and the receiver\")\n  p = len(input(\"Enter the string p, (length should be > 10): \"))\n  if p < 10:\n    raise ValueError(\"Cannot have number lesser than 10 for 'p'\")\n  while True:\n    q = len(input(\"Enter the passphrase q, (length should be > 10 \\033[1mand not as same as p\\033[0m): \"))\n    if q < 10:\n      raise ValueError(\"Cannot have number lesser than 10 for 'q'\")\n    elif q == p:\n      print(\"Length of q cannot be p!\")\n    else:    \n      break\n  p = make_closest_prime(p)\n  q = make_closest_prime(q, p)\n\n  print(f\"p = {p}, q = {q}\")\n  n = p * q\n  \u03a6n = (p - 1) * (q - 1)\n  print(f\"n = {n}, \u03a6n = {\u03a6n}\")\n  e = relatively_prime_finder(\u03a6n, p, q)\n  print(f\"e = {e}\")\n  d = extended_euclidean_algorithm(\u03a6n, e)\n  print(\"d = \", d)\n\n  PT %= n\n  print(\"Plain Text: \", PT)\n  CT = (PT ** e) % n \n  print(\"Cipher Text: \", CT)\n\n  PT = (CT ** d) % n \n  print(\"Plain Text: \", PT)\n\nRSA()",
       "comments": {
         "2": "#TODO - Rectify make_prime, add conditions for 0 and 1 length p and q ",
         "16": "# since e has to be less than totient ",
@@ -382,7 +456,8 @@
         "25": "# for this column, the current value (one which is just getting appended) is always the division of the pre-previous and previous",
         "26": "# for both 'x' and 'y' columns, the current value comes out from the formula xi = xi-2 - xi-1*qi-1 ",
         "30": "# taking care of additive inverse if applicable"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Simplified_RSA_Algorithm.py"
     },
     "Vigenere_Cipher_26.py": {
       "lang": "py",
@@ -397,7 +472,8 @@
         "25": "#* Plain text is the column index (converted to \u03b1\u00df) of the cipher_text char. in the keyword char.'s corresponding row",
         "30": "# precaution if the len(keyword) entered is > len(plain_text)",
         "34": "# print(keyword)"
-      }
+      },
+      "OP_ss_dir": "OP_ss/Vigenere_Cipher_26.py"
     }
   }
 }
