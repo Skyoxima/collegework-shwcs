@@ -6,18 +6,13 @@
 
 </script>
 
-<main class="w-full h-[90vh] px-8 py-[5vh] p-2.5">
-  <section class="w-full h-full">
-    <ProjectHeader />    
-
-    <!-- Main Split -->
-    <div class="w-full h-[72vh] flex gap-2.5">
-      <Codeblock />
-      <section class="flex flex-col w-full gap-2.5">
-        <CommentBlock />
-        <OutputBlock />
-      </section>
-    </div>
+<main class="w-full h-[85vh] px-8 mt-4">
+  <section class="w-full h-full flex gap-2.5">
+    <Codeblock />
+    <section class="flex flex-col w-full gap-2.5">
+      <CommentBlock />
+      <OutputBlock />
+    </section>
   </section>
 </main>
 

@@ -1,14 +1,17 @@
 <script>
   import HeaderButton from "./HeaderButton.svelte";
-  
+  import ProjectHeader from "./ProjectHeader.svelte"; 
 </script>
 
-<header class="w-full h-[10vh] bg-kwdr-bg">
-  <div class="header-container w-full h-full p-4 flex justify-between items-center">
-    <h2 class="header-title text-kwdr-fg font-normal tracking-wide">Skyoxima's Collegework Showcase</h2>
-    <div class="btn-container w-6/10 flex justify-end items-center gap-4">
-      <HeaderButton iconKey='info-icon' />
-      <HeaderButton iconKey='logo-github' />
+<header class="relative max-h-[10vh]">
+  <div class="bg-kwdr-bg p-2.5">
+    <div class="w-full h-full flex justify-between items-center">
+      <h2 class="text-kwdr-fg font-normal tracking-wide">Skyoxima's Collegework Showcase</h2>
+      <div class="w-6/10 flex justify-end items-center gap-4">
+        <HeaderButton iconKey='info-icon' />
+        <HeaderButton iconKey='logo-github' />
+      </div>
     </div>
   </div>
+  <ProjectHeader />
 </header>
