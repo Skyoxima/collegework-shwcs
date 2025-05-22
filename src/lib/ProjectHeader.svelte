@@ -27,19 +27,19 @@
 
 <style>
   #project-header::before {
-    --size: 8px;
+    --size: 16px;
     
     content: '';
     position: absolute;
     width: var(--size); height: var(--size);
-    top: calc(-1 * var(--size) / 2);
-    left: calc(-1 * var(--size) / 2);
+    top: calc(-1 * var(--size)/2);
+    left: calc(-1 * var(--size)/2);
     border-radius: 50%;
-    box-shadow: inset -4px 4px 0 0 var(--color-kwdr-fg--muted);
+    box-shadow: inset calc(-1 * var(--size)/2) calc(var(--size)/2) 0 0 var(--color-kwdr-fg--muted);
     clip-path: inset(50% 0% 0% 0%);
   }
   #project-header::after {
-    --size: 8px;
+    --size: 16px;
     
     content: '';
     position: absolute;
@@ -47,7 +47,7 @@
     top: calc(-1 * var(--size) / 2);
     right: calc(-1 * var(--size) / 2);
     border-radius: 50%;
-    box-shadow: inset 4px 4px 0 0 var(--color-kwdr-fg--muted);
+    box-shadow: inset calc(var(--size)/2) calc(var(--size)/2) 0 0 var(--color-kwdr-fg--muted);
     clip-path: inset(50% 0% 0% 0%);
   }
 </style>

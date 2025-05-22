@@ -57,7 +57,8 @@
   }
 </script>
 
-<section id="code-side" class="w-full py-2 rounded-2xl bg-kwdr-bg text-sm overflow-auto custom-scrollbar">
+<!-- Actions and use: directive go hand-in-hand, and it was a godsent here! -->
+<section id="code-side" class="w-full py-2 rounded-2xl bg-kwdr-bg text-sm overflow-auto border-y-1 border-t-black border-b-white custom-scrollbar">
   {#await processedCode then htmlString}
   <div use:lineHlt>
     {@html htmlString}

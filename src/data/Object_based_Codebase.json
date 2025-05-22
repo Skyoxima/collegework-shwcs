@@ -436,7 +436,7 @@
         "1": "#~ Implementing a simplified version of Data Encryption Standard (DES) (64 bits (8 chars.) input)",
         "17": "# regulation -> compulsorily 8 bits to represent every number",
         "49": "# flattening",
-        "59": "# regulation -> since there is gonna be numbers from 0 - 15 in any of the s_box cell, 4 bits compulsion enforced on binary repr. of these numbers to make 4 x 8 = 32 bits",
+        "59": "# regulation -> since there is gonna be numbers from 0 - 15 in any of the s_box cell, 4 bits compulsion enforced on binary repr. of these numbers to make 4 x 8 = 32 bits.",
         "67": "#~ Expanded RPT which is a list(8 members) of lists(6 members) which total upto 48 bits (This will be the naming convention throughout the program for 2D lists)",
         "70": "#~ XOR with the key's 48 bits",
         "74": "#~ Reducing the 48 RPT bits to 32",

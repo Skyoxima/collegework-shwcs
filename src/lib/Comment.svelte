@@ -16,7 +16,7 @@
 </script>
 
 
-<button class={["comment p-2 w-full min-h-30/100 flex items-center gap-4 bg-kwdr-fg rounded-lg text-sm text-left cursor-pointer", Number(index) === currHltdLine.value ? "border-x-2 border-x-kwdr-bg/50" : ""]} onclick={() => currHltdLine.value = Number(index)}>
+<button class={["comment p-2 w-full min-h-20/100 flex shrink-0 items-center gap-4 bg-kwdr-fg rounded-lg text-sm text-left cursor-pointer", Number(index) === currHltdLine.value ? "border-x-2 border-x-kwdr-bg/50" : ""]} onclick={() => currHltdLine.value = Number(index)}>
   <div class="flex-75/1000 h-full self-start border-r-2 border-kwdr-fg--muted">
     <div class="decorative-circle w-8 h-8 bg-kwdr-fg--muted rounded-full flex justify-center items-center">
       {index}
