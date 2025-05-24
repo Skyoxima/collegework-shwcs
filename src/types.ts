@@ -2,6 +2,7 @@ export interface ObjCodebaseBody {
     "lang": string
     "code_string_literal": string
     "comments": {[key: string]: string} | {}
+    "OP_ss_srcs": string[] | string
 }
 
 export interface ObjCodebaseItem {

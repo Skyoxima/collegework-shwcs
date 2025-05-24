@@ -11,7 +11,10 @@
         "40": "// infinity",
         "100": "// +1 because >> for e.g: rows ~ 0, 1, 2, 3 and columns ~ 0, 1, 2, 3, 4, 5, 6, 7, 8"
       },
-      "OP_ss_dir": "OP_ss/DP_Coinchange.c"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/DP_Coinchange.c/DP_CC_OP_1.PNG",
+        "OP_ss/Sem_IV-DAOA/DP_Coinchange.c/DP_CC_OP_2.PNG"
+      ]
     },
     "DP_Longest_Common_Subsequence.c": {
       "lang": "c",
@@ -30,7 +33,9 @@
         "109": "// soln_mx 0 to n1 and 0 to n2",
         "110": "// LCS - 0 to n2 - 1, same as Y"
       },
-      "OP_ss_dir": "OP_ss/DP_Longest_Common_Subsequence.c"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/DP_Longest_Common_Subsequence.c/DP_LCS_OP_1.PNG"
+      ]
     },
     "DP_Matrix_Multiplication.c": {
       "lang": "c",
@@ -50,25 +55,28 @@
         "83": "// clarification purpose",
         "84": "// of all values for all k, choosing the minimum one"
       },
-      "OP_ss_dir": "OP_ss/DP_Matrix_Multiplication.c"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/DP_Matrix_Multiplication.c/DP_MCM_OP_1.png",
+        "OP_ss/Sem_IV-DAOA/DP_Matrix_Multiplication.c/DP_MCM_OP_2.png",
+        "OP_ss/Sem_IV-DAOA/DP_Matrix_Multiplication.c/DP_MCM_OP_3.png"
+      ]
     },
     "Greedy_Coinchange.c": {
       "lang": "c",
       "code_string_literal": "#include <stdio.h>\n#include <stdlib.h>\n\nvoid main()\n{\n  int i, j, k = 0, noofcoins, temp, sum;\n  system(\"cls\");\n  printf(\"Enter the number of coins: \");\n  scanf(\"%d\", &noofcoins);\n  int *coins = (int *)malloc(noofcoins * sizeof(int));\n\n  printf(\"Enter the coins: (preferably descending order): \");\n  for (i = 0; i < noofcoins; i++)\n    scanf(\"%d\", &coins[i]);\n\n  for (i = 1; i < noofcoins; i++)\n    for (j = 0; j < noofcoins - i; j++)\n      if (coins[j + 1] > coins[j])\n      {\n        temp = coins[j + 1];\n        coins[j + 1] = coins[j];\n        coins[j] = temp;\n      }\n\n  printf(\"\\nEnter the Sum to be repaid: \");\n  scanf(\"%d\", &sum);\n\n  int *selected_coins = (int *)malloc(sum * sizeof(int));\n  while (sum > 0)\n  {\n    for (i = 0; i < noofcoins; i++)\n      if (coins[i] <= sum)\n      {\n        sum -= coins[i];\n        selected_coins[k++] = coins[i];\n        break;\n      }\n  }\n  printf(\"\\nSelected Coins: \");\n  for (i = 0; i < k; i++)\n    printf(\"%d \", selected_coins[i]);\n}",
       "comments": {},
-      "OP_ss_dir": "OP_ss/Greedy_Coinchange.c"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/Greedy_Coinchange.c/GCc_OP_1.png"
+      ]
     },
     "Greedy_Job_Scheduling.c": {
       "lang": "c",
       "code_string_literal": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Job\n{\n  int jobno, deadline, profit;\n} Job;\n\nvoid main()\n{\n  int i, j, k, noofjobs, MDL = -1, INDL, total_profit = 0, isnc = 0;\n  Job temp;\n  printf(\"\\nEnter the number of jobs: \");\n  scanf(\"%d\", &noofjobs);\n  Job jobs[noofjobs];\n\n  printf(\"Enter the profits for each job: \");\n  for (i = 0; i < noofjobs; i++)\n    scanf(\"%d\", &jobs[i].profit);\n\n  printf(\"Enter the deadline for each job: \");\n  for (i = 0; i < noofjobs; i++)\n  {\n    scanf(\"%d\", &jobs[i].deadline);\n    if (jobs[i].deadline > MDL)\n      MDL = jobs[i].deadline;\n    jobs[i].jobno = i + 1;\n  }\n\n  for (i = 1; i < noofjobs; i++)\n    for (j = 0; j < noofjobs - i; j++)\n    {\n      if (jobs[j + 1].profit > jobs[j].profit)\n      {\n        temp = jobs[j + 1];\n        jobs[j + 1] = jobs[j];\n        jobs[j] = temp;\n      }\n    }\n\n  Job schedule[MDL];\n  Job not_completed[MDL];\n  for (i = 0; i < MDL; i++)\n    schedule[i].jobno = 0;\n\n  for (i = 0; i < noofjobs; i++)\n  {\n    INDL = jobs[i].deadline;\n    for (j = INDL - 1; j >= 0; j--)\n    {\n      if (schedule[j].jobno == 0)\n      {\n        schedule[j] = jobs[i];\n        total_profit += schedule[j].profit;\n        break;\n      }\n      if (j == 0)\n        not_completed[isnc++] = jobs[i];\n    }\n  }\n\n  printf(\"\\n\\nOptimal Job Sequence: \\n\");\n  for (i = 0; i < MDL; i++)\n    if (schedule[i].jobno != 0)\n      printf(\"J%d - Completed at %d\\n\", schedule[i].jobno, i + 1);\n\n  printf(\"Jobs not scheduled: \");\n  for (i = 0; i < isnc; i++)\n    printf(\"J%d \", not_completed[i].jobno);\n\n  printf(\"\\n\\nMaximum profit: \\033[1m\\033[38;5;223m%d units.\\033[0m\", total_profit);\n}",
       "comments": {},
-      "OP_ss_dir": "OP_ss/Greedy_Job_Scheduling.c"
-    },
-    "KMP_String_Matching.py": {
-      "lang": "py",
-      "code_string_literal": "text = [i for i in input(\"Enter the main String: \")]\nlt = len(text)\npattern = [i for i in input(\"Enter the Pattern: \")]\nlp = len(pattern)\noccurences = [999]\ntemp = [999]\nfor i in pattern:\n  if i not in temp:\n    temp.append(i)\n    occurences.append(0)\n  else:\n    temp.append('\\0')\n    occurences.append(temp.index(i))\npattern.insert(0, '\\0')\nprint(pattern, occurences)\n\ni = 0\nj = 0\nwhile (i < lt):\n  if (text[i] == pattern[j + 1]):\n    i += 1\n    j += 1\n    if (j == lp):\n      print(\"Pattern found at index\", i - lp, \"of the main string\")\n      break\n\n  elif ((text[i] != pattern[j + 1]) and j != 0):\n    j = occurences[j]\n  elif (text[i] != pattern[j + 1]) and j == 0:\n    i += 1\n\nif (j < lp):\n  print(\"Pattern not found...\")\n",
-      "comments": {},
-      "OP_ss_dir": "OP_ss/KMP_String_Matching.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/Greedy_Job_Scheduling.c/GJS_OP_1.png",
+        "OP_ss/Sem_IV-DAOA/Greedy_Job_Scheduling.c/GJS_OP_2.png"
+      ]
     },
     "Knapsack_Problem.c": {
       "lang": "c",
@@ -82,7 +90,9 @@
         "102": "// test = item_list;",
         "127": "// ANSI escape sequence for formatted text, format (color) should only apply if the last item is not whole"
       },
-      "OP_ss_dir": "OP_ss/Knapsack_Problem.c"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/Knapsack_Problem.c/KPS_OP_1.png"
+      ]
     },
     "Kruskals_Algorithm_w_Dynamic_Graph.c": {
       "lang": "c",
@@ -112,7 +122,10 @@
         "223": "// in the Node structure definition, I have written data and weight separately to write comments, no other reason",
         "224": "// What if each node has an array of Edges, just that it will only contain all the edges that node is the source of -- implemented"
       },
-      "OP_ss_dir": "OP_ss/Kruskals_Algorithm_w_Dynamic_Graph.c"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/Kruskals_Algorithm_w_Dynamic_Graph.c/KDG_OP_1.png",
+        "OP_ss/Sem_IV-DAOA/Kruskals_Algorithm_w_Dynamic_Graph.c/KDG_OP_2.png"
+      ]
     },
     "MergeSort.py": {
       "lang": "py",
@@ -124,7 +137,9 @@
         "24": "# emptying sub-array if necessary",
         "35": "# main array being sorted using auxiliary array's content for each call of merge function"
       },
-      "OP_ss_dir": "OP_ss/MergeSort.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/MergeSort.py/MS_OP_1.png"
+      ]
     },
     "Minmax.py": {
       "lang": "py",
@@ -136,7 +151,9 @@
         "14": "# For combinations, code reachable only when sub-array(s) at hand as 2 elements at the most",
         "26": "# * if block is the recursion ending statement group"
       },
-      "OP_ss_dir": "OP_ss/Minmax.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/Minmax.py/MM_OP_1.png"
+      ]
     },
     "Prims_Algorithm_w_Dynamic_Graph.c": {
       "lang": "c",
@@ -153,7 +170,11 @@
         "132": "// marking the first node (node which is the source of minimum weight among all the edges of the graph) as included.",
         "157": "// a pointer to the Edge_list object has to be made to pass it in the readGraph function and create the whole edgelist without having to return the Edge_list object as readGraph is returning a Graph* already"
       },
-      "OP_ss_dir": "OP_ss/Prims_Algorithm_w_Dynamic_Graph.c"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/Prims_Algorithm_w_Dynamic_Graph.c/Prims_OP_1.png",
+        "OP_ss/Sem_IV-DAOA/Prims_Algorithm_w_Dynamic_Graph.c/Prims_OP_2.png",
+        "OP_ss/Sem_IV-DAOA/Prims_Algorithm_w_Dynamic_Graph.c/Prims_OP_Full.png"
+      ]
     },
     "QuickSort.py": {
       "lang": "py",
@@ -168,7 +189,9 @@
         "29": "# to prevent self swapping, none 1 element sub-array case",
         "32": "# * end is the 'indexer' to the pivot element placed at it's sorted position"
       },
-      "OP_ss_dir": "OP_ss/QuickSort.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-DAOA/QuickSort.py/QS_OP_1.png"
+      ]
     }
   },
   "Sem_IV-SF": {
@@ -180,7 +203,10 @@
         "83": "#* while it is not a deadlock and not all processes have been scheduled",
         "95": "#* returns a list which has the sum of individual elements of pa and av"
       },
-      "OP_ss_dir": "OP_ss/Bankers_Algorithm.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Bankers_Algorithm.py/BaA_OP_1.png",
+        "OP_ss/Sem_IV-SF/Bankers_Algorithm.py/BaA_OP_2.png"
+      ]
     },
     "Booths_Algorithm.py": {
       "lang": "py",
@@ -202,7 +228,9 @@
         "178": "# printing the Operations table",
         "183": "# printing the final answer"
       },
-      "OP_ss_dir": "OP_ss/Booths_Algorithm.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Booths_Algorithm.py/BA_OP_1.png"
+      ]
     },
     "Disk_Scheduling.py": {
       "lang": "py",
@@ -237,7 +265,10 @@
         "208": "#!",
         "209": "#* then go for the left tracks also ascendingly"
       },
-      "OP_ss_dir": "OP_ss/Disk_Scheduling.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Disk_Scheduling.py/DS_OP_1.png",
+        "OP_ss/Sem_IV-SF/Disk_Scheduling.py/DS_OP_2.png"
+      ]
     },
     "Fixed_Memory_Placement(Static).py": {
       "lang": "py",
@@ -247,7 +278,11 @@
         "37": "#what is the wastage",
         "38": "#status_check = True, this block cannot be used again?"
       },
-      "OP_ss_dir": "OP_ss/Fixed_Memory_Placement(Static).py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Fixed_Memory_Placement(Static).py/FMP_BF_OP_1.png",
+        "OP_ss/Sem_IV-SF/Fixed_Memory_Placement(Static).py/FMP_FF_OP_1.png",
+        "OP_ss/Sem_IV-SF/Fixed_Memory_Placement(Static).py/FMP_WF_OP_1.png"
+      ]
     },
     "Memory_Page_Replacement.py": {
       "lang": "py",
@@ -259,7 +294,11 @@
         "77": "#simpler to control the for-in loop in this case",
         "101": "#! calling a value of the dictionary which is a function hence parameters are also passed here"
       },
-      "OP_ss_dir": "OP_ss/Memory_Page_Replacement.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Memory_Page_Replacement.py/MPR_FIFO_OP_1.png",
+        "OP_ss/Sem_IV-SF/Memory_Page_Replacement.py/MPR_LRU_OP_1.png",
+        "OP_ss/Sem_IV-SF/Memory_Page_Replacement.py/MPR_Opt_OP_1.png"
+      ]
     },
     "Non_Preemptive_Task_Scheduling.py": {
       "lang": "py",
@@ -271,7 +310,12 @@
         "141": "# All burst times equal",
         "143": "# All arrival times equal"
       },
-      "OP_ss_dir": "OP_ss/Non_Preemptive_Task_Scheduling.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Non_Preemptive_Task_Scheduling.py/NPTS_OP_FCFS_1.png",
+        "OP_ss/Sem_IV-SF/Non_Preemptive_Task_Scheduling.py/NPTS_OP_FCFS_2.png",
+        "OP_ss/Sem_IV-SF/Non_Preemptive_Task_Scheduling.py/NPTS_OP_SJF_1.png",
+        "OP_ss/Sem_IV-SF/Non_Preemptive_Task_Scheduling.py/NPTS_OP_SJF_2.png"
+      ]
     },
     "Non_Restoring_Division.py": {
       "lang": "py",
@@ -291,7 +335,9 @@
         "165": "#* Q[LSB] = A[MSB]'",
         "181": "#getting final answer in decimal"
       },
-      "OP_ss_dir": "OP_ss/Non_Restoring_Division.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Non_Restoring_Division.py/NRD_OP_1.png"
+      ]
     },
     "Preemptive_Task_Scheduling.py": {
       "lang": "py",
@@ -303,7 +349,12 @@
         "97": "# (alternatively, formula can be WT = FTprev - ATcurr)",
         "194": "# check the queue first"
       },
-      "OP_ss_dir": "OP_ss/Preemptive_Task_Scheduling.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Preemptive_Task_Scheduling.py/PTS_RR_OP_1.png",
+        "OP_ss/Sem_IV-SF/Preemptive_Task_Scheduling.py/PTS_RR_OP_2.png",
+        "OP_ss/Sem_IV-SF/Preemptive_Task_Scheduling.py/PTS_SRTF_OP_1.png",
+        "OP_ss/Sem_IV-SF/Preemptive_Task_Scheduling.py/PTS_SRTF_OP_2.png"
+      ]
     },
     "Restoring_Division.py": {
       "lang": "py",
@@ -323,7 +374,9 @@
         "163": "#! Restoration of A",
         "175": "#getting final answer in decimal"
       },
-      "OP_ss_dir": "OP_ss/Restoring_Division.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_IV-SF/Restoring_Division.py/RD_OP_1.png"
+      ]
     }
   },
   "Sem_V-IS": {
@@ -333,7 +386,10 @@
       "comments": {
         "1": "#~ A simple python program to implement caesar cipher encryption and decryption using 95 valid (keyboard type-able) characters"
       },
-      "OP_ss_dir": "OP_ss/Caesar_Cipher_95.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Caesar_Cipher_95.py/CC95_OP_1.png",
+        "OP_ss/Sem_V-IS/Caesar_Cipher_95.py/CC95_OP_2.png"
+      ]
     },
     "Columnar_Transposition.py": {
       "lang": "py",
@@ -347,13 +403,10 @@
         "25": "# Decryption -> fill the columns with slices of cipher_text based on the same ascending-arrangement of the key",
         "32": "# I've not imported this from the encryption block to keep the essence of messaging between 2 users, receiver will have to process the key on their own"
       },
-      "OP_ss_dir": "OP_ss/Columnar_Transposition.py"
-    },
-    "DH_Key_Exchange.py": {
-      "lang": "py",
-      "code_string_literal": "def DHKE():\n  g, p = 5, 23\n  a, b = 4, 3\n  Xa = (g ** a) % p\n  Xb = (g ** b) % p\n  SSA = (Xb ** a) % p\n  SSB = (Xa ** b) % p\n  if SSA == SSB:\n    print(\"Connection Established\")\n\nDHKE()",
-      "comments": {},
-      "OP_ss_dir": "OP_ss/DH_Key_Exchange.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Columnar_Transposition.py/CT_OP_1.png",
+        "OP_ss/Sem_V-IS/Columnar_Transposition.py/CT_OP_2.png"
+      ]
     },
     "Double_Columnar_Transposition.py": {
       "lang": "py",
@@ -364,7 +417,10 @@
         "24": "# if padding required then only call the padding function ",
         "26": "# length of plaintext should always be taken after padding"
       },
-      "OP_ss_dir": "OP_ss/Double_Columnar_Transposition.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Double_Columnar_Transposition.py/DCT_OP_1.png",
+        "OP_ss/Sem_V-IS/Double_Columnar_Transposition.py/DCT_OP_2.png"
+      ]
     },
     "Electronic_Code_Book.py": {
       "lang": "py",
@@ -386,7 +442,9 @@
         "82": "# Since XOR was the last thing done when encrypting, it will be the first thing done when decrypting (also XOR because XORing an XOR brings us back to the starting bits)",
         "87": "# now the XOR'ed bits are to be circular right shifted, i.e the reverse direction"
       },
-      "OP_ss_dir": "OP_ss/Electronic_Code_Book.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Electronic_Code_Book.py/ECB_OP_1.png"
+      ]
     },
     "Hill_Cipher_3x3.py": {
       "lang": "py",
@@ -411,7 +469,9 @@
         "106": "# passing plain_text just so I can call the return_reqd_matrices function",
         "110": "# print(det_key_mx)"
       },
-      "OP_ss_dir": "OP_ss/Hill_Cipher_3x3.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Hill_Cipher_3x3.py/HC_OP_1.png"
+      ]
     },
     "Playfair_Cipher.py": {
       "lang": "py",
@@ -427,7 +487,10 @@
         "61": "#! Showing all possible texts to the receiver if the decrypted text contains 'I' (maybe reduces security levels but I feel it enhances receiver's exp)",
         "66": "# counts from 0 till all Is i.e no change to all Is as well as all Is changed to J"
       },
-      "OP_ss_dir": "OP_ss/Playfair_Cipher.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Playfair_Cipher.py/PC_OP_1.png",
+        "OP_ss/Sem_V-IS/Playfair_Cipher.py/PC_OP_2.png"
+      ]
     },
     "Simplified_DES.py": {
       "lang": "py",
@@ -436,14 +499,16 @@
         "1": "#~ Implementing a simplified version of Data Encryption Standard (DES) (64 bits (8 chars.) input)",
         "17": "# regulation -> compulsorily 8 bits to represent every number",
         "49": "# flattening",
-        "59": "# regulation -> since there is gonna be numbers from 0 - 15 in any of the s_box cell, 4 bits compulsion enforced on binary repr. of these numbers to make 4 x 8 = 32 bits.",
+        "59": "# regulation -> since there is gonna be numbers from 0 - 15 in any of the s_box cell, 4 bits compulsion enforced on binary repr. of these numbers to make 4 x 8 = 32 bits",
         "67": "#~ Expanded RPT which is a list(8 members) of lists(6 members) which total upto 48 bits (This will be the naming convention throughout the program for 2D lists)",
         "70": "#~ XOR with the key's 48 bits",
         "74": "#~ Reducing the 48 RPT bits to 32",
         "83": "# do the crisscross",
         "89": "# now do the final \"straight\" output"
       },
-      "OP_ss_dir": "OP_ss/Simplified_DES.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Simplified_DES.py/SDES_OP_1.png"
+      ]
     },
     "Simplified_RSA_Algorithm.py": {
       "lang": "py",
@@ -457,7 +522,9 @@
         "26": "# for both 'x' and 'y' columns, the current value comes out from the formula xi = xi-2 - xi-1*qi-1 ",
         "30": "# taking care of additive inverse if applicable"
       },
-      "OP_ss_dir": "OP_ss/Simplified_RSA_Algorithm.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Simplified_RSA_Algorithm.py/SRSA_OP_1.png"
+      ]
     },
     "Vigenere_Cipher_26.py": {
       "lang": "py",
@@ -473,7 +540,9 @@
         "30": "# precaution if the len(keyword) entered is > len(plain_text)",
         "34": "# print(keyword)"
       },
-      "OP_ss_dir": "OP_ss/Vigenere_Cipher_26.py"
+      "OP_ss_srcs": [
+        "OP_ss/Sem_V-IS/Vigenere_Cipher_26.py/VC_OP_1.png"
+      ]
     }
   }
 }
