@@ -7,9 +7,12 @@
   }
 </script>
 
-<article class="w-fit p-2 bg-kwdr-bg border-t-2 border-t-kwdr-fg  rounded-2xl">
+<article class="w-fit p-2 bg-kwdr-bg rounded-2xl">
   <img src={src} alt={processAlt(src)} class="rounded-lg" />  
 </article>
 
 <style>
+  article {
+    box-shadow: 0 4px 2px 0 var(--color-kwdr-bg);
+  }
 </style>
