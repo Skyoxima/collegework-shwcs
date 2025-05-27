@@ -1,3 +1,5 @@
+import type { MouseEventHandler } from "svelte/elements"
+
 export interface ObjCodebaseBody {
     "lang": string
     "code_string_literal": string
@@ -16,3 +18,10 @@ export interface ObjCodebase {
 }
 
 export type subject = keyof ObjCodebase
+
+
+export interface HeaderButtonProps {
+  iconKey: string 
+  state?: boolean
+  handler?: MouseEventHandler<HTMLButtonElement>
+}

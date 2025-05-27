@@ -17,3 +17,4 @@ export let currentProject = $state({
 });
 
 export let currHltdLine = $state({value: 0});
+export let modalSwitch = $state({value: false});
