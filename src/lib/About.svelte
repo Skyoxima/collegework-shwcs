@@ -34,7 +34,7 @@
       v1 displays many of my projects from 3 subjects: DAOA, SF and IS. In the next versions, I wish to include works from the future subjects. (they'll be interpreted .ipynbs)
     </p>
   </div>
-  <button class="absolute bottom-8 left-1/2 -translate-x-1/2 w-1/10 h-10 bg-kwdr-bg text-kwdr-fg rounded-xl active:scale-90 transition-transform duration-300 ease-in cursor-pointer" onclick={() => { dialogRef?.close(); }}>
+  <button class="absolute bottom-4 left-1/2 -translate-x-1/2 w-1/10 h-10 bg-kwdr-bg text-kwdr-fg rounded-xl active:scale-90 transition-transform duration-300 ease-in cursor-pointer" onclick={() => { dialogRef?.close(); }}>
     Close
   </button>
 </dialog>

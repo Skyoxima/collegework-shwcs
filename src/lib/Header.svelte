@@ -14,8 +14,8 @@
     <div class="w-full h-full flex justify-between items-center">
       <h2 class="text-kwdr-fg font-bold text-xl tracking-wide">Skyoxima's Collegework Showcase</h2>
       <div class="w-6/10 flex justify-end items-center gap-4">
-        <HeaderButton iconKey='info-icon' handler={modalSwitchClick} />
-        <HeaderButton iconKey='logo-github' />
+        <HeaderButton buttonID='info-icon' handler={modalSwitchClick} />
+        <HeaderButton buttonID='logo-github' />
         <div class="font-bold text-kwdr-fg">v1</div>
       </div>
     </div>

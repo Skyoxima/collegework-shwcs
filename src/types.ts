@@ -21,7 +21,7 @@ export type subject = keyof ObjCodebase
 
 
 export interface HeaderButtonProps {
-  iconKey: string 
+  buttonID: string 
   state?: boolean
   handler?: MouseEventHandler<HTMLButtonElement>
 }

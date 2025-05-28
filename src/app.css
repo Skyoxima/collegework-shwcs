@@ -37,6 +37,10 @@
     border-radius: 4px;
     cursor: pointer;
   }
+
+  .header-btn {
+    @apply w-8 h-8 bg-kwdr-fg rounded-lg flex justify-center items-center active:scale-95 transition-[scale] cursor-pointer
+  }
 }
 
 body {

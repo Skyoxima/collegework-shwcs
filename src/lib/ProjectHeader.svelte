@@ -27,7 +27,7 @@
 
 <style>
   #project-header::before {
-    --size: 16px;
+    --size: 10px;
     
     content: '';
     position: absolute;
@@ -39,7 +39,7 @@
     clip-path: inset(50% 0% 0% 0%);
   }
   #project-header::after {
-    --size: 16px;
+    --size: 10px;
     
     content: '';
     position: absolute;
