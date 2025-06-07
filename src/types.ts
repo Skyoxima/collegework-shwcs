@@ -1,27 +1,32 @@
-import type { MouseEventHandler } from "svelte/elements"
+import type { MouseEventHandler } from "svelte/elements";
 
 export interface ObjCodebaseBody {
-    "lang": string
-    "code_string_literal": string
-    "comments": {[key: string]: string} | {}
-    "OP_ss_srcs": string[] | string
+  lang: string;
+  code_string_literal: string;
+  comments: { [key: string]: string } | {};
+  OP_ss_srcs: string[] | string;
 }
 
 export interface ObjCodebaseItem {
-  [key: string]: ObjCodebaseBody
+  [key: string]: ObjCodebaseBody;
 }
 
 export interface ObjCodebase {
-  "Sem_IV-DAOA": ObjCodebaseItem
-  "Sem_IV-SF": ObjCodebaseItem
-  "Sem_V-IS": ObjCodebaseItem
+  "Sem_IV-DAOA": ObjCodebaseItem;
+  "Sem_IV-SF": ObjCodebaseItem;
+  "Sem_V-IS": ObjCodebaseItem;
 }
 
-export type subject = keyof ObjCodebase
-
+export type subject = keyof ObjCodebase;
 
 export interface HeaderButtonProps {
-  buttonID: string 
-  state?: boolean
-  handler?: MouseEventHandler<HTMLButtonElement>
+  buttonID: string;
+  state?: boolean;
+  handler?: MouseEventHandler<HTMLButtonElement>;
+}
+
+export interface ProjectEntryProps {
+  subjectName: subject;
+  projectName: string;
+  projectBody: ObjCodebaseBody;
 }

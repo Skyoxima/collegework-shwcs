@@ -1,15 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-kwdr-fg: #C5C9C5;
+  --color-kwdr-fg: #c5c9c5;
   --color-kwdr-bg: #181616;
-  --color-kwdr-fg--muted: #A6A69C;
-  --font-plex-mono: 'IBM Plex Mono', 'consolas', monospace;
+  --color-kwdr-fg--muted: #a6a69c;
+  --font-plex-mono: "IBM Plex Mono", "consolas", monospace;
+  --text-2xs: 10px;
+  --text-3xs: 8px;
 }
 
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -23,15 +27,16 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 0.25rem; height: 0.25rem;
+    width: 0.25rem;
+    height: 0.25rem;
     background-color: var(--color-kwdr-fg);
     border-radius: 4px;
-  } 
+  }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     /* background: var(--color-kwdr-fg--muted); */
     background: color-mix(in srgb, var(--color-kwdr-bg) 50%, transparent);
     border-radius: 4px;
-  } 
+  }
   .custom-scrollbar::-webkit-scrollbar-button:single-button {
     background: color-mix(in srgb, var(--color-kwdr-bg) 50%, transparent);
     border-radius: 4px;
@@ -39,7 +44,7 @@
   }
 
   .header-btn {
-    @apply w-8 h-8 bg-kwdr-fg rounded-lg flex justify-center items-center active:scale-95 transition-[scale] cursor-pointer
+    @apply w-8 h-8 bg-kwdr-fg rounded-lg flex justify-center items-center active:scale-95 transition-[scale] cursor-pointer;
   }
 }
 
