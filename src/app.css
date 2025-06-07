@@ -29,7 +29,7 @@
   .custom-scrollbar::-webkit-scrollbar {
     width: 0.25rem;
     height: 0.25rem;
-    background-color: var(--color-kwdr-fg);
+    background-color: var(--color-kwdr-fg--muted);
     border-radius: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {

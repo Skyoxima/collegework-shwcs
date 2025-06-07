@@ -18,7 +18,7 @@
 
 <button
   class={[
-    "mx-4 block text-sm/6 hover:bg-kwdr-fg--muted/50 transition-[background] duration-500 cursor-pointer",
+    "mx-4 block text-2xs/6 lg:text-sm/6 hover:bg-kwdr-fg--muted/50 transition-[background] duration-500 cursor-pointer",
   ]}
   onclick={() => {
     handleProjectClick(subjectName, projectName, projectBody);

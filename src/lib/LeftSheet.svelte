@@ -3,7 +3,6 @@
   import ProjectEntry from "./ProjectEntry.svelte";
   import RightArrow from "./SVGAsComponent/RightArrow.svelte";
   import { fade } from "svelte/transition";
-  import { type Action } from "svelte/action";
 
   let sheetMode = $state(false);
 </script>
@@ -11,21 +10,22 @@
 <aside
   id="left-sheet-wrapper"
   class={[
-    "fixed top-0 w-[80%] md:w-[40%] h-full transition-[left] duration-[500ms]",
+    "fixed top-0 w-[80%] md:w-[40%] h-[100lvh] transition-[left] duration-[500ms]",
     sheetMode ? "left-0" : "-left-8/10 md:-left-[40%]",
   ]}
+  
 >
   <div
     id="left-sheet"
-    class="w-full h-full bg-kwdr-fg border-r-4 border-r-kwdr-fg--muted overflow-y-scroll custom-scrollbar"
+    class="w-full h-full bg-kwdr-fg border-r-4 border-r-kwdr-fg--muted overflow-y-auto custom-scrollbar"
   >
-    <h2
-      class="p-2 sticky top-0 bg-kwdr-fg--muted text-lg md:text-2xl text-kwdr-bg"
-    >
-      Subjects
-    </h2>
-    {#if sheetMode}
-      <div out:fade={{ delay: 250, duration: 500 }}>
+  {#if sheetMode}
+  <div out:fade={{ delay: 250, duration: 500 }}>
+        <h2
+          class="p-2 sticky top-0 bg-kwdr-fg--muted text-lg md:text-2xl text-kwdr-bg"
+        >
+          Subjects
+        </h2>
         {#each CodebaseEntries as [subjectName, codeItem]}
           <article>
             <h2 class="text-sm md:text-base subject px-2">
