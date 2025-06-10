@@ -26,6 +26,7 @@
     background-color: transparent;
   }
 
+  /* width and height both are specified for vertical and horizontal scrollbars respectively, only the relevant property is used for the type of scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 0.25rem;
     height: 0.25rem;
@@ -38,7 +39,7 @@
     border-radius: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-button:single-button {
-    background: color-mix(in srgb, var(--color-kwdr-bg) 50%, transparent);
+    /* background: color-mix(in srgb, var(--color-kwdr-bg) 50%, transparent); */
     border-radius: 4px;
     cursor: pointer;
   }

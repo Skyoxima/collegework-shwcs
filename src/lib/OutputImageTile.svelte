@@ -8,7 +8,7 @@
 </script>
 
 <article class="w-fit p-2 bg-kwdr-bg rounded-2xl">
-  <img {src} alt={processAlt(src)} class="rounded-lg" />
+  <img {src} alt={processAlt(src)} title={processAlt(src)} class="" />
 </article>
 
 <style>
