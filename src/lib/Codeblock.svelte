@@ -59,16 +59,26 @@
 <!-- Actions and use: directive go hand-in-hand, and it was a godsent here! -->
 <section
   id="code-side"
-  class="w-full h-1/3 md:h-auto py-2 rounded-2xl bg-kwdr-bg text-2xs md:text-sm overflow-auto border-y-1 border-t-black border-b-white custom-scrollbar"
+  class="w-full h-1/3 md:h-auto p-2 rounded-2xl bg-kwdr-bg text-2xs md:text-sm border-y-1 border-t-black border-b-white overflow-hidden"
 >
-  {#await processedCode then htmlString}
-    <div id="injected-html" use:lineHlt>
-      {@html htmlString}
-    </div>
-  {/await}
+  <div class="w-full h-full p-2 overflow-auto custom-scrollbar cs-dark">
+    {#await processedCode then htmlString}
+      <div id="injected-html" use:lineHlt>
+        {@html htmlString}
+      </div>
+    {/await}
+  </div>
 </section>
 
 <style>
+  .cs-dark::-webkit-scrollbar {
+    background: var(--color-kwdr-bg);
+  }
+  .cs-dark::-webkit-scrollbar-thumb {
+    /* background: var(--color-kwdr-fg); */
+    background: color-mix(in srgb, var(--color-kwdr-fg) 50%, transparent);
+  }
+
   /*>> :global is to style @html-injected HTML */
 
   @media screen and (max-width: 768px) {
