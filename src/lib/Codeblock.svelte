@@ -60,7 +60,7 @@
   id="code-side"
   class="w-full h-1/3 md:h-auto p-2 rounded-2xl bg-kwdr-bg text-2xs md:text-sm border-y-1 border-t-black border-b-white overflow-hidden"
 >
-  <div class="w-full h-full p-2 overflow-auto custom-scrollbar cs-dark">
+  <div class="w-full h-full pr-2 overflow-auto custom-scrollbar cs-dark">
     {#await processedCode then htmlString}
       <div id="injected-html" use:lineHlt>
         {@html htmlString}
