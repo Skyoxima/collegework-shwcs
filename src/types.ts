@@ -1,14 +1,15 @@
 import type { MouseEventHandler } from "svelte/elements";
 
-export interface ObjCodebaseBody {
+export interface ObjCodebaseItemBody {
   lang: string;
-  code_string_literal: string;
+  codeString: string;
   comments: { [key: string]: string } | {};
-  OP_ss_srcs: string[] | string;
+  outputSrcs: string[] | string;
+  bgColors: { [key: string]: string }
 }
 
 export interface ObjCodebaseItem {
-  [key: string]: ObjCodebaseBody;
+  [key: string]: ObjCodebaseItemBody;
 }
 
 export interface ObjCodebase {
@@ -28,5 +29,5 @@ export interface HeaderButtonProps {
 export interface ProjectEntryProps {
   subjectName: subject;
   projectName: string;
-  projectBody: ObjCodebaseBody;
+  projectBody: ObjCodebaseItemBody;
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { currentProject } from "../state.svelte";
   const { src }: { src: string } = $props();
 
   function processAlt(src: string) {
@@ -7,7 +8,7 @@
   }
 </script>
 
-<article class="w-fit p-2 bg-kwdr-bg rounded-2xl">
+<article class={`w-fit p-2 rounded-2xl`} style={`background: ${currentProject.projectBody.bgColors[processAlt(src)]}`}>
   <img {src} alt={processAlt(src)} title={processAlt(src)} class="" />
 </article>
 

@@ -1,13 +1,13 @@
 <script lang="ts">
   import { currentProject, currHltdLine } from "../state.svelte";
-  import type { ProjectEntryProps, subject, ObjCodebaseBody } from "../types";
+  import type { ProjectEntryProps, subject, ObjCodebaseItemBody } from "../types";
 
   let { subjectName, projectName, projectBody }: ProjectEntryProps = $props();
 
   const handleProjectClick = (
     subject: subject,
     projectName: string,
-    projectBody: ObjCodebaseBody
+    projectBody: ObjCodebaseItemBody
   ) => {
     currentProject.subject = subject;
     currentProject.projectName = projectName;

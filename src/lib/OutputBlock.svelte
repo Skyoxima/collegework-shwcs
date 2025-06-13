@@ -8,7 +8,7 @@
 
 >
   <div class="relative w-full h-full p-2 flex flex-col gap-2.5 overflow-y-auto custom-scrollbar">
-    {#each currentProject.projectBody.OP_ss_srcs as item}
+    {#each currentProject.projectBody.outputSrcs as item}
       <OutputImageTile src={item} />
     {/each}
   </div>

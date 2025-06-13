@@ -19,7 +19,6 @@
       .use(rehypeStringify)
       .process(markdown);
 
-    // console.log("processCode ran")
     return file.toString();
   }
 
@@ -27,7 +26,7 @@
   let processedCode = $derived(
     processCode(
       currentProject.projectBody.lang,
-      currentProject.projectBody.code_string_literal
+      currentProject.projectBody.codeString
     )
   );
 
