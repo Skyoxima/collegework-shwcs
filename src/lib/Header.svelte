@@ -1,11 +1,11 @@
 <script lang="ts">
   import HeaderButton from "./HeaderButton.svelte";
   import ProjectHeader from "./ProjectHeader.svelte";
-  import { modalSwitch } from "../state.svelte";
+  import { showAboutModal } from "../state.svelte";
   import type { MouseEventHandler } from "svelte/elements";
 
   const modalSwitchClick: MouseEventHandler<HTMLButtonElement> = () => {
-    modalSwitch.value = !modalSwitch.value;
+    showAboutModal.value = !showAboutModal.value;
   };
 </script>
 

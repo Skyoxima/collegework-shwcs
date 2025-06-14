@@ -1,19 +1,26 @@
 <script lang="ts">
-  import { currentProject } from "../state.svelte";
+  import { currentProject, currentImage } from "../state.svelte";
+  import { processAlt } from "../auxiliary";
   const { src }: { src: string } = $props();
 
-  function processAlt(src: string) {
-    const srcSplits = src.split("/");
-    return srcSplits[srcSplits.length - 1];
-  }
+  
 </script>
 
-<article class={`w-fit p-2 rounded-2xl`} style={`background: ${currentProject.projectBody.bgColors[processAlt(src)]}`}>
-  <img {src} alt={processAlt(src)} title={processAlt(src)} class="" />
-</article>
+<button 
+  class="w-fit p-2 rounded-2xl cursor-pointer"
+  style={`background: ${currentProject.projectBody.bgColors[processAlt(src)]}`}
+  onclick={() => {currentImage.src = src}}
+  >
+  <img 
+    {src} 
+    alt={processAlt(src)} 
+    title={processAlt(src)} 
+    class="" 
+  />
+</button>
 
 <style>
-  article {
+  button {
     box-shadow: 0 4px 2px 0 var(--color-kwdr-bg);
   }
 </style>
