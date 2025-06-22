@@ -9,13 +9,13 @@ export const CodebaseEntries = Object.entries(Codebase) as [
 ][];
 
 // const initSubject = subjects[0];
-const initSubject = subjects[1];
-const initProjectBody = Codebase[initSubject]["Memory_Page_Replacement"];
+const initSubject = subjects[3];
+const initProjectBody = Codebase[initSubject]["Random_Graph"];
 
 export let currentProject = $state({
   subject: initSubject,
   // projectName: "QuickSort.py",
-  projectName: "Memory_Page_Replacement",
+  projectName: "Random_Graph",
   projectBody: initProjectBody,
 });
 

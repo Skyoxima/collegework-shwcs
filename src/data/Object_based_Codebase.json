@@ -661,5 +661,123 @@
         "VC_OP_1.png": "#181616"
       }
     }
+  },
+  "Sem_VIII-SNA": {
+    "Barabasi-Albert PAM": {
+      "lang": "py",
+      "codeString": "import networkx as nx\nimport matplotlib.pyplot as plt\nfrom prettytable import PrettyTable\nfrom random import randint\n\ndef network_viz(G, pos, with_labels=True):\n  node_sizes = [1000 for _ in G.nodes]\n  node_colors = {node: \"#{:06x}\".format(randint(0, 0xFFFFFF)) for node in G.nodes}\n  \n  nx.draw(G, pos, node_color=list(node_colors.values()), node_size=node_sizes, with_labels=with_labels)\n\ndef nx_measures(G):\n  diameter = nx.diameter(G)\n  avgcc = round(nx.average_clustering(G), 4)\n  apl = round(nx.average_shortest_path_length(G), 4)\n\n  table = PrettyTable(['Measurement', 'Value'], title=\"Network Measures\")\n  table.add_row(['Diameter', diameter])\n  table.add_row(['Average Clustering Coefficient', avgcc])\n  table.add_row(['Average Path Length', apl])\n\n  return table, [diameter, avgcc, apl]\n\ndef deg_dist(G, n, m):\n  degree_count = nx.degree_histogram(G)\n  degrees, counts = zip(*enumerate(degree_count))\n\n  plt.bar(degrees, counts, width=1.0, color='#4FBACC')\n  plt.title(f\"Degree Distribution of N={n}; m={m}\")\n  plt.xlabel(\"Degree\")\n  plt.ylabel(\"Frequency\")\n\ndef ba_graph_maker(N=10, m=1, show_table = False):\n  G = nx.barabasi_albert_graph(N, m)\n  pos = nx.circular_layout(G)\n\n  table, measures = nx_measures(G)\n  if show_table:\n    print(table, end=\"\\n\\n\")\n\n  return G, pos, table, f\"N={N}; m={m}\", measures\n\nmeasures = []\nmeasure_tables = []\ntitles = []\ngraphs = []\nNms = [[10, 1], [10, 2], [20, 1], [20, 2]]\ncols = len(Nms)\n\nplt.subplots(2, cols // 2, figsize=(12, 12))\n\nfor i, (n, m) in enumerate(Nms):\n  graph, pos, table, title, measure = ba_graph_maker(n, m)\n  measures.append(measure)\n  titles.append(title)\n  measure_tables.append(table)\n  graphs.append(graph)\n  \n  plt.subplot(2, cols // 2, i + 1)\n  network_viz(graph, pos)\n  plt.title(title)\n\nplt.suptitle(\"BA Preferential Attachment Model Networks w/ varying params.\")\nplt.show()\n\nplt.subplots(2, cols // 2, figsize=(12, 12))\nfor i, graph in enumerate(graphs):\n  plt.subplot(2, cols // 2, i + 1)\n  deg_dist(graph, Nms[i][0], Nms[i][1])\nplt.show()\n\n\nmega_table = PrettyTable(['Graph', 'All Measures'])\nfor i in range(len(measure_tables)):\n  mega_table.add_row([titles[i], measure_tables[i]])\n\nprint(mega_table)\n",
+      "comments": {},
+      "outputSrcs": [
+        "./OP_ss/Sem_VIII-SNA/Barabasi-Albert PAM/1.png",
+        "./OP_ss/Sem_VIII-SNA/Barabasi-Albert PAM/2.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff"
+      }
+    },
+    "Clique_Percolation": {
+      "lang": "py",
+      "codeString": "import matplotlib.pyplot as plt\nimport numpy as np\nfrom random import randint\nimport networkx as nx\nfrom prettytable import PrettyTable\nfrom itertools import combinations\n\ndef network_viz(G, title, base_size=750, font_size=18, layout='c'):\n  labels = {i: i for i in G.nodes()}\n  if layout == 'c':\n    pos = nx.circular_layout(G)\n  else:\n    pos = nx.planar_layout(G)\n\n  node_sizes = [base_size * (10 / len(G.nodes) * 1.5) for _ in G.nodes]\n  node_colors = [f\"#{randint(120, 255):02X}{randint(120, 255):02X}{randint(120, 255):02X}\" for _ in G.nodes]\n  \n  plt.figure(figsize=(10, 8))\n  plt.title(title)\n  nx.draw(G, pos, node_color=node_colors, node_size=node_sizes, width=2, edge_color='#171717')\n  nx.draw_networkx_labels(G, pos, labels, font_size=font_size, font_color=\"black\")\n  \n  plt.show()\n\ninput_ = {\n      1: [2, 3, 4],\n      2: [1, 3, 5, 6],\n      3: [1, 2, 4],\n      4: [1, 3],\n      5: [2, 6, 7, 8, 9],\n      6: [2, 5, 7, 8],\n      7: [5, 6, 8, 9, 10],\n      8: [5, 6, 7],\n      9: [5, 7],\n      10: [7]\n    }\n\nG = nx.from_dict_of_lists(input_, create_using=nx.Graph)\nnetwork_viz(G, \"Input Graph\")\n\ndef clique_percolation_cd(adj_li, k = 3):\n  \"\"\" \n    Assuming or taking \"k\" here as the number of nodes that are involved in a clique\n    for e.g, k=3 will start with detecting 1-cliques involving 3 nodes and then merge these cliques to form communities (k-cliques, where k is the maximal distance between nodes involved in the clique)\n  \"\"\"\n\n  one_k_cliques = [] #\n\n #\n  combos = list(combinations(adj_li.keys(), k))\n\n  for combo in combos:\n #\n    noofvalidedges = 0\n    candidate_edges = combinations(combo, 2)\n    for ce in candidate_edges:\n      if ce[0] in adj_li[ce[1]] and ce[1] in adj_li[ce[0]]:\n        noofvalidedges += 1\n    \n #\n    if noofvalidedges == k * (k - 1) // 2:\n      one_k_cliques.append(combo)\n\n #\n  clique_combos = list(combinations(one_k_cliques, 2))\n  communities = {}\n\n  for combo in clique_combos:\n    if len(set(combo[0]).intersection(combo[1])) == k - 1:\n      if combo[0] not in communities:\n        communities[combo[0]] = [combo[1]]\n      else:\n        communities[combo[0]].append(combo[1])\n  network_viz(nx.from_dict_of_lists(communities), \"Community Graph\", 1250, 10, 'p')\n\n #\n  table = PrettyTable(['Clique-Community', 'Nodes involved'])\n  for key, value in communities.items():\n      combined = set(key)\n      for v in value:\n          combined.update(v)\n      table.add_row([[f\"{key}:{value}\"], combined])\n\n  print(table)\nclique_percolation_cd(input_)\n",
+      "comments": {
+        "47": "means 1-cliques involving k nodes",
+        "49": "has all the combinations of k nodes for which we're deciding whether they form a clique or not",
+        "53": "valid edges means that only the edges between the nodes for whom we're checking for if they form a clique must be checked, not the other edges with other nodes",
+        "60": "a clique (complete subgraph) will always have n(n - 1) / 2 noofedges, where n is the number of vertices",
+        "64": "now forming the clique-community graph (the blue one in the materials)",
+        "76": "trying to get just the nodes belonging to a community (subset coalescing NOT performed)"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VIII-SNA/Clique_Percolation/1.png",
+        "./OP_ss/Sem_VIII-SNA/Clique_Percolation/2.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff"
+      }
+    },
+    "Random_Graph": {
+      "lang": "py",
+      "codeString": "import networkx as nx\nimport matplotlib.pyplot as plt\nfrom prettytable import PrettyTable\nfrom random import randint\n\ndef network_viz(G, pos, plot_title=\"Generated Network\", with_labels=True):\n  node_sizes = [1000 for _ in G.nodes]\n  node_colors = {node: \"#{:06x}\".format(randint(0, 0xFFFFFF)) for node in G.nodes}\n  \n  fig_size = min(10, (len(G.nodes) / 10) * 2) #\n\n  plt.figure(figsize=(fig_size, fig_size))\n  nx.draw(G, pos, node_color=list(node_colors.values()), node_size=node_sizes, with_labels=with_labels)\n  plt.title(plot_title)\n  plt.show()\n\ndef nx_measures(G):\n  diameter = nx.diameter(G)\n  avgcc = nx.average_clustering(G)\n  table = PrettyTable(['Measurement', 'Value'], title=\"Network Measures\")\n  table.add_row(['Diameter', diameter])\n  table.add_row(['Average Clustering Coefficient', round(avgcc, 4)])\n\n  return table\n\ndef deg_dist(G):\n  degree_sequence = sorted([(n,d) for n, d in G.degree()], reverse=True, key=lambda x: x[1])\n  table = PrettyTable(['Node', 'Degree'], title=\"per Node degrees\")\n  table.add_rows(degree_sequence)\n  print(table, end=\"\\n\\n\")\n\n  degree_count = nx.degree_histogram(G)\n  degrees, counts = zip(*enumerate(degree_count))\n\n  plt.bar(degrees, counts, width=1.0, color='#4FBACC')\n  plt.title(\"Degree Distribution\")\n  plt.xlabel(\"Degree\")\n  plt.ylabel(\"Frequency\")\n  plt.show()\n\ndef er_graph_maker(N=20, p=0.2):\n  G = nx.erdos_renyi_graph(N, p, seed=47) #\n  pos = nx.circular_layout(G)\n\n  network_viz(G, pos, f\"ER Random Network, N={N}; p={p}\")\n  print(nx_measures(G), end=\"\\n\\n\")\n  deg_dist(G)\n\ner_graph_maker()\n\n\nNs = [i for i in range(40, 70, 10)]\nfor N in Ns:\n  er_graph_maker(N, p=0.2)\n\nps = [round(i / 10, 1) for i in range(1, 10, 2)]\nfor p in ps:\n  er_graph_maker(N=20, p=p)\n",
+      "comments": {
+        "10": "Adjust as needed",
+        "42": "had to set a seed for graphs that are fully connected."
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/1.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/2.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/3.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/4.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/5.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/6.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/7.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/8.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/9.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/10.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/11.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/12.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/13.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/14.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/15.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/16.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/17.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/18.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff",
+        "7.png": "#ffffff",
+        "8.png": "#ffffff",
+        "9.png": "#ffffff",
+        "10.png": "#ffffff",
+        "11.png": "#ffffff",
+        "12.png": "#ffffff",
+        "13.png": "#ffffff",
+        "14.png": "#ffffff",
+        "15.png": "#ffffff",
+        "16.png": "#ffffff",
+        "17.png": "#ffffff",
+        "18.png": "#ffffff"
+      }
+    },
+    "Random_Surfer_PageRank": {
+      "lang": "py",
+      "codeString": "import networkx as nx\nimport matplotlib.pyplot as plt\nimport numpy as np\nfrom random import randint\nfrom prettytable import PrettyTable\nfrom math import floor\n\ncorr_alphas = {i: chr(i + 65) for i in range(26)}\n\ndef network_viz(G):\n  labels = {i: chr(i + 65) for i in range(len(G.nodes()))}\n  pos = nx.circular_layout(G)\n  node_sizes = [500 * (10 / len(G.nodes) * 1.5) for _ in G.nodes]\n  node_colors = [f\"#{randint(120, 255):02X}{randint(120, 255):02X}{randint(120, 255):02X}\" for _ in G.nodes]\n  \n  plt.figure(figsize=(6, 6))\n  plt.title(\"Input Graph\")\n  nx.draw(G, pos, node_color=node_colors, node_size=node_sizes, width=2, arrowsize=25, edge_color='#ef0fa2')\n  nx.draw_networkx_labels(G, pos, labels, font_size=18, font_color=\"black\")\n  \n  plt.show()\n\ndef rank_printer(ranks):\n  rank_table = PrettyTable(['Node', 'Rank Score'])\n  for i, x in enumerate(ranks):\n    rank_table.add_row([corr_alphas[i], x])\n\n  print(\"\\nRank Table:\")\n  print(rank_table)\n  print(\"\\nHighest ranking node from the graph: \\033[1m\\033[38;5;227mNode\", corr_alphas[ranks.index(max(ranks))],\"\\033[0m\")\n\ndef lower_round(number, precision):\n    factor = 10 ** precision\n    rounded_number = floor(number * factor) / factor\n    return rounded_number\n\n #\ninput_ = [\n          [0, 1, 1], \n          [0, 0, 1], \n          [1, 0, 0]\n        ]\n\n #\nnp_input = np.array(input_)\n\nG = nx.from_numpy_array(np_input, create_using=nx.DiGraph)\nnetwork_viz(G)\n\ndef random_surfer_pgrk(adj_mx, \u00df = 0.85, noofiters = 3):\n  ranks = [1 for _ in adj_mx]\n\n  for o in range(noofiters):\n    print(\"Iteration:\",o)\n\n    for ri in range(len(ranks)):\n      ranks[ri] = lower_round((1 - \u00df) + \u00df * (sum([ranks[i] / sum(adj_mx[i]) for i in range(len(adj_mx)) if adj_mx[i][ri] == 1])), 5)\n  \n    rank_printer(ranks)\n\nrandom_surfer_pgrk(input_)\n",
+      "comments": {
+        "37": "Class example matrix for easy cross-verification",
+        "44": "! rows are \"from\" and cols are \"to\""
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VIII-SNA/Random_Surfer_PageRank/1.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff"
+      }
+    },
+    "Watts-Strogatz RAM": {
+      "lang": "py",
+      "codeString": "import networkx as nx\nimport matplotlib.pyplot as plt\nfrom prettytable import PrettyTable\nfrom random import randint\n\ndef network_viz(G, pos, with_labels=True):\n  node_sizes = [1000 * (10 / len(G.nodes) * 1.5) for _ in G.nodes]\n  node_colors = [f\"#{randint(120, 255):02X}{randint(120, 255):02X}{randint(120, 255):02X}\" for _ in G.nodes]\n  nx.draw(G, pos, node_color=node_colors, node_size=node_sizes, with_labels=with_labels)\n\ndef nx_measures(G):\n  diameter = nx.diameter(G)\n  avgcc = round(nx.average_clustering(G), 4)\n  apl = round(nx.average_shortest_path_length(G), 4)\n\n  table = PrettyTable(['Measurement', 'Value'], title=\"Network Measures\")\n  table.add_row(['Diameter', diameter])\n  table.add_row(['Average Clustering Coefficient', avgcc])\n  table.add_row(['Average Path Length', apl])\n\n  return table, [diameter, avgcc, apl]\n\ndef deg_dist(G, **kwargs):\n  degree_count = nx.degree_histogram(G)\n  degrees, counts = zip(*enumerate(degree_count))\n  plt.bar(degrees, counts, width=1.0, color='#4FBACC')\n\n  dynamic = \"\"\n  for k, v in kwargs.items():\n    dynamic += f\"{k} = {v}; \"\n    \n  plt.title(f\"Degree Distribution of \" + dynamic)\n  plt.xlabel(\"Degree\")\n  plt.ylabel(\"Frequency\")\n\ndef ws_graph_maker(N=10, k=4, p=0.2, show_table = False):\n  G = nx.watts_strogatz_graph(N, k, p)\n  pos = nx.circular_layout(G)\n\n  table, measures = nx_measures(G)\n  if show_table:\n    print(table, end=\"\\n\\n\")\n\n  return G, pos, table, f\"N={N}; k={k}; p={p}\", measures\n\nimport math\n\nmeasures = []\nmeasure_tables = []\ntitles = []\ngraphs = []\nNkps = [[12, 4, 0], [12, 4, 1], [12, 4, 0.5], [20, 4, 0.5], [30, 4, 0.5], [40, 4, 0.5]]\ncols = math.ceil(len(Nkps) / 2)\n\nplt.subplots(2, cols, figsize=(17, 12))\n\nfor i, (n, k, p) in enumerate(Nkps):\n  graph, pos, table, title, measure = ws_graph_maker(n, k, p)\n  measures.append(measure)\n  titles.append(title)\n  measure_tables.append(table)\n  graphs.append(graph)\n  \n  plt.subplot(2, cols, i + 1)\n  network_viz(graph, pos)\n  plt.title(title)\n\nplt.suptitle(\"Watts-Strogatz Ring Lattice Network Models w/ varying params.\")\nplt.show()\n\nplt.subplots(2, cols, figsize=(17, 12))\nfor i, graph in enumerate(graphs):\n  plt.subplot(2, cols, i + 1)\n  deg_dist(graph, N=Nkps[i][0], k=Nkps[i][1], p=Nkps[i][2])\nplt.show()\n\nmega_table = PrettyTable(['Graph', 'All Measures'])\nfor i in range(len(measure_tables)):\n  mega_table.add_row([titles[i], measure_tables[i]])\n\nprint(mega_table)\n\ndef er_graph_maker(N=20, p=0.2, show_table=False):\n  G = nx.erdos_renyi_graph(N, p, seed=47) #\n  pos = nx.circular_layout(G)\n\n  table, measures = nx_measures(G)\n  if show_table:\n    print(table, end=\"\\n\\n\")\n\n  return G, pos, table, f\"N={N}; p={p}\", measures\n\ndef ba_graph_maker(N=10, m=1, m0=3, show_table = False):\n  assert N >= m0\n  G0 = nx.complete_graph(m0) #\n  G = nx.barabasi_albert_graph(N, m, initial_graph=G0) \n  pos = nx.circular_layout(G)\n\n  table, measures = nx_measures(G)\n  if show_table:\n    print(table, end=\"\\n\\n\")\n\n  return G, pos, table, f\"N={N}; m={m}\", measures\n\nN = 20 #\ner_p = 0.45 #\nba_m = 2 #\nws_k, ws_p = 4, 0.45 # degree of every node in the ring network and the probability of rewiring\n\ner_G, er_pos, er_table, er_title, er_measures = er_graph_maker(N, er_p)\nba_G, ba_pos, ba_table, ba_title, ba_measures = ba_graph_maker(N, ba_m)\nws_G, ws_pos, ws_table, ws_title, ws_measures = ws_graph_maker(N, ws_k, ws_p)\n\nplt.subplots(2, 3, figsize=(17, 12))\n\nplt.subplot(2, 3, 1)\nnetwork_viz(er_G, er_pos)\nplt.title(er_title)\nplt.subplot(2, 3, 2)\nnetwork_viz(ba_G, ba_pos)\nplt.title(ba_title)\nplt.subplot(2, 3, 3)\nnetwork_viz(ws_G, ws_pos)\nplt.title(ws_title)\n\nplt.subplot(2, 3, 4)\ndeg_dist(er_G, N=N, p=er_p)\nplt.subplot(2, 3, 5)\ndeg_dist(ba_G, N=N, m=ba_m)\nplt.subplot(2, 3, 6)\ndeg_dist(ws_G, N=N, k=ws_k, p=ws_p)\n\nplt.show()\n\ngiga_table = PrettyTable(['Model', 'Measures'], title='Model performances')\ngiga_table.add_row(['ER Model ' + er_title, er_table])\ngiga_table.add_row(['BA Model ' + ba_title, ba_table])\ngiga_table.add_row(['WS Model ' + ws_title, ws_table])\nprint(giga_table)\n",
+      "comments": {
+        "84": "had to set a seed for graphs that are fully connected.",
+        "95": "initial fully connected graph",
+        "105": "keeping the number of nodes to be generated constant across all three graphs",
+        "106": "a decently high prob. for ER network's binomial dist. approach",
+        "107": "number of edges each new node has to form per iteration in BA PAM graph"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/1.png",
+        "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/2.png",
+        "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/3.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff"
+      }
+    }
   }
 }

@@ -16,6 +16,7 @@ export interface ObjCodebase {
   "Sem_IV-DAOA": ObjCodebaseItem;
   "Sem_IV-SF": ObjCodebaseItem;
   "Sem_V-IS": ObjCodebaseItem;
+  "Sem_VIII-SNA": ObjCodebaseItem;
 }
 
 export type subject = keyof ObjCodebase;
