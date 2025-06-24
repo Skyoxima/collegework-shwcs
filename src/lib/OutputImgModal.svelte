@@ -13,7 +13,7 @@
 </script>
 
 <dialog
-  class="absolute top-1/2 left-1/2 -translate-1/2 bg-transparent overflow-visible"
+  class="absolute w-[60vw] h-[90vh] top-1/2 left-1/2 -translate-1/2 bg-transparent overflow-visible"
   bind:this={dialogRef}
   onclose={() => {
     currentImage.src = "";
@@ -21,10 +21,10 @@
 >
   <div
     id="dialog-content"
-    class="p-2 lg:p-8 rounded-xl lg:rounded-3xl overflow-hidden"
+    class="relative w-full h-full p-2 lg:p-8 rounded-xl lg:rounded-3xl overflow-hidden"
     style={`background: ${currentProject.projectBody.bgColors[processAlt(currentImage.src)]}`}
   >
-    <img src={currentImage.src} alt="ModalView" title="ModalView" class="object-cover" />
+    <img src={currentImage.src} alt="ModalView" title="ModalView" class="w-full h-full object-contain" />
   </div>
   <div class="absolute -top-4 -right-4 lg:-right-8 size-4 lg:size-8 rounded-full bg-kwdr-fg items-start">
     <ModalClose {dialogRef} addnClass="size-3 lg:size-6 top-1/2 left-1/2 -translate-1/2" />

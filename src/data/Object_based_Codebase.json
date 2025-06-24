@@ -669,12 +669,15 @@
       "comments": {},
       "outputSrcs": [
         "./OP_ss/Sem_VIII-SNA/Barabasi-Albert PAM/1.png",
-        "./OP_ss/Sem_VIII-SNA/Barabasi-Albert PAM/2.png"
+        "./OP_ss/Sem_VIII-SNA/Barabasi-Albert PAM/2.png",
+        "./OP_ss/Sem_VIII-SNA/Barabasi-Albert PAM/3.png"
       ],
       "bgColors": {
         "1.png": "#ffffff",
-        "2.png": "#ffffff"
-      }
+        "2.png": "#ffffff",
+        "3.png": "#111111"
+      },
+      "markdown": []
     },
     "Clique_Percolation": {
       "lang": "py",
@@ -689,12 +692,15 @@
       },
       "outputSrcs": [
         "./OP_ss/Sem_VIII-SNA/Clique_Percolation/1.png",
-        "./OP_ss/Sem_VIII-SNA/Clique_Percolation/2.png"
+        "./OP_ss/Sem_VIII-SNA/Clique_Percolation/2.png",
+        "./OP_ss/Sem_VIII-SNA/Clique_Percolation/3.png"
       ],
       "bgColors": {
         "1.png": "#ffffff",
-        "2.png": "#ffffff"
-      }
+        "2.png": "#ffffff",
+        "3.png": "#111111"
+      },
+      "markdown": []
     },
     "Random_Graph": {
       "lang": "py",
@@ -721,28 +727,47 @@
         "./OP_ss/Sem_VIII-SNA/Random_Graph/15.png",
         "./OP_ss/Sem_VIII-SNA/Random_Graph/16.png",
         "./OP_ss/Sem_VIII-SNA/Random_Graph/17.png",
-        "./OP_ss/Sem_VIII-SNA/Random_Graph/18.png"
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/18.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/19.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/20.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/21.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/22.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/23.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/24.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/25.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/26.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Graph/27.png"
       ],
       "bgColors": {
         "1.png": "#ffffff",
-        "2.png": "#ffffff",
+        "2.png": "#111111",
         "3.png": "#ffffff",
         "4.png": "#ffffff",
-        "5.png": "#ffffff",
+        "5.png": "#111111",
         "6.png": "#ffffff",
         "7.png": "#ffffff",
-        "8.png": "#ffffff",
+        "8.png": "#111111",
         "9.png": "#ffffff",
         "10.png": "#ffffff",
-        "11.png": "#ffffff",
+        "11.png": "#111111",
         "12.png": "#ffffff",
         "13.png": "#ffffff",
-        "14.png": "#ffffff",
+        "14.png": "#111111",
         "15.png": "#ffffff",
         "16.png": "#ffffff",
-        "17.png": "#ffffff",
-        "18.png": "#ffffff"
-      }
+        "17.png": "#111111",
+        "18.png": "#ffffff",
+        "19.png": "#ffffff",
+        "20.png": "#111111",
+        "21.png": "#ffffff",
+        "22.png": "#ffffff",
+        "23.png": "#111111",
+        "24.png": "#ffffff",
+        "25.png": "#ffffff",
+        "26.png": "#111111",
+        "27.png": "#ffffff"
+      },
+      "markdown": []
     },
     "Random_Surfer_PageRank": {
       "lang": "py",
@@ -752,11 +777,15 @@
         "44": "! rows are \"from\" and cols are \"to\""
       },
       "outputSrcs": [
-        "./OP_ss/Sem_VIII-SNA/Random_Surfer_PageRank/1.png"
+        "./OP_ss/Sem_VIII-SNA/Random_Surfer_PageRank/1.png",
+        "./OP_ss/Sem_VIII-SNA/Random_Surfer_PageRank/2.png"
       ],
       "bgColors": {
-        "1.png": "#ffffff"
-      }
+        "1.png": "#ffffff",
+        "2.png": "#181616",
+        "3.png": "#181616"
+      },
+      "markdown": []
     },
     "Watts-Strogatz RAM": {
       "lang": "py",
@@ -771,13 +800,18 @@
       "outputSrcs": [
         "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/1.png",
         "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/2.png",
-        "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/3.png"
+        "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/3.png",
+        "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/4.png",
+        "./OP_ss/Sem_VIII-SNA/Watts-Strogatz RAM/5.png"
       ],
       "bgColors": {
         "1.png": "#ffffff",
         "2.png": "#ffffff",
-        "3.png": "#ffffff"
-      }
+        "3.png": "#111111",
+        "4.png": "#ffffff",
+        "5.png": "#111111"
+      },
+      "markdown": []
     }
   }
 }

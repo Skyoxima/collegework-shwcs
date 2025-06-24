@@ -9,6 +9,8 @@
   <div class="relative w-full h-full p-2 flex flex-col gap-2.5 overflow-y-auto custom-scrollbar">
     {#each Object.entries(currentProject.projectBody.comments) as [lineNo, comment]}
       <Comment index={lineNo} {comment} />
+    {:else}
+      <div>No items...</div>
     {/each}
   </div>
 </article>

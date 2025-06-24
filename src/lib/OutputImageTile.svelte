@@ -7,7 +7,7 @@
 </script>
 
 <button 
-  class="w-fit p-2 rounded-2xl cursor-pointer"
+  class="w-fit max-h-2/1 p-2 rounded-2xl cursor-pointer"
   style={`background: ${currentProject.projectBody.bgColors[processAlt(src)]}`}
   onclick={() => {currentImage.src = src}}
   >
@@ -15,7 +15,7 @@
     {src} 
     alt={processAlt(src)} 
     title={processAlt(src)} 
-    class="" 
+    class="w-full h-full object-contain" 
   />
 </button>
 
