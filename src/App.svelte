@@ -4,6 +4,7 @@
   import LeftSheet from "./lib/LeftSheet.svelte";
   import About from "./lib/About.svelte";
   import OutputImgModal from "./lib/OutputImgModal.svelte";
+  import RightSheet from "./lib/RightSheet.svelte";
 
 </script>
 
@@ -13,4 +14,5 @@
   <MainLayout />
   <LeftSheet />
   <OutputImgModal />
+  <RightSheet />
 </main>

@@ -6,7 +6,7 @@ export interface ObjCodebaseItemBody {
   comments: { [key: string]: string } | {};
   outputSrcs: string[] | string;
   bgColors: { [key: string]: string };
-  markdown?: Object;
+  markdown?: string[];
 }
 
 export interface ObjCodebaseItem {

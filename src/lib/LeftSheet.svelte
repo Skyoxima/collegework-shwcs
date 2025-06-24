@@ -13,7 +13,6 @@
     "fixed top-0 w-[80%] md:w-[40%] h-[100lvh] transition-[left] duration-[500ms]",
     sheetMode ? "left-0" : "-left-8/10 md:-left-[40%]",
   ]}
-  
 >
   <div
     id="left-sheet"
@@ -41,7 +40,7 @@
   </div>
 
   <button
-    class="absolute top-1/2 -translate-y-1/2 left-full w-10 aspect-[2/3] bg-kwdr-fg--muted flex justify-center items-center rounded-r-full cursor-pointer"
+    class="absolute top-1/2 -translate-y-1/2 left-full w-10 aspect-[2/3] bg-kwdr-fg--muted flex justify-center items-center rounded-r-full border-r-2 border-kwdr-bg/50 cursor-pointer"
     onclick={() => {
       sheetMode = !sheetMode;
     }}

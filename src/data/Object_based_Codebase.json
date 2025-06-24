@@ -677,7 +677,10 @@
         "2.png": "#ffffff",
         "3.png": "#111111"
       },
-      "markdown": []
+      "markdown": [
+        "With an **increase** in **m** i.e the number of edges to be formed per node, we see an decrease in Diameter and Average Path Length all the while Average Clustering Coefficient increases.",
+        "With **increase** in **N**, we can see an increase in Diameter, ACC and APL, understandably due to more nodes to be covered when m is kept constant."
+      ]
     },
     "Clique_Percolation": {
       "lang": "py",
@@ -700,7 +703,10 @@
         "2.png": "#ffffff",
         "3.png": "#111111"
       },
-      "markdown": []
+      "markdown": [
+        "Above demonstration is of 1 iteration of Clique Percolation Community Detection, which uses 3cliques to form communities w/ (3  1 = 2) overlaps criterion.",
+        "The \"Nodes involved\" list can be further used to combine (3 + 1 = 4) cliques, this can be continued until only 2 communities (as seen in the graph above) are the only 2 sets remaining."
+      ]
     },
     "Random_Graph": {
       "lang": "py",
@@ -767,7 +773,12 @@
         "26.png": "#111111",
         "27.png": "#ffffff"
       },
-      "markdown": []
+      "markdown": [
+        "Parameters<br>N: Number of nodes in the graph<br>p: Probability of edge formation between nodes<br>",
+        "When changing (increasing) the number of nodes in a network, while not changing the probability of edges forming between any, we see that the Diameter and the Average Clustering Coefficient (ACC) do not change significantly.",
+        "Diameter does seems to slowly decrease, could be interpreted as new nodes providing shorter direct paths than the previous shorter paths.",
+        "While, if we change the probability for a constant number of nodes, Diameter of the network decreases and the ACC increases."
+      ]
     },
     "Random_Surfer_PageRank": {
       "lang": "py",

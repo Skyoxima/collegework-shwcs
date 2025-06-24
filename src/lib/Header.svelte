@@ -18,7 +18,7 @@
       <div class="w-6/10 flex justify-end items-center gap-4">
         <HeaderButton buttonID="info-icon" handler={modalSwitchClick} />
         <HeaderButton buttonID="logo-github" />
-        <div class="font-bold text-kwdr-fg">v1</div>
+        <div class="font-bold text-kwdr-fg">v2</div>
       </div>
     </div>
   </div>
