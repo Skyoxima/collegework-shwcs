@@ -9,7 +9,7 @@ export const CodebaseEntries = Object.entries(Codebase) as [
 ][];
 
 // const initSubject = subjects[0];
-const initSubject = subjects[3];
+const initSubject = subjects[5];
 const initProjectBody = Codebase[initSubject]["Random_Graph"];
 
 export let currentProject = $state({

@@ -662,6 +662,389 @@
       }
     }
   },
+  "Sem_VI-IPCV": {
+    "Basic_Operations": {
+      "lang": "py",
+      "codeString": "import cv2 as cv\nimport matplotlib.pyplot as plt\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\nprint(img[200][0])\nprint(img.shape)\n\ncv.imshow(\"Oxalis\", img)\ncv.waitKey(0)\ncv.destroyAllWindows()\n\n #\n\n #\nrgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)\nplt.imshow(rgb_img)\n\ngrayed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\ncv.imshow(\"Gray Oxalis\", grayed)\ncv.waitKey(0)\ncv.destroyAllWindows()\nplt.imshow(cv.cvtColor(grayed, cv.COLOR_BGR2RGB)) #\n\ncropped_img = img[img.shape[0] // 2:, img.shape[1] // 2:]\ncv.imshow(\"Cropped Oxalis\", cropped_img)\ncv.waitKey(0)\ncv.destroyAllWindows()\nprint(cropped_img.shape)\nplt.imshow(cv.cvtColor(cropped_img, cv.COLOR_BGR2RGB))\n\nimg2 = cv.imread(\"../Sample Images/Cat.jpg\")\nprint(img2.shape)\nadded_img = cv.add(img, img2)\ncv.imshow(\"Added Oxalis\", added_img)\ncv.waitKey(0)\ncv.destroyAllWindows()\n\nfig = plt.figure(figsize=(15, 7))\ncolumns = 3\nfig.add_subplot(1, columns, 1)\nplt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))\nplt.title(\"First Image\")\n\nfig.add_subplot(1, columns, 2)\nplt.imshow(cv.cvtColor(img2, cv.COLOR_BGR2RGB))\nplt.title(\"Second Image\")\n\nfig.add_subplot(1, columns, 3)\nplt.imshow(cv.cvtColor(added_img, cv.COLOR_BGR2RGB))\nplt.title(\"Added Image\")\n\nsubtracted_img_1 = cv.subtract(img, img2)\ncv.imshow(\"Subtracted (1-2) Oxalis\", subtracted_img_1)\ncv.waitKey(0)\ncv.destroyAllWindows()\nfig = plt.figure(figsize=(15, 7))\ncolumns = 3\nfig.add_subplot(1, columns, 1)\nplt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))\nplt.title(\"First Image\")\n\nfig.add_subplot(1, columns, 2)\nplt.imshow(cv.cvtColor(img2, cv.COLOR_BGR2RGB))\nplt.title(\"Second Image\")\n\nfig.add_subplot(1, columns, 3)\nplt.imshow(cv.cvtColor(subtracted_img_1, cv.COLOR_BGR2RGB))\nplt.title(\"Subtracted Image\")\n\nsubtracted_img_2 = cv.subtract(img2, img)\ncv.imshow(\"Subtracted (2-1) Oxalis\", subtracted_img_2)\ncv.waitKey(0)\ncv.destroyAllWindows()\nfig = plt.figure(figsize=(15, 7))\ncolumns = 3\nfig.add_subplot(1, columns, 1)\nplt.imshow(cv.cvtColor(img2, cv.COLOR_BGR2RGB))\nplt.title(\"First Image\")\n\nfig.add_subplot(1, columns, 2)\nplt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))\nplt.title(\"Second Image\")\n\nfig.add_subplot(1, columns, 3)\nplt.imshow(cv.cvtColor(subtracted_img_2, cv.COLOR_BGR2RGB))\nplt.title(\"Subtracted Image\")\n\nand_img = cv.bitwise_and(img, img2)\ncv.imshow(\"ANDed Oxalis\", and_img)\ncv.waitKey(0)\ncv.destroyAllWindows()\nfig = plt.figure(figsize=(15, 7))\ncolumns = 3\nfig.add_subplot(1, columns, 1)\nplt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))\nplt.title(\"First Image\")\n\nfig.add_subplot(1, columns, 2)\nplt.imshow(cv.cvtColor(img2, cv.COLOR_BGR2RGB))\nplt.title(\"Second Image\")\n\nfig.add_subplot(1, columns, 3)\nplt.imshow(cv.cvtColor(and_img, cv.COLOR_BGR2RGB))\nplt.title(\"ANDed Image\")\n\nor_img = cv.bitwise_or(img, img2)\ncv.imshow(\"ORed Oxalis\", or_img)\ncv.waitKey(0)\ncv.destroyAllWindows()\nfig = plt.figure(figsize=(15, 7))\ncolumns = 3\nfig.add_subplot(1, columns, 1)\nplt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))\nplt.title(\"First Image\")\n\nfig.add_subplot(1, columns, 2)\nplt.imshow(cv.cvtColor(img2, cv.COLOR_BGR2RGB))\nplt.title(\"Second Image\")\n\nfig.add_subplot(1, columns, 3)\nplt.imshow(cv.cvtColor(or_img, cv.COLOR_BGR2RGB))\nplt.title(\"ORed Image\")\n\nxor_img = cv.bitwise_xor(img, img2)\ncv.imshow(\"XORed Oxalis\", xor_img)\ncv.waitKey(0)\ncv.destroyAllWindows()\nfig = plt.figure(figsize=(15, 7))\ncolumns = 3\nfig.add_subplot(1, columns, 1)\nplt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))\nplt.title(\"First Image\")\n\nfig.add_subplot(1, columns, 2)\nplt.imshow(cv.cvtColor(img2, cv.COLOR_BGR2RGB))\nplt.title(\"Second Image\")\n\nfig.add_subplot(1, columns, 3)\nplt.imshow(cv.cvtColor(xor_img, cv.COLOR_BGR2RGB))\nplt.title(\"XORed Image\")\n\nnot_img = cv.bitwise_not(img)\ncv.imshow(\"NOT Oxalis\", not_img)\ncv.waitKey(0)\ncv.destroyAllWindows()\nplt.imshow(cv.cvtColor(not_img, cv.COLOR_BGR2RGB))\nplt.title(\"NOTed Oxalis\")\n\nnot_img = cv.bitwise_not(img2)\ncv.imshow(\"NOT Cat\", not_img)\ncv.waitKey(0)\ncv.destroyAllWindows()\nplt.imshow(cv.cvtColor(not_img, cv.COLOR_BGR2RGB))\nplt.title(\"NOTed Cat\")",
+      "comments": {
+        "12": " plt.imshow(img)    misconversion",
+        "14": " matplotlib takes in the array of 3 values (for a pixel) as RGB but cv2 forms those arrays of 3 vals while imreading as BGR so a conversion is needed",
+        "22": " so while using matplotlib, convert the BGR to RGB everytime"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/1.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/2.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/3.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/4.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/5.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/6.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/7.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/8.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/9.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/10.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/11.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/12.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/13.png",
+        "./OP_ss/Sem_VI-IPCV/Basic_Operations/14.png"
+      ],
+      "bgColors": {
+        "1.png": "#111111",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#111111",
+        "5.png": "#ffffff",
+        "6.png": "#111111",
+        "7.png": "#ffffff",
+        "8.png": "#ffffff",
+        "9.png": "#000000",
+        "10.png": "#000000",
+        "11.png": "#ffffff",
+        "12.png": "#ffffff",
+        "13.png": "#ffffff",
+        "14.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "Edge_Detection": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport cv2 as cv\nimport matplotlib.pyplot as plt\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\nimgg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nimgg = imgg[:1080, :1080]\nplt.title(\"Original GrayScale image\")\nplt.imshow(imgg, cmap=\"gray\")\nplt.show()\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(25, 40))\n  fig.set_dpi(150)\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\ndef convolute_image_33(img, mask):\n  mask = np.array(mask)\n  conv_img = [[0 for _ in range(img.shape[1])] for _ in range(img.shape[0])]\n  for x in range(1, img.shape[0] - 1):\n    for y in range(1, img.shape[1] - 1):\n      convoluted = img[x - 1: x + 2, y - 1: y + 2] * mask\n      val = sum(map(sum, convoluted))\n      if val > 0:\n        conv_img[x][y] = val if val <= 255 else 255\n      else:\n        conv_img[x][y] = 0\n  return np.array(conv_img)\n\nprewitts_x_mask = [[x - 1 for _ in range(3)] for x in range(3)]\nprint(\"Prewitts X-Gradient Mask\", end=\"\\n\")\nprint(*prewitts_x_mask, sep=\"\\n\")\nprewitts_y_mask = [[y - 1 for y in range(3)] for _ in range(3)]\nprint(\"\\nPrewitts Y-Gradient Mask\", end=\"\\n\")\nprint(*prewitts_y_mask, sep=\"\\n\")\n\nx_gradient_image = convolute_image_33(imgg, prewitts_x_mask)\ny_gradient_image = convolute_image_33(imgg, prewitts_y_mask)\nfinal_image = x_gradient_image + y_gradient_image\n\nmatplot_images(imgg, x_gradient_image, y_gradient_image, final_image, titles=[\"Original Grayscale Image\", \"X-image\", \"Y-image\", \"Image after Prewitts Filter\"])\n\nsobel_x_mask = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]]\nprint(\"Sobel X-Gradient Mask\", end= \"\\n\")\nprint(*sobel_x_mask, sep=\"\\n\")\nsobel_y_mask = np.array(sobel_x_mask).T.tolist() #\nprint(\"\\nSobel Y-Gradient Mask\", end= \"\\n\")\nprint(*sobel_y_mask, sep=\"\\n\")\n\nx_gradient_image = convolute_image_33(imgg, sobel_x_mask)\ny_gradient_image = convolute_image_33(imgg, sobel_y_mask)\n\nfinal_image = x_gradient_image + y_gradient_image\nmatplot_images(imgg, x_gradient_image, y_gradient_image, final_image, titles=[\"Original Grayscale Image\", \"X-image\", \"Y-image\", \"Image after Sobel Filter\"])",
+      "comments": {
+        "51": " transpose"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Edge_Detection/1.png",
+        "./OP_ss/Sem_VI-IPCV/Edge_Detection/2.png",
+        "./OP_ss/Sem_VI-IPCV/Edge_Detection/3.png",
+        "./OP_ss/Sem_VI-IPCV/Edge_Detection/4.png",
+        "./OP_ss/Sem_VI-IPCV/Edge_Detection/5.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#111111",
+        "3.png": "#ffffff",
+        "4.png": "#111111",
+        "5.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "FD_Gaussian_Filters": {
+      "lang": "py",
+      "codeString": "import cv2 as cv\nimport matplotlib.pyplot as plt\nimport numpy as np\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\nimgg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nplt.title(\"Original GrayScale image\")\nplt.imshow(imgg, cmap=\"gray\")\nplt.show()\n\n #\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(12, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\ndef freq_dom_gaussian_filter(img, filter_type='low', Do = 120):\n  noofrows, noofcols = img.shape\n\n #\n  dft_2d = np.fft.fft2(img)\n  \n #\n  shifted_2d_dft = np.fft.fftshift(dft_2d)\n  \n #\n  D_u_v = [[(np.sqrt((u - noofrows // 2) ** 2 + (v - noofcols // 2) ** 2)) for v in range(noofcols)] for u in range(noofrows)]\n  if filter_type == 'low': \n    H_u_v = [[np.e ** (-(D_u_v[u][v]) ** 2 / (Do ** 2)) for v in range(noofcols)] for u in range(noofrows)]\n  elif filter_type == 'high':\n    H_u_v = [[1 - (np.e ** (-(D_u_v[u][v]) ** 2 / (Do ** 2))) for v in range(noofcols)] for u in range(noofrows)]\n  else:\n    return\n    \n #\n  G_u_v = shifted_2d_dft * H_u_v\n  G_u_v = np.fft.ifftshift(G_u_v)\n\n #\n  reformed_img = np.real(np.fft.ifft2(G_u_v))\n  \n  return reformed_img\n\nglpf_filtered_img = freq_dom_gaussian_filter(imgg, 'low', 20)\n\nmatplot_images(imgg, glpf_filtered_img, titles=[\"Original Greyscale Image\", \"Gaussian LP image, Do = 20\"])\n\nglpf_filtered_img = freq_dom_gaussian_filter(imgg, 'low', 50)\n\nmatplot_images(imgg, glpf_filtered_img, titles=[\"Original Greyscale Image\", \"Gaussian LP image, Do = 50\"])\n\nglpf_filtered_img = freq_dom_gaussian_filter(imgg, 'low', 120)\n\nmatplot_images(imgg, glpf_filtered_img, titles=[\"Original Greyscale Image\", \"Gaussian LP image, Do = 120\"])\n\nghpf_filtered_img = freq_dom_gaussian_filter(imgg, 'high', 20)\n\nmatplot_images(imgg, ghpf_filtered_img, titles=[\"Original Greyscale Image\", \"Gaussian HP image, Do = 20\"])\n\nghpf_filtered_img = freq_dom_gaussian_filter(imgg, 'high', 50)\n\nmatplot_images(imgg, ghpf_filtered_img, titles=[\"Original Greyscale Image\", \"Gaussian HP image, Do = 50\"])\n\nghpf_filtered_img = freq_dom_gaussian_filter(imgg, 'high', 120)\n\nmatplot_images(imgg, ghpf_filtered_img, titles=[\"Original Greyscale Image\", \"Gaussian HP image, Do = 120\"])",
+      "comments": {
+        "11": " img.shape[0] is rows, img.shape[1] is columns",
+        "25": " 1. Getting the 2D Discrete Fourier Transform",
+        "28": " 2. Shifted 2D_DFT",
+        "31": " 3. Forming the Ideal Low (or High) Pass Filter",
+        "40": " 4. Multiplication and inverse shift",
+        "44": " 5. Inverse 2D Discrete Fourier Transform"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/FD_Gaussian_Filters/1.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Gaussian_Filters/2.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Gaussian_Filters/3.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Gaussian_Filters/4.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Gaussian_Filters/5.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Gaussian_Filters/6.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Gaussian_Filters/7.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff",
+        "7.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "FD_Ideal_Pass_Filters": {
+      "lang": "py",
+      "codeString": "import cv2 as cv\nimport matplotlib.pyplot as plt\nimport numpy as np\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\nimgg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nplt.title(\"Original GrayScale image\")\nplt.imshow(imgg, cmap=\"gray\")\nplt.show()\n\n #\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(12, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\ndef freq_dom_ideal_pass_filter(img, filter_type='low', Do = 120):\n  noofrows, noofcols = img.shape\n\n #\n  dft_2d = np.fft.fft2(img)\n  \n #\n  shifted_2d_dft = np.fft.fftshift(dft_2d)\n  \n #\n  D_u_v = [[(np.sqrt((u - noofrows // 2) ** 2 + (v - noofcols // 2) ** 2)) for v in range(noofcols)] for u in range(noofrows)]\n  if filter_type == 'low': \n    H_u_v = [[1 if d <= Do else 0 for d in row] for row in D_u_v]\n  elif filter_type == 'high':\n    H_u_v = [[0 if d < Do else 1 for d in row] for row in D_u_v]\n  else:\n    return\n    \n #\n  G_u_v = shifted_2d_dft * H_u_v\n  G_u_v = np.fft.ifftshift(G_u_v)\n\n #\n  reformed_img = np.real(np.fft.ifft2(G_u_v))\n  \n  return reformed_img\n\nilpf_filtered_img = freq_dom_ideal_pass_filter(imgg, 'low', 20)\n\nmatplot_images(imgg, ilpf_filtered_img, titles=[\"Original Greyscale Image\", \"ILPF image, Do = 20\"])\n\nilpf_filtered_img = freq_dom_ideal_pass_filter(imgg, 'low', 50)\n\nmatplot_images(imgg, ilpf_filtered_img, titles=[\"Original Greyscale Image\", \"ILPF image, Do = 50\"])\n\nilpf_filtered_img = freq_dom_ideal_pass_filter(imgg, 'low', 120)\n\nmatplot_images(imgg, ilpf_filtered_img, titles=[\"Original Greyscale Image\", \"ILPF image, Do = 120\"])\n\nihpf_filtered_img = freq_dom_ideal_pass_filter(imgg, 'high', 20)\n\nmatplot_images(imgg, ihpf_filtered_img, titles=[\"Original Greyscale Image\", \"IHPF image, Do = 20\"])\n\nihpf_filtered_img = freq_dom_ideal_pass_filter(imgg, 'high', 50)\n\nmatplot_images(imgg, ihpf_filtered_img, titles=[\"Original Greyscale Image\", \"IHPF image, Do = 50\"])\n\nihpf_filtered_img = freq_dom_ideal_pass_filter(imgg, 'high', 120)\n\nmatplot_images(imgg, ihpf_filtered_img, titles=[\"Original Greyscale Image\", \"IHPF image, Do = 120\"])",
+      "comments": {
+        "11": " img.shape[0] is rows, img.shape[1] is columns",
+        "25": " 1. Getting the 2D Discrete Fourier Transform",
+        "28": " 2. Shifted 2D_DFT",
+        "31": " 3. Forming the Ideal Low (or High) Pass Filter",
+        "40": " 4. Multiplication and inverse shift",
+        "44": " 5. Inverse 2D Discrete Fourier Transform"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/FD_Ideal_Pass_Filters/1.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Ideal_Pass_Filters/2.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Ideal_Pass_Filters/3.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Ideal_Pass_Filters/4.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Ideal_Pass_Filters/5.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Ideal_Pass_Filters/6.png",
+        "./OP_ss/Sem_VI-IPCV/FD_Ideal_Pass_Filters/7.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff",
+        "7.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "Histogram_Equalization": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport cv2 as cv\nimport matplotlib.pyplot as plt\n\nimg = cv.imread(\"./Periwinkle.jpg\")\nimgg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nimgg = imgg[:1080, :1080]\nplt.title(\"Original GrayScale image\")\nplt.imshow(imgg, cmap=\"gray\")\nplt.show()\n\nimgg2 = np.array([[1, 1, 3, 6, 4, 3, 1], [5, 6, 3, 4, 5, 5, 3], [3, 4, 3, 2, 4, 3, 5], [5, 5, 4, 1, 3, 2, 3], [1, 3, 4, 5, 6, 5, 4], [4, 6, 4, 1, 2, 2, 3], [2, 4, 6, 3, 2, 4, 5]])\nmax_px_val = 256 #\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(12, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\ndef return_frequency(img, max = 256):\n #\n #\n  frequency = {i: 0 for i in range(max)}\n  for x in range(img.shape[0]):\n    for y in range(img.shape[1]):\n      frequency[img[x][y]] += 1\n      \n  return frequency\n\nfreq = return_frequency(imgg, max_px_val)\nplt.figure(figsize=(15, 7))\nplt.bar(list(freq.keys()), list(freq.values()))\nplt.show()\n\ndef histogram_equalization(img, max = 256):  \n #\n  freqs = return_frequency(img, max)\n\n #\n  calcs = { \"n\": [i for i in range(max)], \n            \"nk\": [v for k, v in freqs.items()], \n            \"pdf\": [0 for _ in range(max)], \n            \"cdf\": [0 for _ in range(max)],\n            \"(L-1) * cdf\": [max - 1 for _ in range(max)], \n            \"rounding\": [0 for _ in range(max)] }\n  \n  for i in range(len(calcs[\"nk\"])):\n #\n    calcs[\"pdf\"][i] = calcs[\"nk\"][i] / sum(calcs[\"nk\"])\n    \n #\n    if i > 0:\n      calcs[\"cdf\"][i] = calcs[\"cdf\"][i - 1] + calcs[\"pdf\"][i]\n    else:\n      calcs[\"cdf\"][i] = calcs[\"pdf\"][i]\n    \n #\n    calcs[\"(L-1) * cdf\"][i] = calcs[\"(L-1) * cdf\"][i] * calcs[\"cdf\"][i]\n #\n    calcs[\"rounding\"][i] = round(calcs[\"(L-1) * cdf\"][i])\n  \n #\n  equalized_img = [[0 for _ in range(img.shape[1])] for _ in range(img.shape[0])]\n  for i in range(img.shape[0]):\n    for j in range(img.shape[1]):\n      equalized_img[i][j] = calcs[\"rounding\"][img[i][j]]\n\n  return np.array(equalized_img)\n\nequalized = histogram_equalization(imgg, max_px_val)\n\nmatplot_images(imgg, equalized, titles=[\"Original GrayScale Image\", \"Image after Histogram Equalization\"])\n\nfreq = return_frequency(equalized, max_px_val)\nplt.figure(figsize=(15, 7))\nplt.bar(list(freq.keys()), list(freq.values()))\nplt.show()\n\nfreq = return_frequency(imgg2, 8)\nplt.figure(figsize=(15, 7))\nplt.bar(list(freq.keys()), list(freq.values()))\nplt.show()\n\nequalized = histogram_equalization(imgg2, 8)\nprint(equalized)\n\nmatplot_images(imgg2, equalized, titles=[\"Original GrayScale Image\", \"Image after Histogram Equalization\"])\n\nfreq = return_frequency(equalized, 8)\nplt.figure(figsize=(15, 7))\nplt.bar(list(freq.keys()), list(freq.values()))\nplt.show()",
+      "comments": {
+        "13": " should be in the order of 2  n",
+        "25": " this time, initiate frequency for all pixels as 0 first, last time this only had existing gray levels with their corr. freq.",
+        "26": " but this time the non-existing ones are also there with freq. 0",
+        "40": " getting nk",
+        "43": " the main calculations table, a dictionary with keys as the column labels and values as lists, i.e the columns with initial values",
+        "52": " pdf",
+        "55": " cdf",
+        "61": " (L - 1)  CDF",
+        "63": " Rounding",
+        "66": " Forming the new image"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/1.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/2.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/3.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/4.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/5.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/6.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/7.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Equalization/8.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#111111",
+        "7.png": "#ffffff",
+        "8.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "Histogram_Stretching": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport cv2 as cv\nimport matplotlib.pyplot as plt\n\nimg = cv.imread(\"./Low Contrast.jpg\")\nimgg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nimgg = imgg[:1080, :1080]\nplt.title(\"Original GrayScale image\")\nplt.imshow(imgg, cmap=\"gray\")\nplt.show()\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(12, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\ndef show_hist(img):\n  count = {}\n  for x in range(img.shape[0]):\n    for y in range(img.shape[1]):\n      if (p := img[x][y]) in count.keys():\n        count[p] += 1\n      else:\n        count.update({p : 1})\n  plt.figure(figsize=(15, 7))\n  plt.bar(list(count.keys()), list(count.values()))\n  plt.show()\n\nshow_hist(imgg)\nrmax, rmin = max(map(max, imgg)), min(map(min, imgg))\nprint(f\"Maximum Pixel Value in Input: {rmax} Minimum Pixel Value in Input: {rmin}\")\n\ndef histogram_stretching(img, smax, smin, rmax, rmin):\n  stretched_img = [[0 for _ in range(img.shape[1])] for _ in range(img.shape[0])]\n  for x in range(img.shape[0]):\n    for y in range(img.shape[1]):\n      stretched_img[x][y] = int((((smax - smin) / (rmax - rmin)) * (img[x][y] - rmin)) + smin)\n      \n  return np.array(stretched_img)\n\nstretched = histogram_stretching(imgg, 255, 0, rmax, rmin)\nshow_hist(stretched)\nmatplot_images(imgg, stretched, titles=[\"Original GrayScale Image\", \"Image after Histogram Stretching\"])\n\nsmax, smin = max(map(max, stretched)), min(map(min, stretched))\nprint(f\"Minimum Pixel Value in Input: {rmin} Maximum Pixel Value in Input: {rmax}\")\nprint(f\"Minimum Pixel Value in Output: {smin} Maximum Pixel Value in Output: {smax}\")",
+      "comments": {},
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Histogram_Stretching/1.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Stretching/2.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Stretching/3.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Stretching/4.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Stretching/5.png",
+        "./OP_ss/Sem_VI-IPCV/Histogram_Stretching/6.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#111111",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#111111"
+      },
+      "markdown": []
+    },
+    "Image_Enhancement-1": {
+      "lang": "py",
+      "codeString": "import cv2 as cv\nimport matplotlib.pyplot as plt\nimport numpy as np\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\n #\nimg_grayed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\n #\nplt.imshow(img_grayed, cmap=\"gray\")\n #\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(15, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n\ndef digital_negative(og_grayscale, show_plot: bool = False):\n  neg = [[255 - y for y in x] for x in og_grayscale]\n  if show_plot:\n    matplot_images(og_grayscale, neg, titles=[\"Original Grayscale Image\", \"Digitally Negative Grayscale Image\"])\n\ndigital_negative(img_grayed, True)\n\ndef thresholder(og_gs, th = 30, show_plot: bool = False):\n  thresholded = [[0 if y < th else 255 for y in x]for x in og_gs]\n  if show_plot:\n    matplot_images(og_gs, thresholded, titles=[\"Original Grayscale Image\", \"Thresholded Grayscale Image\"])\nthresholder(img_grayed, 128, True)\n\ndef gray_level_slicing(og_gs, lb, ub, show_plot: bool = False):\n  gl_sliced_no_bg = [[255 if lb <= y < ub  else 0 for y in x] for x in og_gs]\n  gl_sliced_w_bg = [[255 if lb < y <= ub else y for y in x] for x in og_gs]\n  if show_plot:\n    matplot_images(og_gs, gl_sliced_no_bg, gl_sliced_w_bg, titles=[\"Original Grayscale Image\", \"Gray Level Sliced Image w/o Background\", \"Gray Level Sliced Image w/ Background\"])\ngray_level_slicing(img_grayed, 30, 60, True)",
+      "comments": {
+        "6": " print(\"Original image data (read using cv2 i.e BGR), 1st row, first 5 pixels\\n\", img[0][:5])",
+        "8": " print(\"Grayed image, 1st row, first 5 pixels\\n\", img_grayed[0][:5])",
+        "10": " cmap is important otherwise matplotlib is using green hues for the singular values we are getting after converting to grayscale"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-1/1.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-1/2.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-1/3.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-1/4.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#000000",
+        "4.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "Image_Enhancement-2": {
+      "lang": "py",
+      "codeString": "import cv2 as cv\nimport matplotlib.pyplot as plt\nimport numpy as np\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\nimg_grayed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nplt.title(\"Original GrayScale image\")\nplt.imshow(img_grayed, cmap=\"gray\")\nplt.show()\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(10, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\nimg2 = cv.imread(\"./Low Contrast.jpg\")\nimg2_grayed = cv.cvtColor(img2, cv.COLOR_BGR2GRAY)\n\ndef contrast_stretch(img, l, m, n, a, b, show_plots: bool = True):\n  contrast_stretched_img = []\n  v = l * a\n  w = m * (b - a) + v \n  for row in img:\n    new_row = []\n    for r in row:\n      if 0 < r <= a:\n        new_row.append(int(l * r))\n      elif a < r <= b:\n        new_row.append(int(m * (r - a) + v))\n      else:\n        new_row.append(int(n * (r - b) + w))\n    contrast_stretched_img.append(new_row)\n  \n  contrast_stretched_img = np.array(contrast_stretched_img)\n  if show_plots:\n    matplot_images(img, contrast_stretched_img, titles=[f\"Original Grayscale Image (Min: {img.min()}, Max: {img.max()})\", f\"Contrast Stretched Image (Min: {contrast_stretched_img.min()}, Max: {contrast_stretched_img.max()})\"])\n\ncontrast_stretch(img2_grayed, 0.2, 1.5, 0.6, 5, 80)\n\ncontrast_stretch(img2_grayed, 0.2, 0.5, 0.6, 5, 80)\n\ndef drc_log_tf(img, c: int | float = 10, show_plot:bool = True):\n #\n  log_tf_img = c * np.log(img + 1) \n  log_tf_img = np.array(log_tf_img, dtype = np.uint8)\n  if show_plot:\n    matplot_images(img, log_tf_img, titles=[f\"Original Grayscale Image (Min: {img.min()}, Max: {img.max()})\", f\"DyR Compressed Image (Min: {log_tf_img.min()}, Max: {log_tf_img.max()})\"])\n\ndrc_log_tf(img_grayed)\n\ndef power_law_tf(img, \u03b3 = 0.2, c = 1, show_plot:bool = True):\n #\n  pltf_img = np.array([[(c * (r / 255) ** \u03b3) for r in img[i]] for i in range(img.shape[0])])\n\n #\n  if show_plot:\n    matplot_images(img, pltf_img, titles=[f\"Original Grayscale Image (Min: {(img.min())}, Max: {img.max()})\", f\"Power Transformed Image (Min: {round(pltf_img.min(), 4)}, Max: {round(pltf_img.max(), 4)})\"])\n\npower_law_tf(img_grayed)\n\npower_law_tf(img_grayed, 1)\n\npower_law_tf(img_grayed, 10)",
+      "comments": {
+        "47": " log_tf_img = [[c  np.log(r  1) for r in row] for row in img]      data type error",
+        "56": " power_tf_img = np.array([[int(np.floor(c  (r  \u03b3))) % 255  for r in row] for row in img])",
+        "59": " power_tf_img = np.array([[int(np.floor(r  \u03b3))  for r in row] for row in img])"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-2/1.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-2/2.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-2/3.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-2/4.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-2/5.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-2/6.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-2/7.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff",
+        "7.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "Image_Enhancement-3": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport cv2 as cv\nimport matplotlib.pyplot as plt\nfrom copy import deepcopy\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\nimgg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nimgg = imgg[:1080, :1080]\nplt.title(\"Original GrayScale image\")\nplt.imshow(imgg, cmap=\"gray\")\nplt.show()\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(12, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\ngaussian = np.random.normal(10, 20, (imgg.shape[0], imgg.shape[1]))\nnoisy_imgg = np.array(imgg) + gaussian\nplt.title(\"Image + Gaussian Noise\")\nplt.imshow(noisy_imgg, cmap=\"gray\")\nplt.show()\n\ndef convolute_image(img, mask):\n  mask = np.array(mask)\n  conv_img = [[0 for _ in range(img.shape[1])] for _ in range(img.shape[0])]\n  for x in range(1, img.shape[0] - 1):\n    for y in range(1, img.shape[1] - 1):\n      convoluted = img[x - 1: x + 2, y - 1: y + 2] * mask\n      val = sum(map(sum, convoluted))\n      if val > 0:\n        conv_img[x][y] = val if val <= 255 else 255\n      else:\n        conv_img[x][y] = 0\n  return np.array(conv_img)\n\nmask = [[1/9 for _ in range(3)] for _ in range(3)] #\ndenoised = convolute_image(noisy_imgg, mask)\nmatplot_images(imgg, noisy_imgg, denoised, titles=[\"Original Grayscale Image\", \"Noisy Image\", \"De-noised Image\"])\n\nrandom_indices = []\nsp_noise_img = deepcopy(imgg)\nfor i in range(10000):\n  random_indices.append((np.random.randint(0, len(imgg)), np.random.randint(0, len(imgg[0]))))\nfor indices in random_indices:\n  sp_noise_img[indices[0]][indices[1]] = 255\n\nplt.title(\"Salt-Pepper Noise image\")\nplt.imshow(sp_noise_img, cmap=\"gray\")\nplt.show()\n\ndef median_filtering(img):\n  filtered_img = [[0 for _ in range(img.shape[1])] for _ in range(img.shape[0])]\n  for x in range(1, img.shape[0] - 1):\n    for y in range(1, img.shape[1] - 1):\n      filtered_img[x][y] = sorted([r for row in img[x - 1: x + 2, y - 1: y + 2] for r in row])[4] #\n  \n  return filtered_img\n\nfiltered_img = median_filtering(sp_noise_img)\nmatplot_images(imgg, sp_noise_img, filtered_img, titles=[\"Original Grayscale Image\", \"Salt-Pepper Noise Image\", \"Filtered Image\"])",
+      "comments": {
+        "41": " a 3 x 3 average filter",
+        "60": " choosing the center value after sorting the flattened slice"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-3/1.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-3/2.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-3/3.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-3/4.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-3/5.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "Image_Enhancement-4": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport cv2 as cv\nimport matplotlib.pyplot as plt\n\nimg = cv.imread(\"../Sample Images/Oxalis.jpg\")\nimgg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)\nimgg = imgg[:1080, :1080]\nplt.title(\"Original GrayScale image\")\nplt.imshow(imgg, cmap=\"gray\")\nplt.show()\n\ndef matplot_images(*imgs, titles):\n  fig = plt.figure(figsize=(12, 7))\n  columns = len(imgs)\n  for i in range(columns):\n    fig.add_subplot(1, columns, i + 1)\n    plt.imshow(imgs[i], cmap=\"gray\")\n    plt.title(titles[i])\n  plt.show()\n\ndef convolute_image(img, mask):\n  mask = np.array(mask)\n  conv_img = [[0 for _ in range(img.shape[1])] for _ in range(img.shape[0])]\n  for x in range(1, img.shape[0] - 1):\n    for y in range(1, img.shape[1] - 1):\n      convoluted = img[x - 1: x + 2, y - 1: y + 2] * mask\n      val = sum(map(sum, convoluted))\n      if val > 0:\n        conv_img[x][y] = val if val <= 255 else 255\n      else:\n        conv_img[x][y] = 0\n  return np.array(conv_img)\n\nmask = [[8 if j == 1 and i == 1 else -1 for j in range(3)] for i in range(3)] #\nprint(mask)\nhpf_img = convolute_image(imgg, mask)\nmatplot_images(imgg, hpf_img, titles=[\"Original Grayscale Image\", \"Image after High-Pass Filter Convolution\"])\n\nA = 1.1\nX = 9 * A - 1\nmask = [[X if j == 1 and i == 1 else -1 for j in range(3)] for i in range(3)] #\nprint(mask)\nhbf_img = convolute_image(imgg, mask)\nmatplot_images(imgg, hbf_img, titles=[\"Original Grayscale Image\", \"Image after High Boost Filter Convolution\"])",
+      "comments": {
+        "34": " a 3 x 3 high pass filter",
+        "41": " a 3 x 3 high boost filter"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-4/1.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-4/2.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-4/3.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-4/4.png",
+        "./OP_ss/Sem_VI-IPCV/Image_Enhancement-4/5.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#111111",
+        "3.png": "#ffffff",
+        "4.png": "#111111",
+        "5.png": "#ffffff"
+      },
+      "markdown": []
+    }
+  },
+  "Sem_VI-RL": {
+    "Exploration_Exploitation": {
+      "lang": "py",
+      "codeString": "import random\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef select_action(Q, bounds, \u03b5):\n  lb, ub = bounds[0], bounds[1]\n  n = np.random.random() #\n  return (random.randint(lb, ub), 0) if n < \u03b5 else (np.argmax(Q), 1) #\n\ndef update_arm_estimation(chosen_arm_no, Q, R, \u03b1 = 0.1):\n  CAN = chosen_arm_no\n  Q[CAN] += \u03b1 * (R[CAN] - Q[CAN])\n\ndef bandit_problem(arms_rewards, \u03b5, noofepochs = 100):\n  bounds = (0, len(arms_rewards) - 1) #\n  arms_est_rewards = [0 for _ in range(len(arms_rewards))] #\n  arm_choice_freq = [0 for _ in range(len(arms_rewards))] #\n  history = []\n\n  for _ in range(noofepochs):\n    arm_chosen, TOC = select_action(arms_est_rewards, bounds, \u03b5) #\n    arm_choice_freq[arm_chosen] += 1\n    history.append([\"Explore\" if TOC == 0 else \"Exploit\", f\"A{arm_chosen}\", arms_est_rewards[arm_chosen], arms_rewards[arm_chosen]])\n    update_arm_estimation(arm_chosen, arms_est_rewards, arms_rewards)\n    \n  return history, arm_choice_freq\n\n #\narm_rewards = [0.2, 0.5]\n\nhist, freq = bandit_problem(arm_rewards, 0.5)\nprint(*hist, sep=\"\\n\")\nfor i in range(len(freq)):\n    print(f\"Arm {i} was chosen {freq[i]} times.\")\n\nA0_returns = [x[2] for x in hist if x[1] == \"A0\"]\nA1_returns = [x[2] for x in hist if x[1] == \"A1\"]\n\nplt.figure(figsize=(15, 7))\nplt.title(\"Arm chosen v/s Expected Return (\u03b5 = 0.5)\")\nplt.plot(A0_returns, marker=\".\")\nplt.plot(A1_returns, marker=\".\")\nplt.legend([\"Arm 0\", \"Arm 1\"])\nplt.show()\n\nhist_p1, freq_p1 = bandit_problem(arm_rewards, 0.1)\nfor i in range(len(freq_p1)):\n    print(f\"Arm {i} was chosen {freq_p1[i]} times. (\u03b5 = 0.1)\")\n\nhist_p01, freq_p01 = bandit_problem(arm_rewards, 0.01)\nfor i in range(len(freq_p01)):\n    print(f\"Arm {i} was chosen {freq_p01[i]} times. (\u03b5 = 0.01)\")\n\nA0_returns_p1 = [x[2] for x in hist_p1 if x[1] == \"A0\"]\nA1_returns_p1 = [x[2] for x in hist_p1 if x[1] == \"A1\"]\n\nA0_returns_p01 = [x[2] for x in hist_p01 if x[1] == \"A0\"]\nA1_returns_p01 = [x[2] for x in hist_p01 if x[1] == \"A1\"]\n\nplt.figure(figsize=(15, 7))\nplt.title(\"Effect of \u03b5 on agent's learning\")\nplt.plot(A1_returns, marker=\".\")\nplt.plot(A0_returns_p1, marker=\"o\")\nplt.plot(A0_returns_p01, marker=\".\")\nplt.legend([\"Arm 1 (\u03b5 = 0.5)\", \"Arm 0 (\u03b5 = 0.1)\", \"Arm 0 (\u03b5 = 0.01)\"])\nplt.show()",
+      "comments": {
+        "7": " random number from 0 - 1 is returned",
+        "8": " based on n, either return randomly 0 or 1 or return index of highest Q",
+        "15": " indices of array of arms, for 2-arm, 0 and 1 (used in choosing arms)",
+        "16": " Qk -> Reward estimation for each arm",
+        "17": " K -> Frequency of arm chosen",
+        "21": " TOC -> Type of choice, explore(0) or exploit(1)",
+        "28": " real arm rewards"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-RL/Exploration_Exploitation/1.png",
+        "./OP_ss/Sem_VI-RL/Exploration_Exploitation/2.png",
+        "./OP_ss/Sem_VI-RL/Exploration_Exploitation/3.png",
+        "./OP_ss/Sem_VI-RL/Exploration_Exploitation/4.png",
+        "./OP_ss/Sem_VI-RL/Exploration_Exploitation/5.png"
+      ],
+      "bgColors": {
+        "1.png": "#111111",
+        "2.png": "#ffffff",
+        "3.png": "#111111",
+        "4.png": "#111111",
+        "5.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "Gamblers_Problem": {
+      "lang": "py",
+      "codeString": "import numpy as np\nfrom copy import deepcopy\nimport matplotlib.pyplot as plt\n\ndef value_iteration_gambler_problem(p_h = 0.4, \u0398 = 1e-10, \u03b3 = 1, max_capital = 100):\n  \n  V = [0 for _ in range(max_capital + 1)]\n  \u03c0 = [0 for _ in range(max_capital)]\n\n  rewards = [0 for _ in range(max_capital)]\n  rewards.append(1)\n\n  def vigp_bets(s, V, r):\n #\n #\n    possible_bets = [i for i in range(1, min(s, max_capital - s) + 1)] #\n    \n #\n    BCEPB = [0 for _ in range(len(possible_bets))]\n\n    for pb in possible_bets:\n      BCEPB[pb - 1] = p_h * (r[s + pb] + \u03b3 * V[s + pb]) + (1 - p_h) * (r[s - pb] + \u03b3 * V[s - pb]) #\n    return BCEPB\n\n #\n  while True:\n    \u03b4 = 0\n    for i in range(1, max_capital):\n      v = V[i]\n      V[i] = max(vigp_bets(i, V, rewards))\n      \u03b4 = max(\u03b4, abs(v - V[i]))\n    if \u03b4 < \u0398:\n      break\n\n #\n  for i in range(1, max_capital):\n    A = vigp_bets(i, V, rewards)\n    \u03c0[i] = np.argmax(A) + 1 #\n\n #\n  plt.figure(figsize=(30, 10))\n  x = range(max_capital)\n  y = V[:max_capital]\n  plt.plot(x, y)\n  plt.xticks([i for i in x])\n  plt.xlabel('Capital')\n  plt.ylabel('Value Estimates')\n  plt.title('Final Policy (action stake) vs State (Capital)')\n  plt.show()\n\n  y = \u03c0\n  plt.figure(figsize=(30, 10))\n  plt.bar(x, y, align = 'center', alpha = 0.5)\n  plt.xticks([i for i in x])\n  plt.yticks([i for i in range(max_capital // 2)])\n  plt.xlabel('Capital')\n  plt.ylabel('Final policy (stake)')\n  plt.title(f\"Capital vs Final Policy (ph = {p_h})\")\n  plt.show()\n\nvalue_iteration_gambler_problem()\n\nvalue_iteration_gambler_problem(0.25)\n\nvalue_iteration_gambler_problem(0.55)",
+      "comments": {
+        "14": " can bet --> <= what he currently holds in hand...",
+        "15": " until the bet makes the gambler win more than max_capital because the V array ranges till max_capital",
+        "16": " has 1 - s elements for s 1 to max_capital / 2, then has 1 - (100 - s) elements for s max_capital  1 to max_capital",
+        "18": " bcfepb -> bellman calculations for each possible bet",
+        "22": " -1 because pb always starts from 1",
+        "25": " this is using the singular V array,  similar to stochastic approach in DL",
+        "35": " policy formation, no need to have a policy for the max_capital (100)",
+        "38": " argmax can return 0 so 1 is needed",
+        "40": " displaying results"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-RL/Gamblers_Problem/1.png",
+        "./OP_ss/Sem_VI-RL/Gamblers_Problem/2.png",
+        "./OP_ss/Sem_VI-RL/Gamblers_Problem/3.png",
+        "./OP_ss/Sem_VI-RL/Gamblers_Problem/4.png",
+        "./OP_ss/Sem_VI-RL/Gamblers_Problem/5.png",
+        "./OP_ss/Sem_VI-RL/Gamblers_Problem/6.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff"
+      },
+      "markdown": []
+    },
+    "GridWorld": {
+      "lang": "py",
+      "codeString": "import numpy as np\nfrom copy import deepcopy\n\ndef all_possible_moves(V, i, j, size = 4):\n  if i == 0 and j == size - 1:\n    return ((V[i][j], \"\u2191\"), (V[i][j], \"\u2192\"), (V[i + 1][j], \"\u2193\"), (V[i][j - 1], \"\u2190\"))\n  \n  elif i == size - 1 and j == 0:\n    return ((V[i][j], \"\u2193\"), (V[i][j], \"\u2190\"), (V[i - 1][j], \"\u2191\"), (V[i][j + 1], \"\u2192\"))\n  \n  elif j == 0:\n    return ((V[i][j], \"\u2190\"),( V[i][j + 1], \"\u2192\"), (V[i - 1][j], \"\u2191\"), (V[i + 1][j], \"\u2193\"))\n  \n  elif j == size - 1:\n    return ((V[i][j], \"\u2192\"), (V[i][j - 1], \"\u2190\"), (V[i - 1][j], \"\u2191\"), (V[i + 1][j], \"\u2193\"))\n  \n  elif i == 0:\n    return ((V[i][j], \"\u2191\"), (V[i][j - 1], \"\u2190\"), (V[i][j + 1], \"\u2192\"), (V[i + 1][j], \"\u2193\"))\n  \n  elif i == size - 1:\n    return ((V[i][j], \"\u2193\"), (V[i][j - 1], \"\u2190\"), (V[i][j + 1], \"\u2192\"), (V[i - 1][j], \"\u2191\"))\n  \n  else:\n    return ((V[i - 1][j], \"\u2191\"), (V[i + 1][j], \"\u2193\"), (V[i][j + 1], \"\u2192\"), (V[i][j - 1], \"\u2190\"))\n\ndef policy_iteration_grid_world_problem(size = 4, \u0398 = 0.0001, r = -1, \u0393 = 1):\n  V = [[0 for _ in range(size)] for _ in range(size)]\n  \u03c0 = [[\"\u2191\u2192\u2193\u2190\" for _ in range(size)] for _ in range(size)]\n  \u03c0[0][0], \u03c0[size - 1][size - 1] = \"\", \"\"\n  epoch = 1\n\n #\n  while True:\n    \u03b4 = 99999\n #\n    eval_iter = 1\n    while \u03b4 > \u0398:\n      \u03b4 = 0\n      V_dash = deepcopy(V)\n      for i in range(size):\n        for j in range(size):\n          if (i, j) not in [(0, 0), (size - 1, size - 1)]:\n            v = V[i][j]\n            moves = [i[0] for i in all_possible_moves(V, i, j, size)]\n            possibility = 1 / len(moves)\n            new_v = sum([possibility * (r + \u0393 * x) for x in moves])\n            V_dash[i][j] = new_v\n            \u03b4 = max(\u03b4, abs(v - V_dash[i][j]))\n      V = deepcopy(V_dash)\n #\n      eval_iter += 1\n\n #\n    policy_stable = True\n    for i in range(size):\n      for j in range(size):\n        if (i, j) not in [(0, 0), (size - 1, size - 1)]:\n          action = \u03c0[i][j]\n          q_sa = list(all_possible_moves(V, i, j, size))\n          q_sa.sort(key=lambda x: x[0], reverse=True)\n          \u03c0[i][j] = q_sa[0][1]\n          if action != \u03c0[i][j]:\n            policy_stable = False\n  \n    if policy_stable:\n      break\n\n    epoch += 1\n    \n  print(\"Final (Optimum) Grid Values:\", *V, sep=\"\\n\")\n  print(\"\\nFinal (Optimal) Policy\", *\u03c0, sep=\"\\n\")\n\npolicy_iteration_grid_world_problem()",
+      "comments": {
+        "32": " Policy Iteration",
+        "35": " Policy Evaluation",
+        "50": " print(f\"Grid Values (iteration {eval_iter}):\", V, sep=\"\\n\", end='\\n\\n')",
+        "53": " Policy Improvement"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-RL/GridWorld/1.png"
+      ],
+      "bgColors": {
+        "1.png": "#111111"
+      },
+      "markdown": []
+    },
+    "UCB_Algorithm": {
+      "lang": "py",
+      "codeString": "import random\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom prettytable import PrettyTable\n\ndef select_action(Q, c, ps, t): #\n  UCB_vals = [Q[i] + c * ((np.log(t) / ps[i]) ** 0.5) for i in range(len(Q))]  \n  At = np.argmax(UCB_vals)        \n  return At, UCB_vals       \n\ndef update_arm_estimation(chosen_arm_no, Q, R, \u03b1 = 0.1):\n  CAN = chosen_arm_no\n  Q[CAN] += \u03b1 * (R[CAN] - Q[CAN])\n\ndef pretty_freq_printer(freq):\n  table = PrettyTable([\"Arm\", *(i for i in range(1, len(freq) + 1))])\n  freq.insert(0, \"\")\n  table.add_row(freq)\n  print(\"Chosen Arm frequencies\".center(50, '-'), table, sep=\"\\n\")\n  freq.pop(0)\n\ndef full_history_separator(hist, freq):\n  sep_hist = [[0 for _ in range(len(hist))] for _ in freq]\n  \n  for rec_i in range(len(hist)):\n    updated_arm = hist[rec_i][0]\n    sep_hist[updated_arm][rec_i] = hist[rec_i][1]\n    for hist_ix in range(len(sep_hist)):\n      if hist_ix != updated_arm:\n        sep_hist[hist_ix][rec_i] = sep_hist[hist_ix][rec_i - 1]\n  for x in sep_hist:\n    x.insert(0, 0)\n  \n  return sep_hist \n\ndef bandit_problem_2(arms_rewards, noofepochs, c = 1):\n  Q, R = [0 for _ in arms_rewards], arms_rewards\n  cfa = [1 for _ in arms_rewards] #\n  full_hist, UCB_hist = [], []\n\n  for i in range(noofepochs):\n    arm_chosen, UCB_vals = select_action(Q, c, cfa, i + 1)\n    UCB_hist.append(UCB_vals)\n    cfa[arm_chosen] += 1\n    update_arm_estimation(arm_chosen, Q, R)\n    full_hist.append([arm_chosen, Q[arm_chosen], R[arm_chosen]])\n\n  return full_hist, [i - 1 for i in cfa], UCB_hist #\n\n #\narms_rewards, noofepochs = [0.7, 0.3, 0.05, 0.69], 100\nfull_hist, freq, ucb_hist = bandit_problem_2(arms_rewards, 100, 1)\nprint(f\"Expected Return: {sum([x * y for x, y in zip(arms_rewards, freq)])}\", end=\"\\n\\n\")\n\npretty_freq_printer(freq)\n\nsep_hist = full_history_separator(full_hist, freq)\n\nplt.figure(figsize=(15, 7))\nplt.title(\"Expected Reward (Q)/arm v/s Epochs\")\n\nfor x in sep_hist:\n  plt.plot(x)\n\nplt.legend([f\"Arm {i + 1}\" for i in range(len(sep_hist))], loc=\"best\")\nplt.show()\n\nsep_ucb_hist = [list() for _ in ucb_hist[0]]\nfor x in ucb_hist:\n  sep_ucb_hist[0].append(x[0])\n  sep_ucb_hist[1].append(x[1])\n  sep_ucb_hist[2].append(x[2])\n  sep_ucb_hist[3].append(x[3])\n\nrange_ = [i for i in range(noofepochs)]\nplt.figure(figsize=(15, 7))\nplt.title(\"UCB values/arm v/s Epochs\")\n\nfor x in sep_ucb_hist:\n  plt.plot(range_, x)\n\nplt.legend([f\"Arm {i + 1}\" for i in range(len(sep_ucb_hist))], loc=\"best\")\nplt.show()",
+      "comments": {
+        "6": " t -> current iteration, timestep; ps -> prior_selections",
+        "38": " chosen frequency of arms, starting with 1 to avoid ZDE",
+        "48": " while returning, adjusting the frequencies by 1",
+        "50": " 4 arms bandit problem"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_VI-RL/UCB_Algorithm/1.png",
+        "./OP_ss/Sem_VI-RL/UCB_Algorithm/2.png",
+        "./OP_ss/Sem_VI-RL/UCB_Algorithm/3.png"
+      ],
+      "bgColors": {
+        "1.png": "#111111",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff"
+      },
+      "markdown": []
+    }
+  },
   "Sem_VIII-SNA": {
     "Barabasi-Albert PAM": {
       "lang": "py",
@@ -710,7 +1093,7 @@
     },
     "Random_Graph": {
       "lang": "py",
-      "codeString": "import networkx as nx\nimport matplotlib.pyplot as plt\nfrom prettytable import PrettyTable\nfrom random import randint\n\ndef network_viz(G, pos, plot_title=\"Generated Network\", with_labels=True):\n  node_sizes = [1000 for _ in G.nodes]\n  node_colors = {node: \"#{:06x}\".format(randint(0, 0xFFFFFF)) for node in G.nodes}\n  \n  fig_size = min(10, (len(G.nodes) / 10) * 2) #\n\n  plt.figure(figsize=(fig_size, fig_size))\n  nx.draw(G, pos, node_color=list(node_colors.values()), node_size=node_sizes, with_labels=with_labels)\n  plt.title(plot_title)\n  plt.show()\n\ndef nx_measures(G):\n  diameter = nx.diameter(G)\n  avgcc = nx.average_clustering(G)\n  table = PrettyTable(['Measurement', 'Value'], title=\"Network Measures\")\n  table.add_row(['Diameter', diameter])\n  table.add_row(['Average Clustering Coefficient', round(avgcc, 4)])\n\n  return table\n\ndef deg_dist(G):\n  degree_sequence = sorted([(n,d) for n, d in G.degree()], reverse=True, key=lambda x: x[1])\n  table = PrettyTable(['Node', 'Degree'], title=\"per Node degrees\")\n  table.add_rows(degree_sequence)\n  print(table, end=\"\\n\\n\")\n\n  degree_count = nx.degree_histogram(G)\n  degrees, counts = zip(*enumerate(degree_count))\n\n  plt.bar(degrees, counts, width=1.0, color='#4FBACC')\n  plt.title(\"Degree Distribution\")\n  plt.xlabel(\"Degree\")\n  plt.ylabel(\"Frequency\")\n  plt.show()\n\ndef er_graph_maker(N=20, p=0.2):\n  G = nx.erdos_renyi_graph(N, p, seed=47) #\n  pos = nx.circular_layout(G)\n\n  network_viz(G, pos, f\"ER Random Network, N={N}; p={p}\")\n  print(nx_measures(G), end=\"\\n\\n\")\n  deg_dist(G)\n\ner_graph_maker()\n\n\nNs = [i for i in range(40, 70, 10)]\nfor N in Ns:\n  er_graph_maker(N, p=0.2)\n\nps = [round(i / 10, 1) for i in range(1, 10, 2)]\nfor p in ps:\n  er_graph_maker(N=20, p=p)\n",
+      "codeString": "import networkx as nx\nimport matplotlib.pyplot as plt\nfrom prettytable import PrettyTable\nfrom random import randint\n\ndef network_viz(G, pos, plot_title=\"Generated Network\", with_labels=True):\n  node_sizes = [1000 for _ in G.nodes]\n  node_colors = {node: \"#{:06x}\".format(randint(0, 0xFFFFFF)) for node in G.nodes}\n  \n  fig_size = min(10, (len(G.nodes) / 10) * 2) #\n\n  plt.figure(figsize=(fig_size, fig_size))\n  nx.draw(G, pos, node_color=list(node_colors.values()), node_size=node_sizes, with_labels=with_labels)\n  plt.title(plot_title)\n  plt.show()\n\ndef nx_measures(G):\n  diameter = nx.diameter(G)\n  avgcc = nx.average_clustering(G)\n  table = PrettyTable(['Measurement', 'Value'], title=\"Network Measures\")\n  table.add_row(['Diameter', diameter])\n  table.add_row(['Average Clustering Coefficient', round(avgcc, 4)])\n\n  return table\n\ndef deg_dist(G):\n  degree_sequence = sorted([(n,d) for n, d in G.degree()], reverse=True, key=lambda x: x[1])\n  table = PrettyTable(['Node', 'Degree'], title=\"per Node degrees\")\n  table.add_rows(degree_sequence)\n  print(table, end=\"\\n\\n\")\n\n  degree_count = nx.degree_histogram(G)\n  degrees, counts = zip(*enumerate(degree_count))\n\n  plt.bar(degrees, counts, width=1.0, color='#4FBACC')\n  plt.title(\"Degree Distribution\")\n  plt.xlabel(\"Degree\")\n  plt.ylabel(\"Frequency\")\n  plt.show()\n\ndef er_graph_maker(N=20, p=0.2):\n  G = nx.erdos_renyi_graph(N, p, seed=47) #\n  pos = nx.circular_layout(G)\n\n  network_viz(G, pos, f\"ER Random Network, N={N}; p={p}\")\n  print(nx_measures(G), end=\"\\n\\n\")\n  deg_dist(G)\n\ner_graph_maker()\n\nNs = [i for i in range(40, 70, 10)]\nfor N in Ns:\n  er_graph_maker(N, p=0.2)\n\nps = [round(i / 10, 1) for i in range(1, 10, 2)]\nfor p in ps:\n  er_graph_maker(N=20, p=p)\n",
       "comments": {
         "10": "Adjust as needed",
         "42": "had to set a seed for graphs that are fully connected."

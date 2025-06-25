@@ -17,6 +17,8 @@ export interface ObjCodebase {
   "Sem_IV-DAOA": ObjCodebaseItem;
   "Sem_IV-SF": ObjCodebaseItem;
   "Sem_V-IS": ObjCodebaseItem;
+  "Sem_VI-IPCV": ObjCodebaseItem;
+  "Sem_VI-RL": ObjCodebaseItem;
   "Sem_VIII-SNA": ObjCodebaseItem;
 }
 
