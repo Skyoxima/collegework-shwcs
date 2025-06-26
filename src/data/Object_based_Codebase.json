@@ -1045,6 +1045,110 @@
       "markdown": []
     }
   },
+  "Sem_VII-ML4": {
+    "Apriori_Algorithm": {
+      "lang": "py",
+      "codeString": "from itertools import combinations, permutations\nfrom prettytable import PrettyTable\nimport math\n\ndef preprocess_csv_lines(csv_lines):\n  data = []\n  for line in csv_lines:\n    line = line.replace(\"\\n\", \"\")\n    items = line.split(\",\")\n    data.append([f\"{item}\" for item in items])\n  return data\n\ndef valid_support_items(data, unique_single_items, item_len = 1, min_support = 2):\n  if item_len == 1:\n    singletons_freq = {}\n    for item in unique_single_items:\n      if (valid_count := sum([1 for basket in data if item in basket])) >= min_support:\n        singletons_freq[item] = valid_count\n    return list(singletons_freq.keys()), singletons_freq  \n  else:\n    unique_itemsets = list(combinations(unique_single_items, item_len))\n    itemsets_freq = {}\n    for itemset in unique_itemsets:\n      if (valid_count := sum([1 for basket in data if all([item in basket for item in itemset])])) >= min_support:\n        itemsets_freq[f\"{itemset}\"] = (valid_count, itemset)\n\n    #\n    return list(set([item for itemset in itemsets_freq.values() for item in itemset[1]])), itemsets_freq\n  \ndef apriori_algorithm(sample_data, min_support, min_confidence):\n  #\n  data = sample_data\n  noofbaskets = len(data)\n  min_support = math.ceil((min_support * len(data)) / 100)\n  min_confidence = round(min_confidence / 100, 4)\n  print(f\"\\033[1m\\033[38;5;227mMinimum Support: {min_support}\\nMinimum Confidence: {min_confidence}\\033[0m\")\n  \n  valid_singleton_items = []\n  for basket in data:\n    for item in basket:\n      if item not in valid_singleton_items:\n        valid_singleton_items.append(item)\n\n  #\n  i = 1\n  support_records = {}\n  while True:\n    valid_singleton_items, supports = valid_support_items(data, valid_singleton_items, noofbaskets, i, min_support)\n    support_records.update({i: supports})\n    i += 1\n    if len(valid_singleton_items) <= i:\n      break\n\n  #\n  all_association_rules = []\n  for i in range(len(valid_singleton_items)):\n    all_association_rules.append((valid_singleton_items[i], tuple([j for j in valid_singleton_items if j != valid_singleton_items[i]])))\n  all_association_rules.extend([i[::-1] for i in all_association_rules])\n\n  confidence_numerator = list(support_records[len(valid_singleton_items)].values())[0][0]\n  all_valid_associations = []\n  print(f\"\\n\\033[1m\\033[38;5;225mAll prospective association rules w/ confidence values:\\033[0m\")\n  for assc_rule in all_association_rules:\n    if type(assc_rule[0]) == str:\n      confidence = confidence_numerator / support_records[1][assc_rule[0]]\n    else:\n      tuple_ = assc_rule[0]\n      tuple_perms = permutations(tuple_, len(tuple_))\n      for tuple__ in tuple_perms:\n        if str(tuple__) in support_records[len(assc_rule)].keys():\n          denominator = support_records[len(assc_rule)][f\"{tuple__}\"][0]\n      confidence = confidence_numerator / denominator\n    print(assc_rule, confidence)\n    if confidence >= min_confidence:\n      all_valid_associations.append((assc_rule, confidence))\n\n  conf_table = PrettyTable(['A', 'B', 'Confidence'], title=\"Valid Confidence Table\")\n  for rule in all_valid_associations:\n    conf_table.add_row([rule[0][0], rule[0][1], rule[1]])\n  print(\"\\n\\033[1m\\033[38;5;221mBest association\\033[0m\")\n\n  print(conf_table)\nsample_data_3 = [[\"Coke\", \"Fries\", \"Nuggets\"], [\"Burger\", \"Coke\", \"Fries\"], [\"Coke\", \"Fries\", \"Nuggets\"], [\"Burger\", \"Fries\", \"Nuggets\"], [\"Burger\", \"Coke\", \"Fries\", \"Nuggets\"]]\n\napriori_algorithm(sample_data_3, 60, 80)",
+      "comments": {
+        "27": "    # since in the dict the tuple directly are the keys\n",
+        "31": "  # Pre-requisites\n",
+        "44": "  # Support part\n",
+        "54": "  # Confidences part\n"
+      },
+      "outputSrcs": [
+        "OP_ss/Sem_VII-ML4/Apriori_Algorithm/1.png"
+      ],
+      "bgColors": {
+        "1.png": "#181616"
+      }
+    },
+    "Apriori_Association_Rules": {
+      "lang": "py",
+      "codeString": "from itertools import combinations\nfrom prettytable import PrettyTable\n\ndef preprocess_csv_lines(csv_lines):\n  data = []\n  for line in csv_lines:\n    line = line.replace(\"\\n\", \"\")\n    items = line.split(\",\")\n    data.append([f\"{item}\" for item in items])\n  return data\n\ndef association_rules(data):\n  noofbaskets = len(data)\n  unique = []\n\n  #\n  for basket in data:\n    for item in basket:\n      if item not in unique:\n        unique.append(item)\n  item_count = {item: sum([1 for basket in data if item in basket]) for item in unique}\n    \n  #\n  supports = {item: [f\"{item_count[item]} / {noofbaskets}\", round(item_count[item] / noofbaskets, 3)] for item in unique}\n  supports = {k: v for k, v in sorted(supports.items(), key = lambda x: x[1][1], reverse=True)}  \n  supports_table = PrettyTable(['Item', 'Support'], title=\"Supports Table\")\n  supports_table.add_rows(list(supports.items()))\n  print(supports_table)\n\n  #\n  dual_item_combos = list(combinations(unique, 2))\n  combo_counts = {f\"{combo}\": sum([1 for basket in data if combo[0] in basket and combo[1] in basket]) for combo in dual_item_combos}\n  confidences = {}\n  for combo in dual_item_combos:\n    confidences.update({f\"{combo}\": [f\"{combo_counts[f'{combo}']} / {item_count[combo[0]]}\", round(combo_counts[f\"{combo}\"] / item_count[combo[0]], 3)]})     \n    #\n  \n  confidences = {k: v for k, v in sorted(list(confidences.items()), key = lambda x: x[1][1], reverse=True)}\n\n  confidences_table = PrettyTable(['Item Combo', 'Confidence'], title=\"Confidences Table\")\n  confidences_table.add_rows(list(confidences.items()))\n  print(confidences_table)\n\n  #\n  lifts = {}\n  for combo in dual_item_combos:\n    lifts.update({f\"{combo}\": [f\"{combo_counts[f'{combo}']} / {item_count[combo[0]] * item_count[combo[1]] / noofbaskets}\", combo_counts[f'{combo}'] / (item_count[combo[0]] * item_count[combo[1]] / noofbaskets)]}) #\n\n  lifts = {k: v for k, v in sorted(list(lifts.items()), key = lambda x: x[1][1], reverse=True)}\n\n  lifts_table = PrettyTable(['Item Combo', 'Lifts'], title=\"Lifts Table\")\n  lifts_table.add_rows(list(lifts.items()))\n  print(lifts_table)\n\n  print(f\"Item with the most Support (most popular): \\033[38;5;227m{list(supports.keys())[0]}\\033[0m\")\n  print(f\"Dual Combo with the most confidence score (most popular paired items): \\033[38;5;227m{list(confidences.keys())[0]}\\033[0m\")\n  print(f\"Profitable pairing (increased chance of buying when paired): \\033[38;5;227m{list(lifts.keys())[0]}\\033[0m\")\n\n\nsample_data = [[\"T-shirt\", \"Trousers\", \"Belt\"], [\"T-shirt\", \"Jacket\"], [\"Jacket\", \"Gloves\"], [\"T-shirt\", \"Trousers\", \"Jacket\"],\n              [\"T-shirt\", \"Trousers\", \"Sneakers\", \"Jacket\", \"Belt\"], [\"Trousers\", \"Sneakers\", \"Belt\"], [\"Trousers\", \"Belt\", \"Sneakers\"]]\nsample_data_2 = [[\"Apple\", \"Beer\", \"Rice\", \"Chicken\"], [\"Apple\", \"Beer\", \"Rice\"], [\"Apple\", \"Beer\"], [\"Apple\", \"Pear\"], [\"Milk\", \"Beer\", \"Rice\", \"Chicken\"], [\"Milk\", \"Beer\", \"Rice\"], [\"Milk\", \"Beer\"], [\"Milk\", \"Pear\"]]\n\nassociation_rules(sample_data)",
+      "comments": {
+        "16": "  # getting the unique items from the baskets\n",
+        "23": "  # Support\n",
+        "30": "  # Confidences\n",
+        "36": "    # confidence(a->b) = support(a, b) / support(a) OR count(a,b) / count(a) (cause support(a, b) = count(a, b)/noofbaskets and support(a) = count(a)/noofbaskets, noofbaskets are cancelled)\n",
+        "44": "  #Lifts\n",
+        "47": " # denominator would have noofbaskets squared hence have to divide\n"
+      },
+      "outputSrcs": [
+        "OP_ss/Sem_VII-ML4/Apriori_Association_Rules/1.png",
+        "OP_ss/Sem_VII-ML4/Apriori_Association_Rules/2.png"
+      ],
+      "bgColors": {
+        "1.png": "#181616",
+        "2.png": "#181616"
+      }
+    },
+    "Blooms_Filter": {
+      "lang": "py",
+      "codeString": "def blooms_filter():\n  insert_elements = [int(x) for x in input(\"Enter numbers to be inserted (space separated): \").split()]\n  \n  hash_functions = input(\"Enter hash functions: (comma separated, using 'x' as the variable, can use () brackets): \")\n  hash_functions = [x.strip() for x in hash_functions.split(\",\")]\n  \n  bloom_filter_size = max([int(x.split('%')[1].strip()) for x in hash_functions])\n  bloom_filter = [0 for _ in range(bloom_filter_size)]\n\n  for num in insert_elements:\n    hash_values = [eval(hash_func, {'x': num}) for hash_func in hash_functions]\n    for val in hash_values:\n      bloom_filter[val] = 1\n  \n  print(\"Current bloom filter: \", bloom_filter)\n\n  check_elements = [int(x) for x in input(\"Enter numbers to be checked (space separated): \").split()]\n  for num in check_elements:\n    hash_values = [eval(hash_func, {'x': num}) for hash_func in hash_functions]\n    for val in hash_values:\n      if bloom_filter[val] == 1:\n        if num in insert_elements:\n          print(f\"{num} is in the stream and is a true positive\")\n        else:\n          print(f\"{num} is NOT in the stream and is a false positive\")\n        break\n    else: \n          print(f\"{num} is NOT in the stream and is true negative\")\n\nblooms_filter()",
+      "comments": {},
+      "outputSrcs": [
+        "OP_ss/Sem_VII-ML4/Blooms_Filter/1.png"
+      ],
+      "bgColors": {
+        "1.png": "#181616"
+      }
+    },
+    "Flajolet_Martin_Algorithm": {
+      "lang": "py",
+      "codeString": "import numpy as np\nfrom prettytable import PrettyTable\n\n#\ndef to_binary(num: int) -> list[int]:\n  bin_repr = []\n  if(num == 0):\n    return \"\".join(['0'])\n  \n  def mechanism(n):\n    if(n >= 1):\n      mechanism(n // 2)\n      bin_repr.append(str(n % 2))  \n  mechanism(num)\n\n  return \"\".join(bin_repr)\n\ndef flajolet_martin_algorithm(data: list[int], hash_function: str) -> tuple[int, dict]:\n  fm_table = {\"x\": data, \"h(x)\": [], \"Binary\": [], \"r\": []}\n  fm_p_table = PrettyTable([\"x\", \"h(x)\", \"Binary\", \"r\"], title=\"Flajolet-Martin Table\")\n\n  for i in range(len(fm_table[\"x\"])):\n    fm_table[\"h(x)\"].append(eval(hash_function, {\"x\": fm_table[\"x\"][i]}))\n    fm_table[\"Binary\"].append(to_binary(fm_table[\"h(x)\"][i]))\n    try:\n      fm_table[\"r\"].append(fm_table[\"Binary\"][i][::-1].index('1'))        #\n    except ValueError:\n      fm_table[\"r\"].append(0)        #\n\n    fm_p_table.add_row([fm_table[\"x\"][i], fm_table[\"h(x)\"][i], fm_table[\"Binary\"][i], fm_table[\"r\"][i]])\n  R = max(fm_table[\"r\"])\n  return 2 ** R, fm_p_table\n\n\ntest_stream = np.random.randint(0, 25, size=200).tolist()\nhash_function = input(\"Enter a single hash function: (comma separated, using 'x' as the variable, can use () brackets): \")\nresults = flajolet_martin_algorithm(test_stream, hash_function)\nprint(results[1])\nprint(f\"\\033[1m\\033[38;5;224mNumber of Unique elements by Flajolet Martin's Algorithm: {results[0]}\\033[0m\")\nprint(f\"\\033[1m\\033[38;5;227mActual unique elements count: {len(set(test_stream))}\\033[0m\")\n",
+      "comments": {
+        "4": "# takes in a decimal number and gives out a string of binary representation of that number, using only required bits\n",
+        "26": "        # index of the first '1' in the reverse binary representation is the number of zeroes before it, i.e the number of trailing zeroes in the original binary representation\n",
+        "28": "        # there isn't any '1', i.e 0's binary representation and r = 0 for 0\n"
+      },
+      "outputSrcs": [
+        "OP_ss/Sem_VII-ML4/Flajolet_Martin_Algorithm/1.png",
+        "OP_ss/Sem_VII-ML4/Flajolet_Martin_Algorithm/11.png",
+        "OP_ss/Sem_VII-ML4/Flajolet_Martin_Algorithm/2.png"
+      ],
+      "bgColors": {
+        "1.png": "#181616",
+        "11.png": "#181616",
+        "2.png": "#181616"
+      }
+    },
+    "Map_Reduce": {
+      "lang": "py",
+      "codeString": "import sys\nimport re\nfrom prettytable import PrettyTable\n\ndef mapper(node):\n  node_key_val = {}\n  for word in node:\n    if word in node_key_val.keys():\n      node_key_val[word] += 1\n    else:\n      node_key_val.update({word: 1})\n  return node_key_val\n\ndef shuffler(mapper_result):\n  shuffler_result = {}\n  \n  for dict_ in mapper_result:\n    for k, v in dict_.items():\n      if k in shuffler_result.keys():\n        shuffler_result[k].append(v)\n      else:\n        shuffler_result.update({k: [v]})\n  \n  return shuffler_result\n\ndef reducer(shuffler_result):\n  final_result = {}\n\n  for k, v in shuffler_result.items():\n    final_result.update({k: sum(v)})\n\n  return final_result\n\ndef map_reduce():\n  mapper_results = []\n  shuffler_result = []\n  final_result = []\n\n  if(len(sys.argv) < 1):\n    return \"File not found...\"\n\n  for file_name in sys.argv[1:]:\n    with open(f\"./{file_name}\") as f:\n      text = f.read()\n    f.close()\n\n    text = re.sub(r'[^\\w\\s]', '', text)\n    words = text.split(\" \")\n    length = len(words)\n\n    print(f\"\\n\\033[1m\\033[38;5;135mNodes formed from the text of {file_name}\\033[0m\\n\")\n    nodes = [words[i: i + length // 3] for i in range(0, length-length // 3 + 1, length // 3)]\n    print(*nodes, sep=\"\\n\\n\", end=\"\\n\\n\")\n\n    for node in nodes:\n      mapper_results.append(mapper(node))\n      \n  shuffler_result = shuffler(mapper_results)\n  final_result = reducer(shuffler_result)\n\n  for i, mr in enumerate(mapper_results):\n    mapper_table = PrettyTable([\"Word\", \"Count\"], title=f\"Mapper {i + 1} Results\")\n    mapper_table.add_rows(mr.items())\n    print(mapper_table)\n\n  shuffler_table = PrettyTable([\"Word\", \"Counts\"], title=\"Shuffler Results\")\n  shuffler_table.add_rows(shuffler_result.items())\n  final_table = PrettyTable([\"Word\", \"Count\"], title=\"Final Results\")\n  final_table.add_rows(final_result.items())\n\n  print(\"\\n\")\n  print(shuffler_table)\n  print(\"\\n\")\n  print(final_table)\n\nmap_reduce()",
+      "comments": {},
+      "outputSrcs": [
+        "OP_ss/Sem_VII-ML4/Map_Reduce/1.png",
+        "OP_ss/Sem_VII-ML4/Map_Reduce/2.png",
+        "OP_ss/Sem_VII-ML4/Map_Reduce/3.png",
+        "OP_ss/Sem_VII-ML4/Map_Reduce/4.png",
+        "OP_ss/Sem_VII-ML4/Map_Reduce/5.png"
+      ],
+      "bgColors": {
+        "1.png": "#181616",
+        "2.png": "#181616",
+        "3.png": "#181616",
+        "4.png": "#181616",
+        "5.png": "#181616"
+      }
+    },
+    "Map_Reduce_Mat_Multiplication": {
+      "lang": "py",
+      "codeString": "import re\nfrom prettytable import PrettyTable\n\ndef mapper_result_printer(mapper_result):\n  table = PrettyTable(['i/k', 'value'])\n  for k, v in mapper_result.items():\n    for val in v:\n      table.add_row([k, val])\n  return table\n\ndef map_reduce_matmul(matA, matB):\n  def input_mat_validation(matrix):\n    try:\n      if len(set([len(row) for row in matrix])) != 1:\n        print(f\"{matrix} is an \\033[38;5;196mInvalid Matrix! -> Gaps in column data\\033[0m\")\n        return\n    except TypeError:\n        print(f\"{matrix} is an \\033[38;5;196mInvalid Matrix! -> Rows should be 1D array\\033[0m\")\n        return\n    \n  input_mat_validation(matA)\n  input_mat_validation(matB)\n\n  if len(matA[0]) != len(matB):\n    print(f\"{matA} x {matB} \\033[38;5;196mInvalid! -> no. of columns of 1st matrix must be equal to no. of rows of the 2nd matrix.\\033[0m\")\n    return\n  \n  resultant_size = (len(matA), len(matB[0]))\n  \n  def mapper(matrix, matrix_label, matrix_psn):\n    mapper_result = {}\n    #\n    if matrix_psn == 1:\n      for i in range(len(matrix)):\n        for j in range(len(matrix[0])):\n          if i not in mapper_result.keys():\n            mapper_result.update({i: [(matrix_label, j, matrix[i][j])]})\n          else:\n            mapper_result[i].append((matrix_label, j, matrix[i][j]))\n    else:\n      #\n      for k in range(len(matrix[0])):\n        for j in range(len(matrix)):\n          if k not in mapper_result.keys():\n            mapper_result.update({k: [(matrix_label, j, matrix[j][k])]})\n          else:\n            #\n            mapper_result[k].append((matrix_label, j, matrix[j][k]))\n\n    return mapper_result\n  \n  mapper_result_A = mapper(matA, 'A', 1)\n  mapper_result_B = mapper(matB, 'B', 2)\n  \n  print(\"\\nMapper Result for Matrix A:\")\n  print(mapper_result_printer(mapper_result_A))\n\n  print(\"\\nMapper Result for Matrix B:\")\n  print(mapper_result_printer(mapper_result_B))\n\n  def shuffler(map_res_1, map_res_2):\n    shuffler_result = {}\n    for i in range(len(map_res_1.keys())):\n      for j in range(len(map_res_2.keys())):\n        shuffler_result.update({f\"({i}, {j})\": [(x, y) for x, y in zip(map_res_1[i], map_res_2[j])]})\n\n    return shuffler_result\n  \n  shuffler_result = shuffler(mapper_result_A, mapper_result_B)\n  \n  table = PrettyTable(['i/k', 'values'])\n  for k, v in shuffler_result.items():\n    tuple_1 = str(v[0][0]) + str(v[0][1]) + '\\n'\n    tuple_2 = str(v[1][0]) + str(v[1][1])\n    table.add_row([k, tuple_1 + tuple_2])\n\n  print(\"\\nShuffler Result:\",table,sep=\"\\n\")\n\n  def reducer(shuffler_res):\n    resultant_matrix = [[0 for _ in range(resultant_size[1])] for _ in range(resultant_size[0])]\n    index_pattern = r\"\\((\\d+), (\\d+)\\)\"\n    for indices, grouped in shuffler_res.items():\n      sum = 0\n      for tuple_group in grouped:\n        sum += tuple_group[0][-1] * tuple_group[1][-1]\n\n      match = re.search(index_pattern, indices)\n      i, j = int(match.group(1)), int(match.group(2))\n      resultant_matrix[i][j] = sum\n\n    return resultant_matrix\n    \n  final_answer = reducer(shuffler_result)\n  print(\"\\nFinal Matrix Result:\")\n  print(*final_answer, sep=\"\\n\")\n\nmatA = [[1, 2], [2, 1], [3, 4]]\nmatB = [[1, 2], [1, 3]]\nmap_reduce_matmul(matA, matB)",
+      "comments": {
+        "32": "    # going row-wise\n",
+        "41": "      # going column-wise\n",
+        "47": "            # mapper_result is a dict and keys should be unique... to match with how we do it manually, I'm appending and then using a custom printing function for clear understanding\n"
+      },
+      "outputSrcs": [
+        "OP_ss/Sem_VII-ML4/Map_Reduce_Mat_Multiplication/1.png",
+        "OP_ss/Sem_VII-ML4/Map_Reduce_Mat_Multiplication/2.png"
+      ],
+      "bgColors": {
+        "1.png": "#181616",
+        "2.png": "#181616"
+      }
+    }
+  },
   "Sem_VIII-SNA": {
     "Barabasi-Albert PAM": {
       "lang": "py",
