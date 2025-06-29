@@ -662,6 +662,295 @@
       }
     }
   },
+  "Sem_V-DL": {
+    "CNN": {
+      "lang": "py",
+      "codeString": "import keras\nimport tensorflow as tf\nimport numpy as np\nfrom keras.datasets import mnist\nfrom keras.models import Sequential\nfrom keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom keras.utils.vis_utils import plot_model\n\n(x_train, y_train), (x_test, y_test) = mnist.load_data()\n\n #\n #\n\n #\n #\nx_train = x_train.reshape(60000, 28, 28) #\nx_test = x_test.reshape(x_test.shape[0], 28, 28)\nprint(x_test.shape)\ninput_shape = (28, 28, 1) #\ny_train = keras.utils.to_categorical(y_train, 10)\n #\ny_test = keras.utils.to_categorical(y_test, 10)\n\nx_train = x_train.astype('float32')\nx_test = x_test.astype('float32')\n\nfig = plt.figure(figsize = (10, 10))\n\nfor i in range(1, (3 * 5) + 1):\n  rn = np.random.randint(50000)\n  fig.add_subplot(3, 5, i) #\n  plt.imshow(x_train[rn], cmap = 'gray')\n  plt.xlabel(np.argmax(y_train[rn]), color = 'g')\n  \nplt.show()\n\nx_train /= 255 #\nx_test /= 255\n\nbatch_size = 64\nnum_classes = 10\nepochs = 10\n\ndef build_model(optimizer):\n  model = Sequential()\n\n  model.add(Conv2D(32, kernel_size = (3, 3), activation = 'relu', input_shape = input_shape))\n  model.add(MaxPooling2D(pool_size = (2, 2)))\n  \n  model.add(Conv2D(32, kernel_size = (3, 3), activation = 'relu'))\n  model.add(MaxPooling2D(pool_size = (2, 2)))\n  \n  model.add(Dropout(0.25))\n  model.add(Flatten())\n  \n  model.add(Dense(256, activation = 'relu'))\n  model.add(Dropout(0.5))\n  \n  model.add(Dense(num_classes, activation = 'softmax'))\n  model.compile(loss = keras.losses.categorical_crossentropy, optimizer = optimizer, metrics = ['accuracy'])\n  model.summary()\n  \n  return model\n\nmodel = build_model('Adam')\n #\nhist = model.fit(x_train, y_train, batch_size = batch_size, epochs = epochs, verbose = 1, validation_data = (x_test, y_test))\n\ny1 = hist.history['accuracy']\ny2 = hist.history['val_accuracy']\n\nplt.figure(figsize=(15, 5))\nplt.title(\"Model Accuracy\")\nplt.xlabel(\"No. of Epochs\")\nplt.ylabel(\"Accuracy\")\nplt.plot([i for i in range(1, 11)], y1, color='b')\nplt.plot([i for i in range(1, 11)], y2, color='r')\nplt.xticks([i for i in range(1, 11)])\nplt.legend(['Training Acc.', 'Testing Acc.'], loc = 'best')\nplt.show()\n\ny_pred = model.predict(x_test)\nprint(y_pred[0])\n\ny_pred_num_only = [np.argmax(i) for i in y_pred]\n\ny_test_num_only = [np.argmax(i) for i in y_test]\n\nincorr = 0\nincorr_indices = []\nfor i in range(len(y_test)):\n    if (y_test_num_only[i] != y_pred_num_only[i]):\n        incorr += 1\n        incorr_indices.append(i)\n\nprint(f\"No. of Incorrect: {(incorr)} / {(len(y_test_num_only))}\")\n\ncon_mat = tf.math.confusion_matrix(labels = y_pred_num_only, predictions = y_test_num_only)\nplt.figure(figsize = (15, 8))\nsns.heatmap(con_mat, annot = True, fmt = 'd')\nplt.xlabel(\"Predicted Value\")\nplt.ylabel(\"Actual Value\")\nplt.show()\n\nfig = plt.figure(figsize = (21, 10))\n\nfor i in range(1, (2 * 5) + 1):\n #\n        j = np.random.randint(len(incorr_indices))\n        rn = incorr_indices[j]\n        if(y_test_num_only[rn] != y_pred_num_only[rn]):\n                fig.add_subplot(2, 5, i)\n                plt.imshow(x_test[rn], cmap = 'gray')\n                plt.xlabel(f'Predicted >>> {y_pred_num_only[rn]}', color = 'r')\n                plt.ylabel(f'Actual >>> {y_test_num_only[rn]}', color = 'g')\nplt.show()",
+      "comments": {
+        "13": " print(x_train[0])        28 rows(arrays) of 28 values",
+        "14": " print(y_train[0])        Singular integer value corresponding to the number the image has",
+        "16": " print(x_train.shape)",
+        "17": " print(y_train.shape)",
+        "18": " 60000 images (outer rows) each made up of 28 arrays (rows) with 28 values (columns) (28 x 28)",
+        "21": " when training the model this has to be specified and it takes x y and z",
+        "23": " print(y_train.shape)",
+        "33": " subplot automatically adds the image row wise",
+        "39": "normalizing the input",
+        "68": " plot_model(model, to_file = \"mnist model\" '.jpg', show_shapes = True)     have already executed it once",
+        "110": " rn = np.random.randint(10000-len(incorr))"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_V-DL/CNN/1.png",
+        "./OP_ss/Sem_V-DL/CNN/2.png",
+        "./OP_ss/Sem_V-DL/CNN/3.png",
+        "./OP_ss/Sem_V-DL/CNN/4.png",
+        "./OP_ss/Sem_V-DL/CNN/5.png",
+        "./OP_ss/Sem_V-DL/CNN/6.png",
+        "./OP_ss/Sem_V-DL/CNN/7.png",
+        "./OP_ss/Sem_V-DL/CNN/8.png"
+      ],
+      "bgColors": {
+        "1.png": "#111111",
+        "2.png": "#ffffff",
+        "3.png": "#111111",
+        "4.png": "#ffffff",
+        "5.png": "#111111",
+        "6.png": "#111111",
+        "7.png": "#03051a",
+        "8.png": "#000000"
+      },
+      "markdown": [
+        "Categorical (One-Hot Encoded) array was formed from the y_train (and test too) we take out from the dataset, this is how data is usually represented in the output layer (when categorical data) and we calculate the loss by comparing the calculated output y (same dims as this array) and the corresponding array itself",
+        "Indices of the highest softmax value (probability) is the number (digit) in the image itself. We had originally One-Hot Encoded the 'y' array in this way only."
+      ]
+    },
+    "Delta_Learning": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport math\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef binary_sigmoidal(Y_in):\n  return 1 / (1 + np.exp(-Y_in))\n\ndef find_Y_hat(x, w, b):\n  if type(x) == type([1]) or type(x) == type((1, 2)): #\n    Y_in = np.dot(x, w) + b #\n  else:\n    Y_in = x * w + b\n  Y_hat = binary_sigmoidal(Y_in)\n  \n  return Y_hat\n\ndef delta_w(x, y, Y_hat, c):\n  return(c * (y - Y_hat) * Y_hat * (1 - Y_hat) * x) #\n\ndef delta_b(x, y, Y_hat, c):\n  return(c * (y - Y_hat) * Y_hat * (1 - Y_hat))\n\ndef stochastic_gradient_descent(X, Y, noofepochs = 300):\n  w = -2; c = 1; b = -2;\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n    weight_list = []\n    bias_list = []\n\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      w += delta_w(x, y, Y_hat, c)\n      b += delta_b(x, y, Y_hat, c)\n      weight_list.append(w)\n      bias_list.append(b)\n\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(weight_list)\n    bias_mega_list.append(bias_list)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\nX = [0.5, 2.5]\nY = [0.2, 0.9]\ndf = pd.DataFrame([(x, y) for x, y in zip(X, Y)], columns = ['X', 'Y'])\nnoofepochs = 500\ny_hats, errors, weights, biases = stochastic_gradient_descent(X, Y, noofepochs)\ndf.head()\n\nplt.rcParams.update({'figure.figsize': (15, 6)})\n\nfig, ax = plt.subplots(2, 1, sharex = True, sharey = False)\nax[0].plot([i for i in range(noofepochs)], [i[0] for i in errors])\nax[1].set_xlabel(\"No. of epochs\")\nax[0].set_ylabel('Squared Error (Y1)')\nax[1].set_ylabel('Squared Error (Y2)')\nax[1].plot([i for i in range(noofepochs)], [i[1] for i in errors])\nax[0].set_title(\"Individual Errors v/s No. of Epochs\")\nplt.show()\n\nplt.title(\"MSE (Loss) v/s No. of Epochs\")\nplt.plot([i for i in range(noofepochs)], [np.mean(i) for i in errors])\nplt.xlabel('Epochs')\nplt.ylabel('Mean Squared Error (in Y)')\nplt.show()\n\nacc = [1 - np.abs((np.mean(Y) - np.mean(i)) / np.mean(Y)) for i in y_hats]\nplt.title(\"Accuracy v/s No. of Epochs\")\nplt.plot([i for i in range(noofepochs)], acc)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Accuracy')\nplt.show()\n\nplt.title(\"Avg. Weight v/s No. of Epochs\")\nplt.plot([i for i in range(noofepochs)], [np.mean(w) for w in weights])\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\nplt.title(\"MSE (Loss) v/s Weights\")\nplt.plot([np.mean(w) for w in weights], [np.mean(i) for i in errors])\nplt.xlabel('Weight')\nplt.ylabel('Mean Squared Error')\nplt.show()\n\ndef batch_gradient_descent(X, Y):\n  w, c, b, noofepochs, dw, db = -2, 1, -2, 500, 0, 0\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n  \n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b) #\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      dw += delta_w(x, y, Y_hat, c)\n      db += delta_b(x, y, Y_hat, c)\n    \n    w += dw / 2 #\n    b += db / 2\n    dw, db = 0, 0\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n    \n #\n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats, errors, weights, biases = batch_gradient_descent(X, Y)\n\nplt.title(\"MSE (Loss) v/s No. of Epochs\")\nplt.plot([i for i in range(noofepochs)], [np.mean(i) for i in errors])\nplt.xlabel('Epochs')\nplt.ylabel('Mean Squared Error')\nplt.show()\n\nacc = [1 - np.abs((np.mean(Y) - np.mean(i)) / np.mean(Y)) for i in y_hats]\nplt.title(\"Accuracy v/s No. of Epochs\")\nplt.plot([i for i in range(noofepochs)], acc)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Accuracy')\nplt.show()\n\nplt.title(\"Avg. Weight v/s No. of Epochs\")\nplt.plot([i for i in range(noofepochs)], weights)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\nplt.title(\"MSE (Loss) v/s Weights\")\nplt.plot(weights, [np.mean(i) for i in errors])\nplt.xlabel('Weight')\nplt.ylabel('Mean Squared Error')\nplt.show()",
+      "comments": {
+        "10": " if list of list or list of tuples is used, individual list/tuple should be handled differently",
+        "11": " layer of input neurons (if list of values passed as neuron)",
+        "19": " derivative of binary sigmoidal is y_hat(1 - y_hat) and no, not y_in, y_hat is correct. Refer notes for more clarity",
+        "50": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "108": " in an epoch the weight is not getting updated until all the patterns have been seen",
+        "114": " after all patterns are introduced in an epoch, update the weight by the average of the error that has been recorded (dw)",
+        "122": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_list}\")"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_V-DL/Delta_Learning/1.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/2.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/3.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/4.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/5.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/6.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/7.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/8.png",
+        "./OP_ss/Sem_V-DL/Delta_Learning/9.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff",
+        "7.png": "#ffffff",
+        "8.png": "#ffffff",
+        "9.png": "#ffffff"
+      },
+      "markdown": [
+      ]
+    },
+    "LSTM": {
+      "lang": "py",
+      "codeString": "import numpy\nimport seaborn as sns\nimport tensorflow as tf\nimport matplotlib.pyplot as plt\n\nfrom keras.datasets import imdb\nfrom keras.models import Sequential\nfrom keras.preprocessing import sequence\nfrom keras.layers import Dense, LSTM, Embedding\nfrom keras_preprocessing.sequence import pad_sequences\n\ntop_words = 5000\n(X_train, y_train), (X_test, y_test) = imdb.load_data(num_words=top_words)\n\nprint(X_train[1])\nprint(len(X_train[1]))\n\nmax_review_length = 600\nX_train = pad_sequences(X_train, maxlen=max_review_length)\nX_test = pad_sequences(X_test, maxlen=max_review_length)\n\nprint(X_train.shape, y_train.shape)\nprint(X_test.shape, y_test.shape)\n\nembedding_vector_length = 64\n\nmodel = Sequential([\n    Embedding(top_words + 1, embedding_vector_length,\n              input_length=max_review_length),\n    LSTM(500),\n    Dense(50, activation='relu'),\n    Dense(100, activation='relu'),\n    Dense(100, activation='relu'),\n    Dense(50, activation='relu'),\n    Dense(1, activation='sigmoid')\n])\n\nmodel.compile(loss='binary_crossentropy',\n              optimizer='adam', metrics=['accuracy'])\n\nmodel.summary()\n\nhist = model.fit(X_train, y_train, epochs=10, verbose=1, validation_data=(X_test, y_test))\n\nscores = model.evaluate(X_test, y_test, verbose=0) \n\nprint(scores[1])\n\nplt.plot(hist.history['accuracy'], color='r')\nplt.plot(hist.history['val_accuracy'], color='b')\nplt.legend(['Training Accuracy', 'Testing Accuracy'])\nplt.show()\n\ny_pred = model.predict(X_test)\nprint(len(y_pred))\n\nplt.figure(figsize=(15, 10))\nplt.scatter(range(len(y_pred)), y_pred)\nplt.show()\n\nfor i in range(len(y_pred)):\n    if (y_pred[i] >= 0.5):\n        y_pred[i] = int(1)\n    else:\n        y_pred[i] = int(0)\n\nincorr = 0\nfor i in range(len(y_pred)):\n    if y_pred[i] != y_test[i]:\n        incorr += 1\n\nprint(incorr, '/', len(y_pred))\n\nconfuse_mat = tf.math.confusion_matrix(labels=y_pred, predictions=y_test)\nplt.figure(figsize=(15, 8))\nsns.heatmap(confuse_mat, annot=True, fmt='d')\nplt.xlabel('Predicted Value')\nplt.ylabel('True Value')\nplt.show()\n",
+      "comments": {},
+      "outputSrcs": [
+        "./OP_ss/Sem_V-DL/LSTM/2.png",
+        "./OP_ss/Sem_V-DL/LSTM/3.png",
+        "./OP_ss/Sem_V-DL/LSTM/4.png",
+        "./OP_ss/Sem_V-DL/LSTM/5.png",
+        "./OP_ss/Sem_V-DL/LSTM/6.png",
+        "./OP_ss/Sem_V-DL/LSTM/7.png",
+        "./OP_ss/Sem_V-DL/LSTM/8.png",
+        "./OP_ss/Sem_V-DL/LSTM/9.png",
+        "./OP_ss/Sem_V-DL/LSTM/10.png"
+      ],
+      "bgColors": {
+        "1.png": "#111111",
+        "2.png": "#111111",
+        "3.png": "#111111",
+        "4.png": "#111111",
+        "5.png": "#111111",
+        "6.png": "#ffffff",
+        "7.png": "#111111",
+        "8.png": "#ffffff",
+        "9.png": "#111111",
+        "10.png": "#ffffff"
+      },
+      "markdown": [
+        "Making each review of uniform length, 600 characters",
+        "As it can be seen, most of the predictions lie at either 0 or 1, we can apply further thresholding to finalize the categories"
+      ]
+    },
+    "Optimizers": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport math\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef binary_sigmoidal(Y_in):\n  return 1 / (1 + np.exp(-Y_in))\n\ndef find_Y_hat(x, w, b):\n  if type(x) == type([1]) or type(x) == type((1, 2)): #\n    Y_in = np.dot(x, w) + b #\n  else:\n    Y_in = x * w + b\n  Y_hat = binary_sigmoidal(Y_in)\n  \n  return Y_hat\n\ndef delta_w(x, y, Y_hat):\n  return(-2 * (y - Y_hat) * Y_hat * (1 - Y_hat) * x) #\n\ndef delta_b(y, Y_hat):\n  return(-2 * (y - Y_hat) * Y_hat * (1 - Y_hat))\n\nX = [0.5, 2.5, 1.2] #\nY = [0.2, 0.9, 0.4]\n #\n #\nnoofepochs = 300\ndf = pd.DataFrame([(x, y) for x, y in zip(X, Y)], columns = ['X', 'Y'])\ndf.head()\n\ndef batch_gradient_descent(X, Y, noofepochs = 300):\n  w = -2; \u03b7 = 1; b = -2;\n  dw, db = 0, 0\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      dw += delta_w(x, y, Y_hat)\n      db += delta_b(y, Y_hat)\n    \n    w += (-\u03b7 * dw / len(X))\n    b += (-\u03b7 * db / len(X))\n    dw, db = 0, 0\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_bgd, errors_bgd, weights_bgd, biases_bgd = batch_gradient_descent(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (BGD)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_bgd]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\ndef stochastic_gradient_descent(X, Y, noofepochs = 300):\n  w = -2; \u03b7 = 1; b = -2;\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      w += (-\u03b7 * delta_w(x, y, Y_hat))\n      b += (-\u03b7 * delta_b(y, Y_hat))\n\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_sgd, errors_sgd, weights_sgd, biases_sgd = stochastic_gradient_descent(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (SGD)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_sgd]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\ndef mini_batch_gradient_descent(X, Y, noofepochs = 300, batch_size = 2):\n  w = -2; \u03b7 = 1; b = -2;\n  dw, db = 0, 0\n  noofpoints_seen = 0\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      dw += delta_w(x, y, Y_hat)\n      db += delta_b(y, Y_hat)\n      noofpoints_seen += 1\n      if noofpoints_seen % batch_size == 0:\n        w += (-\u03b7 * dw / batch_size)\n        b += (-\u03b7 * db / batch_size)\n        dw, db = 0, 0\n\n    \n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_mbgd, errors_mbgd, weights_mbgd, biases_mbgd = mini_batch_gradient_descent(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (MBGD)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_mbgd]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\ndef sgd_w_momentum(X, Y, noofepochs = 300, \u00df = 0.5):\n  w = -2; \u03b7 = 1; b = -2;\n  dw, db, vw, vb = 0, 0, 0, 0\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      dw = delta_w(x, y, Y_hat)\n      db = delta_b(y, Y_hat)\n      vw = \u00df * vw + (1 - \u00df) * dw #\n      vb = \u00df * vb + (1 - \u00df) * db\n      w += (-\u03b7 * vw)\n      b += (-\u03b7 * vb)\n\n    vw, vb = 0, 0 #\n    \n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_sgdm, errors_sgdm, weights_sgdm, biases_sgdm = sgd_w_momentum(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (SGDM)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_sgdm]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\ndef nesterov_acc_gd(X, Y, noofepochs = 300, \u00df = 0.5):\n  w = -2; \u03b7 = 1; b = -2;\n  dw, db, vw, vb = 0, 0, 0, 0\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n\n    for x, y in zip(X, Y):\n      w_temp = w - \u00df * vw #\n      b_temp = b - \u00df * vb\n\n      Y_hat = find_Y_hat(x, w_temp, b) #\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      dw = delta_w(x, y, Y_hat)\n      db = delta_b(y, Y_hat)\n      \n      w = w_temp - \u03b7 * dw #\n      b = b_temp - \u03b7 * db\n      vw = \u00df * vw + (1 - \u00df) * dw\n      vb = \u00df * vb + (1 - \u00df) * db\n\n    vw, vb = 0, 0\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_nagd, errors_nagd, weights_nagd, biases_nagd = nesterov_acc_gd(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (NAGD)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_nagd]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\ndef adagrad(X, Y, noofepochs = 300):\n  w = -2; \u03b7 = 1; b = -2;\n  \u03b5 = 0.5\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n    dw_2_list = [0]\n    db_2_list = [0]\n\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      \n      dw = delta_w(x, y, Y_hat)\n      dw_2_list.append(dw ** 2)\n      db = delta_b(y, Y_hat)\n      db_2_list.append(db ** 2)\n      \n      w = w + (-\u03b7 / (sum(dw_2_list) + \u03b5) ** 0.5) * dw\n      b = b + (-\u03b7 / (sum(db_2_list) + \u03b5) ** 0.5) * db\n\n    dw_2_list.clear()\n    db_2_list.clear()\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_adg, errors_adg, weights_adg, biases_adg = adagrad(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (ADG)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_adg]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\ndef adadelta_rmsprop(X, Y, noofepochs = 300, \u00df = 0.5):\n  w = -2; \u03b7 = 1; b = -2;\n  \u03b5 = 0.1\n  vw, vb = 0, 0\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n\n    for x, y in zip(X, Y):\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      \n      dw = delta_w(x, y, Y_hat)\n      db = delta_b(y, Y_hat)\n      vw = \u00df * vw + (1 - \u00df) * (dw ** 2)\n      vb = \u00df * vb + (1 - \u00df) * (db ** 2)\n      w = w + (-\u03b7 / ((vw + \u03b5) ** 0.5)) * dw\n      b = b + (-\u03b7 / ((vb + \u03b5) ** 0.5)) * db\n      \n    vw, vb = 0, 0\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_adrp, errors_adrp, weights_adrp, biases_adrp = adadelta_rmsprop(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (ADRP)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_adrp]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\ndef adam(X, Y, noofepochs = 300, \u00df1 = 0.5, \u00df2 = 0.5):\n  w = -2; \u03b7 = 1; b = -2;\n  \u03b5 = 0.01\n  record_num = 0\n  total_count = 0\n  mw, mb, vw, vb = 0, 0, 0, 0\n  y_hat_mega_list = []\n  error_mega_list = []\n  weights_mega_list = []\n  bias_mega_list = []\n\n  for i in range(noofepochs):\n    y_hat_list = []\n    error_list = []\n\n    for x, y in zip(X, Y):\n      record_num += 1\n      total_count += 1\n      Y_hat = find_Y_hat(x, w, b)\n      y_hat_list.append(Y_hat)\n      error_list.append((y - Y_hat) ** 2)\n      \n #\n      dw = delta_w(x, y, Y_hat)\n      db = delta_b(y, Y_hat)\n      \n #\n      mw = \u00df1 * mw + (1 - \u00df1) * dw\n      mb = \u00df1 * mb + (1 - \u00df1) * db\n\n #\n      vw = \u00df2 * vw + (1 - \u00df2) * (dw ** 2)\n      vb = \u00df2 * vb + (1 - \u00df2) * (db ** 2)\n #\n #\n #\n\n #\n #\n\n #\n #\n #\n      w = w + (-\u03b7 / ((vw + \u03b5) ** 0.5)) * mw\n      b = b + (-\u03b7 / ((vb + \u03b5) ** 0.5)) * mb\n      \n    mw, mb, vw, vb, record_num = 0, 0, 0, 0, 0 #\n    y_hat_mega_list.append(y_hat_list)\n    error_mega_list.append(error_list)\n    weights_mega_list.append(w)\n    bias_mega_list.append(b)\n #\n    \n  return y_hat_mega_list, error_mega_list, weights_mega_list, bias_mega_list\n\ny_hats_adam, errors_adam, weights_adam, biases_adam = adam(X, Y, noofepochs)\n\nplt.title(\"Avg. Weight v/s No. of Epochs (ADAM)\")\nepoch_range = [i for i in range(noofepochs)]\nweight_range = [w for w in weights_adam]\nplt.plot(epoch_range, weight_range)\nplt.xlabel('Epochs')\nplt.ylabel('Avg. Weight')\nplt.show()\n\nepoch_range = [i for i in range(0, noofepochs + 1)]\n\nplt.figure(figsize = (15, 15))\nplt.xlabel(\"Epochs\", fontsize = 14)\nplt.ylabel(\"Weights\", fontsize = 14)\nplt.plot(epoch_range, [-2, *weights_bgd], color = 'orange')\nplt.plot(epoch_range, [-2, *weights_sgd], color = 'grey')\nplt.plot(epoch_range, [-2, *weights_mbgd], color = 'pink')\nplt.plot(epoch_range, [-2, *weights_sgdm], color = '#cc7722')\nplt.plot(epoch_range, [-2, *weights_nagd], color = 'green')\nplt.plot(epoch_range, [-2, *weights_adg], color = 'cyan')\nplt.plot(epoch_range, [-2, *weights_adrp], color = 'blue')\nplt.plot(epoch_range, [-2, *weights_adam], color = 'red')\nplt.legend([\"Batch GD\", \"Stochastic GD\", \"Mini-Batch GD\", \"SGD w/ Momentum\", \"Nesterov Accelerated GD\", \"Adagrad\", \"AdaDelta\", \"Adam\"], loc = \"best\")\nplt.show()\n\nepoch_range = [i for i in range(0, noofepochs + 1)]\n\nplt.figure(figsize = (15, 15))\nplt.xlabel(\"Epochs\", fontsize = 14)\nplt.ylabel(\"Weights\", fontsize = 14)\nplt.plot(epoch_range, [-2, *biases_bgd], color = 'orange')\nplt.plot(epoch_range, [-2, *biases_sgd], color = 'grey')\nplt.plot(epoch_range, [-2, *biases_mbgd], color = 'pink')\nplt.plot(epoch_range, [-2, *biases_sgdm], color = '#cc7722')\nplt.plot(epoch_range, [-2, *biases_nagd], color = 'green')\nplt.plot(epoch_range, [-2, *biases_adg], color = 'cyan')\nplt.plot(epoch_range, [-2, *biases_adrp], color = 'blue')\nplt.plot(epoch_range, [-2, *biases_adam], color = 'red')\nplt.legend([\"Batch GD\", \"Stochastic GD\", \"Mini-Batch GD\", \"SGD w/ Momentum\", \"Nesterov Accelerated GD\", \"Adagrad\", \"AdaDelta\", \"Adam\"], loc = \"best\")\nplt.show()\n\nepoch_range = [i for i in range(1, noofepochs + 1)]\n\nplt.figure(figsize = (15, 15))\nplt.xlabel(\"Epochs\", fontsize = 14)\nplt.ylabel(\"Error\", fontsize = 14)\nplt.plot(epoch_range, [np.mean(i) for i in errors_bgd], color = 'orange')\nplt.plot(epoch_range, [np.mean(i) for i in errors_sgd], color = 'grey')\nplt.plot(epoch_range, [np.mean(i) for i in errors_mbgd], color = 'pink')\nplt.plot(epoch_range, [np.mean(i) for i in errors_sgdm], color = '#cc7722')\nplt.plot(epoch_range, [np.mean(i) for i in errors_nagd], color = 'green')\nplt.plot(epoch_range, [np.mean(i) for i in errors_adg], color = 'cyan')\nplt.plot(epoch_range, [np.mean(i) for i in errors_adrp], color = 'blue')\nplt.plot(epoch_range, [np.mean(i) for i in errors_adam], color = 'red')\nplt.legend([\"Batch GD\", \"Stochastic GD\", \"Mini-Batch GD\", \"SGD w/ Momentum\", \"Nesterov Accelerated GD\", \"Adagrad\", \"AdaDelta\", \"Adam\"], loc = \"best\")\nplt.show()",
+      "comments": {
+        "10": " if list of list or list of tuples is used, individual list/tuple should be handled differently",
+        "11": " layer of input neurons (if list of values passed as neuron)",
+        "19": " derivative of binary sigmoidal is y_hat(1 - y_hat) and no, not y_in, y_hat is correct. Refer notes for more clarity",
+        "24": " adding in a third point to make mini-batch GD actually work in mini-batches instead of either being stochastic or batch GD",
+        "26": " X = [0.5, 2.5]",
+        "27": " Y = [0.2, 0.9]",
+        "58": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "94": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "138": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "170": " 'v_' term updates considering previous 'v_' term, this is what we mean when considering the past",
+        "175": " history is per epoch, have to reset it after the end of one",
+        "181": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "208": " history component first",
+        "211": " for w in dw (\u03b4L / \u03b4w) to be w_temp, the y_hat has to be calculated using w_temp, it is this which will make L (error) depend on w_temp and therefore differentiable to it",
+        "217": " then the partial derivative component (which is modified) to update the weight",
+        "227": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "274": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "318": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")",
+        "354": " calculating partial derivative (\u2207L) w.r.t w and b",
+        "358": " calculating gradient-momentum component",
+        "362": " calculating the propagation component",
+        "365": " Bias Correction -> Resulted in too small of a number for weight updation (nan error) -> I think it's an infinity issue, denom became 1 - 1",
+        "372": " Actual weight updation",
+        "373": " w = w  (-\u03b7 / ((v_hat_w  \u03b5)  0.5))  m_hat_w",
+        "374": " b = b  (-\u03b7 / ((v_hat_b  \u03b5)  0.5))  m_hat_b",
+        "378": " epoch-end reset",
+        "383": " print(f\"Epoch {i  1}, w = {w} & b = {b} | Y_hat: {y_hat_list}\")"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_V-DL/Optimizers/1.png",
+        "./OP_ss/Sem_V-DL/Optimizers/2.png",
+        "./OP_ss/Sem_V-DL/Optimizers/3.png",
+        "./OP_ss/Sem_V-DL/Optimizers/4.png",
+        "./OP_ss/Sem_V-DL/Optimizers/5.png",
+        "./OP_ss/Sem_V-DL/Optimizers/6.png",
+        "./OP_ss/Sem_V-DL/Optimizers/7.png",
+        "./OP_ss/Sem_V-DL/Optimizers/8.png",
+        "./OP_ss/Sem_V-DL/Optimizers/9.png",
+        "./OP_ss/Sem_V-DL/Optimizers/10.png",
+        "./OP_ss/Sem_V-DL/Optimizers/11.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff",
+        "7.png": "#ffffff",
+        "8.png": "#ffffff",
+        "9.png": "#ffffff",
+        "10.png": "#ffffff",
+        "11.png": "#ffffff"
+      },
+      "markdown": [
+        "Batch Gradient Descent - Weight updation: After <i><b>all</b></i> the records (rows) i.e, at the end of every epoch",
+        "Stochastic Gradient Descent - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch.",
+        "Mini-Batch Gradient Descent - Weight Updation: After <i><b>batch-size</b></i> number of record(s) (row(s)) in an epoch.",
+        "Stochastic Gradient Descent with Momentum - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but indirectly, i.e considering updation caused by past records as well (I am carrying it out similar to SGD)",
+        "Nesterov Accelerated Gradient Descent - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but indirectly in two steps, first by only the history then by the current derivative of the loss function w.r.t weight(s).",
+        "Adagrad - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but learning rate changes over time",
+        "AdaDelta-RMSprop - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but learning rate changes over time gradually",
+        "Adam - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but learning rate changes over time gradually and so does the weights",
+        "Collective Comparisons are done using: i) Weights v/s Epochs ii) Bias v/s Epochs iii) Mean Squared Error v/s Epochs",
+        "Conclusion: Hence it can be seen that the <b>Adam</b> optimization technique is the best performing optimization."
+      ]
+    },
+    "Optimizers_3D": {
+      "lang": "py",
+      "codeString": "import numpy as np\nimport math\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom matplotlib import cm\n\nX, Y = [0.5, 2.5, 1.8, 2.2, 2.8], [0.2, 0.9, 0.65, 0.8, 1]\nnoofepochs = 60\n\ndef binary_sigmoidal(yin):\n  return (1 / (1 + np.exp(-yin)))\n\ndef predict_y(x, w, b):\n  if type(x) == list or type(x) == tuple:\n    yin = np.dot(x, w) + b\n  else:\n    yin = x * w + b\n  yhat = binary_sigmoidal(yin)\n  return yhat\n\ndef delta_w(x, y, yhat):\n  return (-2 * (y - yhat) * (yhat * (1 - yhat)) * x)\n\ndef delta_b(y, yhat):\n  return (-2 * (y - yhat) * (yhat * (1 - yhat)))\n\ndef plotter(yhats, errors, weights, biases):\n  fig = plt.figure(figsize=(20, 7))\n  ax = plt.axes(projection = '3d')\n  ax.set_xlabel(\"Weight (w)\")\n  ax.set_ylabel(\"Bias (b)\")\n  ax.set_zlabel(\"Squared Loss\")\n  ax.plot3D(np.array(weights), np.array(biases), np.array(errors), marker='o', markersize=2)\n  plt.show()\n\n  fig = plt.figure(figsize=(4, 2.5))\n  plt.xlabel(\"Epochs\")\n  plt.ylabel(\"Error\")\n  plt.title(\"Squared error v/s Epochs\")\n  plt.plot([i for i in range(len(errors))], errors)\n\ndef stochastic_gd(X, Y, noofepochs = 300):\n  w, b = -2, -2 #\n  \u03b1 = 1 #\n  \n  y_hats, errors, weights, biases = [], [], [], []\n  for epoch in range(noofepochs):\n\n #\n    for x, y in zip(X, Y):\n      yhat = predict_y(x, w, b)\n      sqerror = (y - yhat) ** 2\n      w += (-\u03b1 * delta_w(x, y, yhat))\n      b += (-\u03b1 * delta_b(y, yhat))\n    \n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n\n  return y_hats, errors, weights, biases\n\ny_hats_sgd, errors_sgd, weights_sgd, biases_sgd = stochastic_gd(X, Y, noofepochs)\nplotter(y_hats_sgd, errors_sgd, weights_sgd, biases_sgd)\n\ndef batch_gd(X, Y, noofepochs = 300):\n  w, b = -2, -2 #\n  \u03b1 = 1 #\n  dw, db = 0, 0\n  y_hats, errors, weights, biases = [], [], [], []\n  for epoch in range(noofepochs):\n\n #\n    for x, y in zip(X, Y):\n      yhat = predict_y(x, w, b)\n      sqerror = (y - yhat) ** 2\n      dw += delta_w(x, y, yhat)\n      db += delta_b(y, yhat)\n    \n    w += -\u03b1 * (dw / 2) #\n    b += -\u03b1 * (db / 2)\n    dw, db = 0, 0\n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n\n  return y_hats, errors, weights, biases\n\ny_hats_bgd, errors_bgd, weights_bgd, biases_bgd = batch_gd(X, Y, noofepochs)\nplotter(y_hats_bgd, errors_bgd, weights_bgd, biases_bgd)\n\ndef mini_batch_gd(X, Y, noofepochs = 300, batch_size = 2):\n  w, b = -2, -2 #\n  \u03b1 = 1 #\n  dw, db = 0, 0\n  curr_count = 0\n  y_hats, errors, weights, biases = [], [], [], []\n\n  for epoch in range(noofepochs):\n    for x, y in zip(X, Y):\n      yhat = predict_y(x, w, b)\n      sqerror = (y - yhat) ** 2\n      dw += delta_w(x, y, yhat)\n      db += delta_b(y, yhat)\n      curr_count += 1\n      if curr_count % batch_size == 0:\n        w += -\u03b1 * (dw / batch_size)\n        b += -\u03b1 * (db / batch_size)\n        dw, db = 0, 0\n        \n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n\n  return y_hats, errors, weights, biases\n\ny_hats_mbgd, errors_mbgd, weights_mbgd, biases_mbgd = mini_batch_gd(X, Y, noofepochs)\nplotter(y_hats_mbgd, errors_mbgd, weights_mbgd, biases_mbgd)\n\ndef stochastic_gd_w_momentum(X, Y, noofepochs = 300, \u00df = 0.5):\n  w, b = -2, -2\n  \u03b1 = 1\n  dw, db, vw, vb = 0, 0, 0, 0\n  y_hats, errors, weights, biases = [], [], [], []\n  \n  for i in range(noofepochs):\n    for x, y in zip(X, Y):\n      yhat = predict_y(x, w, b)\n      sqerror = (y - yhat) ** 2\n      dw = delta_w(x, y, yhat)\n      db = delta_b(y, yhat)\n      vw = \u00df * vw + (1 - \u00df) * dw\n      vb = \u00df * vb + (1 - \u00df) * db\n      w += (-\u03b1 * vw)\n      b += (-\u03b1 * vb)\n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n  return y_hats, errors, weights, biases\n\ny_hats_sgdm, errors_sgdm, weights_sgdm, biases_sgdm = stochastic_gd_w_momentum(X, Y, noofepochs)\nplotter(y_hats_sgdm, errors_sgdm, weights_sgdm, biases_sgdm)\n\ndef na_gd(X, Y, noofepochs = 300, \u00df = 0.5):\n  \u03b1, w, b = 1, -2, -2\n  dw, db, vw, vb = 0, 0, 0, 0\n  y_hats, errors, weights, biases = [], [], [], []\n  \n  for i in range(noofepochs):\n    for x, y in zip(X, Y):\n      w_temp = w - \u00df * vw #\n      b_temp = b - \u00df * vb\n      yhat = predict_y(x, w_temp, b_temp) #\n      sqerror = (y - yhat) ** 2\n      dw = delta_w(x, y, yhat) #\n      db = delta_b(y, yhat)\n      w += (-\u03b1 * dw) #\n      b += (-\u03b1 * db)\n      vw = \u00df * vw + (1 - \u00df) * dw #\n      vb = \u00df * vb + (1 - \u00df) * db\n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n  return y_hats, errors, weights, biases\n\ny_hats_nagd, errors_nagd, weights_nagd, biases_nagd = na_gd(X, Y, noofepochs)\nplotter(y_hats_nagd, errors_nagd, weights_nagd, biases_nagd)\n\ndef adagrad(X, Y, noofepochs = 300, \u03b5 = 0.5):\n  \u03b1, w, b = 1, -2, -2\n  dw, db, dw_sq, db_sq = 0, 0, 0, 0, \n  y_hats, errors, weights, biases = [], [], [], []\n  \n  for i in range(noofepochs):\n    for x, y in zip(X, Y):\n      yhat = predict_y(x, w, b)\n      sqerror = (y - yhat) ** 2\n      dw = delta_w(x, y, yhat)\n      db = delta_b(y, yhat)\n      dw_sq += dw ** 2\n      db_sq += db ** 2\n      w += (-\u03b1 / (dw_sq + \u03b5) ** 0.5) * dw\n      b += (-\u03b1 / (db_sq + \u03b5) ** 0.5) * db\n    \n    dw_sq, db_sq = 0, 0 \n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n  return y_hats, errors, weights, biases\n\ny_hats_adag, errors_adag, weights_adag, biases_adag = adagrad(X, Y, noofepochs)\nplotter(y_hats_adag, errors_adag, weights_adag, biases_adag)\n\ndef ada_delta(X, Y, noofepochs = 300, \u00df = 0.5, \u03b5 = 0.5):\n  \u03b1, w, b = 1, -2, -2\n  dw, db, vw, vb = 0, 0, 0, 0\n  y_hats, errors, weights, biases = [], [], [], []\n  \n  for i in range(noofepochs):\n    for x, y in zip(X, Y):\n      yhat = predict_y(x, w, b)\n      sqerror = (y - yhat) ** 2\n      dw = delta_w(x, y, yhat)\n      db = delta_b(y, yhat)\n      vw = \u00df * vw + (1 - \u00df) * (dw ** 2)\n      w += (-\u03b1 / (vw + \u03b5) ** 0.5) * dw\n      vb = \u00df * vb + (1 - \u00df) * (db ** 2)\n      b += (-\u03b1 / (vb + \u03b5) ** 0.5) * db\n    \n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n  return y_hats, errors, weights, biases\n\ny_hats_adadelta, errors_adadelta, weights_adadelta, biases_adadelta = ada_delta(X, Y, noofepochs)\nplotter(y_hats_adadelta, errors_adadelta, weights_adadelta, biases_adadelta)\n\ndef adam(X, Y, noofepochs = 300, \u00df1 = 0.5, \u00df2 = 0.5, \u03b5 = 0.5):\n  \u03b1, w, b, t = 1, -2, -2, 0\n  dw, db, mw, mb, vw, vb = 0, 0, 0, 0, 0, 0 #\n  y_hats, errors, weights, biases = [], [], [], []\n  \n  for i in range(noofepochs):\n    for x, y in zip(X, Y):\n      t += 1\n      yhat = predict_y(x, w, b)\n      sqerror = (y - yhat) ** 2\n      dw = delta_w(x, y, yhat)\n      db = delta_b(y, yhat)\n      \n      mw = \u00df1 * mw + (1 - \u00df1) * dw\n #\n      vw = \u00df2 * vw + (1 - \u00df2) * (dw ** 2)\n #\n #\n      w += (-\u03b1 * mw) / (vw + \u03b5) ** 0.5\n      \n      mb = \u00df1 * mb + (1 - \u00df1) * db\n #\n      vb = \u00df2 * vb + (1 - \u00df2) * (db ** 2)\n #\n      b += (-\u03b1 * mb) / (vb + \u03b5) ** 0.5\n\n    t = 0\n    y_hats.append(yhat)\n    errors.append(sqerror)\n    weights.append(w)\n    biases.append(b)\n  return y_hats, errors, weights, biases\n\ny_hats_adam, errors_adam, weights_adam, biases_adam = adam(X, Y, noofepochs)\nplotter(y_hats_adam, errors_adam, weights_adam, biases_adam)\n\ndef collective_plotter_2D(epoch_range: list[int], all_optimizers_param_hist: list[list[float | int]], start_value: int | float, colors: list[str], plot_title: str, x_label: str, y_label: str, legend: list[str]) -> None:\n  plt.figure(figsize = (15, 8))\n  plt.xlabel(x_label, fontsize = 14)\n  plt.ylabel(y_label, fontsize = 14)\n  plt.title(plot_title)\n  \n  for i in range(len(all_optimizers_param_hist)):\n    plt.plot(epoch_range, [start_value, *all_optimizers_param_hist[i]], color = colors[i])\n  plt.legend(legend, loc = \"best\")\n  plt.show()\n\nstart_weight, start_error = -2, 1\nplot_colors = ['orange', 'grey', 'pink', '#cc7722', 'green', 'cyan', 'blue', 'red']\nplot_epoch_range = [i for i in range(0, noofepochs + 1)]\nplot_legend = [\"Batch GD\", \"Stochastic GD\", \"Mini-Batch GD\", \"SGD w/ Momentum\", \"Nesterov Accelerated GD\", \"Adagrad\", \"AdaDelta\", \"Adam\"]\n\ncollective_plotter_2D(plot_epoch_range, [weights_bgd, weights_sgd, weights_mbgd, weights_sgdm, weights_nagd, weights_adag, weights_adadelta, weights_adam], start_weight, plot_colors, \"Weights v/s Epochs\", \"Epochs\", \"Weights\", plot_legend)\n\ncollective_plotter_2D(plot_epoch_range, [errors_bgd, errors_sgd, errors_mbgd, errors_sgdm, errors_nagd, errors_adag, errors_adadelta, errors_adam], start_error, plot_colors, \"Errors v/s Epochs\", \"Epochs\", \"Error (Sq. Error)\", plot_legend)\n\ndef collective_plotter_3D(all_optimizers_weight_hist: list[list[int | float]], all_optimizers_bias_hist: list[list[int | float]], all_optimizers_error_hist: list[list[int | float]], colors: list[str], plot_title: str, legend: str):\n  fig = plt.figure(figsize=(40, 30))\n  ax = plt.axes(projection = '3d')\n  plt.title(plot_title, fontsize=30)\n  ax.set_xlabel(\"Weight (w)\", fontsize=24, labelpad=20)\n  ax.set_ylabel(\"Bias (b)\", fontsize=24, labelpad=30)\n  ax.set_zlabel(\"Squared Loss\", fontsize=24, labelpad=20)\n #\n  plt.rc('xtick', labelsize=24)\n  plt.rc('ytick', labelsize=24)\n  plt.rc('legend', fontsize=20)\n  for w, b, e in zip(all_optimizers_weight_hist, all_optimizers_bias_hist, all_optimizers_error_hist):\n    i = all_optimizers_error_hist.index(e)\n    ax.plot3D(w, b, e, marker = 'o', markersize = 2, color = colors[i])\n  ax.legend(legend)\n  plt.show()\n\ncollective_plotter_3D([weights_bgd, weights_sgd, weights_mbgd, weights_sgdm, weights_nagd, weights_adag, weights_adadelta, weights_adam], [biases_bgd, biases_sgd, biases_mbgd, biases_sgdm, biases_nagd, biases_adag, biases_adadelta, biases_adam], [errors_bgd, errors_sgd, errors_mbgd, errors_sgdm, errors_nagd, errors_adag, errors_adadelta, errors_adam], plot_colors, \"Weight & Bias v/s Error for all optimizers on the same data\", plot_legend)",
+      "comments": {
+        "43": " weight and bias",
+        "44": " learning rate",
+        "49": " for each epoch there is an updation noofrows times, here 2 => 300 x 2 = 600 calcs",
+        "67": " weight and bias",
+        "68": " learning rate",
+        "73": " for each epoch there is an updation exactly once",
+        "80": " knowingly halving it cause only 2 points",
+        "94": " weight and bias",
+        "95": " learning rate",
+        "154": " history first",
+        "156": " it's \"change\" returned will be lesser cause already w has changed",
+        "158": " as y_hat is used in calc. of dw, if w_temp was used in y_hat then dw is w.r.t w_temp which is what we want",
+        "160": " current derivative second",
+        "162": " updating the history too",
+        "226": " m_ is momentum relating to the gradient, v_ is momentum relating/operating on the learning rate",
+        "238": " mw_hat = mw / 1 - (\u00df1  t)              bias correction",
+        "240": " vw_hat = vw / 1 - (\u00df2  t)                vw is negative and with very small \u03b5",
+        "241": " w = (-\u03b1  mw_hat) / (vw_hat  \u03b5)  0.5",
+        "245": " mb_hat = mb / 1 - (\u00df1  t)              bias correction",
+        "247": " vb_hat = vb / 1 - (\u00df2  t)",
+        "287": " rc -> runtime configuration"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_V-DL/Optimizers_3D/1.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/2.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/3.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/4.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/5.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/6.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/7.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/8.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/9.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/10.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/11.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/12.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/13.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/14.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/15.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/16.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/17.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/18.png",
+        "./OP_ss/Sem_V-DL/Optimizers_3D/19.png"
+      ],
+      "bgColors": {
+        "1.png": "#ffffff",
+        "2.png": "#ffffff",
+        "3.png": "#ffffff",
+        "4.png": "#ffffff",
+        "5.png": "#ffffff",
+        "6.png": "#ffffff",
+        "7.png": "#ffffff",
+        "8.png": "#ffffff",
+        "9.png": "#ffffff",
+        "10.png": "#ffffff",
+        "11.png": "#ffffff",
+        "12.png": "#ffffff",
+        "13.png": "#ffffff",
+        "14.png": "#ffffff",
+        "15.png": "#ffffff",
+        "16.png": "#ffffff",
+        "17.png": "#ffffff",
+        "18.png": "#ffffff",
+        "19.png": "#ffffff"
+      },
+      "markdown": [
+      ]
+    },
+    "Perceptron": {
+      "lang": "py",
+      "codeString": "import numpy as np\nfrom prettytable import PrettyTable\n\nfrom IPython.display import Image\nImage(url=\"Perceptron.png\")\n\ndef step_function(Yin):\n  Y_hat = 0 if Yin < 0 else 1\n  return Y_hat\n\ndef perceptron(neuron_input, w, b):\n  if type(neuron_input) == type([1]) or type(neuron_input) == type((1, 2)): #\n    Yin = np.dot(neuron_input, w) + b #\n  else:\n    Yin = neuron_input * w + b #\n  Y_hat = step_function(Yin)\n  return Y_hat \n\ndef AND(All_inputs):\n  w = [1, 1] #\n  b = -2 #\n  result = []\n  for row in All_inputs:\n    result.append(perceptron(row, w, b))\n  \n  final_result = [[x[0], x[1], y] for x, y in zip(All_inputs, result)]\n  return final_result\n\ndef OR(All_inputs):\n  w = [1, 1]\n  b = -1\n  result = []\n  for row in All_inputs:\n    result.append(perceptron(row, w, b))\n  \n  final_result = [[x[0], x[1], y] for x, y in zip(All_inputs, result)]\n  return final_result\n\ndef NOT(All_inputs):\n  w = -1\n  b = 0\n  result = []\n  for row in All_inputs:\n    result.append(perceptron(row, w, b))\n  \n  final_result = [[x, y] for x, y in zip(All_inputs, result)]\n  return final_result\n\ndef NAND(All_inputs):\n #\n  AND_full_result = AND(All_inputs)\n  AND_result = [i[2] for i in AND_full_result]\n  NOT_full_result = NOT(AND_result)\n  \n  final_result = [[x[0], x[1], y[0], y[1]] for x, y in zip(All_inputs, NOT_full_result)]\n  return final_result\n\ndef NOR(All_inputs):\n #\n  OR_full_result = OR(All_inputs)\n  OR_result = [i[2] for i in OR_full_result]\n  NOT_full_result = NOT(OR_result)\n  \n  final_result = [[x[0], x[1], y[0], y[1]] for x, y in zip(All_inputs, NOT_full_result)]\n  return final_result\n\ndef EX_OR(All_inputs):\n  X1_col, X2_col = [i[0] for i in All_inputs], [i[1] for i in All_inputs]\n  X1_bar = [i[1] for i in NOT(X1_col)]\n  X2_bar = [i[1] for i in NOT(X2_col)]\n  \n  X1_bar_X2_data = list(zip(X1_bar, X2_col)) #\n  X1_X2_bar_data = list(zip(X1_col, X2_bar))\n  \n  Z1 = [i[2] for i in AND(X1_bar_X2_data)] #\n  Z2 = [i[2] for i in AND(X1_X2_bar_data)]\n\n  Z = list(zip(Z1, Z2))\n  Y = OR(Z)\n  \n  final_result = [[x[0], x[1], x1_bar, x2_bar, z1, z2, y[2]] for x, x1_bar, x2_bar, z1, z2, y in zip(All_inputs, X1_bar, X2_bar, Z1, Z2, Y)]\n  return final_result\n\ntwo_neurons_test = [[0, 0], [0, 1], [1, 0], [1, 1]]\none_neuron_test = [0, 1]\n\nresult = AND(two_neurons_test)\nresult_table = PrettyTable(['X1', 'X2', 'Output'])\nresult_table.add_rows(result)\nprint(result_table)\n\nresult = OR(two_neurons_test)\nresult_table = PrettyTable(['X1', 'X2', 'Output'])\nresult_table.add_rows(result)\nprint(result_table)\n\nresult = NOT(one_neuron_test)\nresult_table = PrettyTable(['X', 'Output'])\nresult_table.add_rows(result)\nprint(result_table)\n\nresult = NAND(two_neurons_test)\nresult_table = PrettyTable(['X1', 'X2', 'Z', 'Output'])\nresult_table.add_rows(result)\nprint(result_table)\n\nresult = NOR(two_neurons_test)\nresult_table = PrettyTable(['X1', 'X2', 'Z', 'Output'])\nresult_table.add_rows(result)\nprint(result_table)\n\nresult = EX_OR(two_neurons_test)\nresult_table = PrettyTable(['X1', 'X2', 'X\u03051', 'X\u03052', 'Z1 = X\u03051X2', 'Z2 = X1X\u03052', 'Output'])\nresult_table.add_rows(result)\nprint(result_table)",
+      "comments": {
+        "12": " if list of list or list of tuples is used, individual list/tuple should be handled differently",
+        "13": " layer of input neurons (if list of values passed as neuron)",
+        "15": " Singular input neuron",
+        "20": " we won't always have the accurate weights in a perceptron ready",
+        "21": " same fact applies for bias",
+        "50": " negation of AND is NAND",
+        "59": " negation of OR is NOR",
+        "72": " Making 2D list of tuples for further processing",
+        "75": " Z1 = X1_bar_X2 i.e logical multiplication i.e AND"
+      },
+      "outputSrcs": [
+        "./OP_ss/Sem_V-DL/Perceptron/1.png",
+        "./OP_ss/Sem_V-DL/Perceptron/2.png",
+        "./OP_ss/Sem_V-DL/Perceptron/3.png",
+        "./OP_ss/Sem_V-DL/Perceptron/4.png",
+        "./OP_ss/Sem_V-DL/Perceptron/5.png",
+        "./OP_ss/Sem_V-DL/Perceptron/6.png"
+      ],
+      "bgColors": {
+        "1.png": "#111111",
+        "2.png": "#111111",
+        "3.png": "#111111",
+        "4.png": "#111111",
+        "5.png": "#111111",
+        "6.png": "#111111"
+      },
+      "markdown": [
+        "Functions - Step and Perceptron",
+        "The activation function is Binary Step function."
+      ]
+    }
+  },
   "Sem_VI-IPCV": {
     "Basic_Operations": {
       "lang": "py",
