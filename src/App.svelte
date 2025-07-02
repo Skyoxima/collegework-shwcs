@@ -9,10 +9,10 @@
 </script>
 
 <main>
-  <Header />
+  <!-- <Header /> -->
   <About />
-  <MainLayout />
-  <LeftSheet />
-  <OutputImgModal />
-  <RightSheet />
+  <!-- <MainLayout /> -->
+  <!-- <LeftSheet /> -->
+  <!-- <OutputImgModal /> -->
+  <!-- <RightSheet /> -->
 </main>

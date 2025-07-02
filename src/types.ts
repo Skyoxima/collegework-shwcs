@@ -1,3 +1,4 @@
+import type { Snippet } from "svelte";
 import type { MouseEventHandler } from "svelte/elements";
 
 export interface ObjCodebaseItemBody {
@@ -34,4 +35,13 @@ export interface ProjectEntryProps {
   subjectName: subject;
   projectName: string;
   projectBody: ObjCodebaseItemBody;
+}
+
+export interface AboutCardProps {
+  key: number;
+  flipCount: number;
+  iconSrc?: string;
+  descriptor?: string;
+  frontpage?: Snippet;
+  backpage?: Snippet | ((flipCount: number) => ReturnType<import("svelte").Snippet>);
 }

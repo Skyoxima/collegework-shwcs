@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -6,6 +7,7 @@
   --color-kwdr-bg: #181616;
   --color-kwdr-fg--muted: #a6a69c;
   --font-plex-mono: "IBM Plex Mono", "consolas", monospace;
+  --font-playwrite-in: "Playwrite IN", "Segoe UI", cursive;
   --text-2xs: 10px;
   --text-3xs: 8px;
 }
@@ -46,6 +48,10 @@
 
   .header-btn {
     @apply w-8 h-8 bg-kwdr-fg rounded-lg flex justify-center items-center active:scale-95 transition-[scale] cursor-pointer;
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
   }
 }
 
