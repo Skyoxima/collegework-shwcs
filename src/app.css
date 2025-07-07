@@ -21,6 +21,9 @@
     box-sizing: border-box;
     font-family: var(--font-plex-mono);
   }
+  span, strong, b, i, div > p, ul > li {
+    font-family: inherit;
+  }
 }
 
 @layer utilities {
@@ -52,6 +55,18 @@
 
   .flex-center {
     @apply flex justify-center items-center;
+  }
+
+  .playwrite-base-light {
+    @apply font-playwrite-in text-base/10 font-light;
+  }
+
+  .playwrite-small-light {
+    @apply font-playwrite-in text-sm/8 font-light;
+  }
+
+  .playwrite-xs-light {
+    @apply font-playwrite-in text-xs/7 tracking-tight font-light;
   }
 }
 

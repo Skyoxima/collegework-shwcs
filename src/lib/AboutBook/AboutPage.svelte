@@ -4,11 +4,10 @@
   const {
     key,
     flipCount,
-    iconSrc,
-    descriptor,
     frontpage,
     backpage,
   }: AboutCardProps = $props();
+  import { noofAboutPages } from "../../constants";
 </script>
 
 <!-- TODO: The sliding to adjust for opened book is incorrect, it isn't properly centred -->
@@ -16,7 +15,7 @@
   class={[
     "page-container absolute h-full aspect-5/10 lg:aspect-2/3 perspective-distant transform-3d transition-transform duration-500",
     flipCount > 0
-      ? flipCount < 4
+      ? flipCount < noofAboutPages
         ? `translate-x-1/2`
         : `translate-x-full`
       : "",

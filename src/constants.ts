@@ -1,4 +1,4 @@
-export const subjectFullnames: {[key: string]: string} = {
+export const subjectFullnames: { [key: string]: string } = {
   "DAOA": "Design and Analysis of Algorithms",
   "SF": "System Fundamentals",
   "IS": "Information Security",
@@ -7,3 +7,5 @@ export const subjectFullnames: {[key: string]: string} = {
   "ML4": "Machine Learning 4",
   "SNA": "Social Network Analysis"
 }
+
+export const noofAboutPages = 5

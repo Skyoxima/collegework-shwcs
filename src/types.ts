@@ -40,8 +40,6 @@ export interface ProjectEntryProps {
 export interface AboutCardProps {
   key: number;
   flipCount: number;
-  iconSrc?: string;
-  descriptor?: string;
   frontpage?: Snippet;
   backpage?: Snippet | ((flipCount: number) => ReturnType<import("svelte").Snippet>);
 }

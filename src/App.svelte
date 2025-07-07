@@ -12,7 +12,7 @@
   <!-- <Header /> -->
   <About />
   <!-- <MainLayout /> -->
-  <!-- <LeftSheet /> -->
+  <LeftSheet />
   <!-- <OutputImgModal /> -->
   <!-- <RightSheet /> -->
 </main>
