@@ -20,6 +20,6 @@ export let currentProject = $state({
 });
 
 export let currHltdLine = $state({ value: 0 });
-export let showAboutModal = $state({ value: true });
+export let showAboutModal = $state({ value: false });
 export let currentImage = $state({src: ''})
 // export let currentImage = $state({src: 'OP_ss/Sem_IV-SF/Memory_Page_Replacement/MPR_FIFO_OP_1.png'})

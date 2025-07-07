@@ -10,10 +10,9 @@
   import { noofAboutPages } from "../../constants";
 </script>
 
-<!-- TODO: The sliding to adjust for opened book is incorrect, it isn't properly centred -->
 <article
   class={[
-    "page-container absolute h-full aspect-5/10 lg:aspect-2/3 perspective-distant transform-3d transition-transform duration-500",
+    "page-container absolute top-0 left-0 w-full h-full perspective-distant transform-3d transition-transform duration-500",
     flipCount > 0
       ? flipCount < noofAboutPages
         ? `translate-x-1/2`
@@ -26,7 +25,7 @@
 <!--~ z-index is used to maintain a proper stacking for the backpages too, so only when pages are flipped, reverse stacking should be applied -->
   <div
     class={[
-      "page-content absolute top-1/2 left-1/2 -translate-1/2 w-[95%] h-[95%] rounded-2xl bg-kwdr-fg--muted transition-transform duration-1000 transform-3d ease-out",
+      "page-content absolute top-1/2 left-1/2 -translate-1/2 w-full h-full rounded-2xl bg-kwdr-fg--muted transition-transform duration-1000 transform-3d ease-out",
       flipCount >= key ? "-rotate-y-180" : "",
     ]}
   >
@@ -46,10 +45,6 @@
 </article>
 
 <style>
-  /* .page-container:hover > .page-content {
-    transform: rotateY(180deg);
-  } */
-
   .page-container > .page-content {
     transform-origin: center left;
   }

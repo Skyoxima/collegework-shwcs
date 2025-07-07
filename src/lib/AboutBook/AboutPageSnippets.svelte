@@ -5,7 +5,6 @@
   import LeftSheetLayout from "../SVGAsComponent/LeftSheetLayout.svelte";
   import LeftSheetLayoutRetracted from "../SVGAsComponent/LeftSheetLayout_Retracted.svelte";
   import MdLayout from "../SVGAsComponent/MDLayout.svelte";
-  import { subjectFullnames } from "../../constants";
 
   export {
     titlePage,
@@ -79,7 +78,7 @@
     <li>Some projects have an additional <strong>Markdown</strong> section on the <strong>right side</strong>.</li>
   </ul>
   <div class="flex-center my-2">
-    <MdLayout className="w-40 h-auto" />
+    <MdLayout className="w-48 h-auto" />
   </div>
 {/snippet}
 
@@ -89,12 +88,11 @@
     Other tech and tools used are:
   </p>
   <ul class="font-playwrite-in text-base/10 font-light list-disc ml-4">
-    <li class="playwrite-small-light"><strong>Rehype Pretty Code</strong>, for Code display and interaction.</li>
-    <li class="playwrite-small-light"><strong>Kanagawa Dragon</strong> Theme.</li>
-    <li class="playwrite-small-light"><strong>IBM Plex Mono</strong> as the primary font, <strong>Playwrite IN</strong> as the secondary.</li>
-    <li class="playwrite-small-light"><strong>Figma</strong> for custom assets: Icons, Logo, App Design.</li>
-    <li class="playwrite-small-light">Projects were written in C / Python / JuPyter and custom <strong>Python</strong> scripts were used to convert to this project's JSON db schema</li>
-    <!-- <li class="playwrite-small-light">Custom <strong>Python</strong> scripts for .py, .ipynb → Project's custom db schema.</li> -->
+    <li class=""><strong>Rehype Pretty Code</strong>, for Code display and interaction.</li>
+    <li class=""><strong>Kanagawa Dragon</strong> Theme.</li>
+    <li class=""><strong>IBM Plex Mono</strong> as the primary font, <strong>Playwrite IN</strong> as the secondary.</li>
+    <li class=""><strong>Figma</strong> for custom assets: Icons, Logo, App Design.</li>
+    <li class="">Projects were written in C / Python / JuPyter and were processed to fit this project's JSON db schema using <strong>Python.</strong></li>
   </ul>
 {/snippet}
 

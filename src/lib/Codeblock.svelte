@@ -7,7 +7,6 @@
   import { currHltdLine, currentProject } from "../state.svelte";
   import type { Action } from "svelte/action";
 
-  $inspect(currentProject)
   async function processCode(lang: string, codeString: string) {
     const markdown = "```" + lang + " showLineNumbers" + "\n" + codeString;
 
