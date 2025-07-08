@@ -11,12 +11,10 @@
 </script>
 
 <main>
-  <!-- <Header /> -->
-  <!-- <About /> -->
+  <Header />
   <AboutDelegator />
-  <!-- <AboutMobile /> -->
-  <!-- <MainLayout />
+  <MainLayout />
   <LeftSheet />
   <OutputImgModal />
-  <RightSheet /> -->
+  <RightSheet />
 </main>
