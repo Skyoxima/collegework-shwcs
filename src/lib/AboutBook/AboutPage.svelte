@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { AboutCardProps } from "../../types";
+  import { noofAboutPages } from "../../constants";
 
   const {
     key,
@@ -7,7 +8,6 @@
     frontpage,
     backpage,
   }: AboutCardProps = $props();
-  import { noofAboutPages } from "../../constants";
 </script>
 
 <article

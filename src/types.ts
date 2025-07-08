@@ -43,3 +43,10 @@ export interface AboutCardProps {
   frontpage?: Snippet;
   backpage?: Snippet | ((flipCount: number) => ReturnType<import("svelte").Snippet>);
 }
+
+export interface AboutPageMobProps {
+  key: number;
+  flipCount: number;
+  frontpage?: Snippet | ((flipCount: number) => ReturnType<import("svelte").Snippet>);
+  backpage?: Snippet | ((flipCount: number) => ReturnType<import("svelte").Snippet>);
+}

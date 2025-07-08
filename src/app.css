@@ -57,16 +57,24 @@
     @apply flex justify-center items-center;
   }
 
+  .playwrite-3xl-bold {
+    @apply font-playwrite-in text-3xl font-bold tracking-wide;
+  }
+
   .playwrite-base-light {
-    @apply font-playwrite-in text-base/10 font-light;
+    @apply font-playwrite-in text-xs/7.5 min-[425px]:text-sm/8 md:text-base/10 font-light;
   }
 
   .playwrite-small-light {
-    @apply font-playwrite-in text-sm/8 font-light;
+    @apply font-playwrite-in text-xs/7 md:text-sm/8 font-light;
   }
 
   .playwrite-xs-light {
-    @apply font-playwrite-in text-xs/7 tracking-tight font-light;
+    @apply font-playwrite-in text-2xs/6 md:text-xs/7 tracking-tight font-light;
+  }
+  
+  .playwrite-2xs-light {
+    @apply font-playwrite-in text-3xs/5 md:text-2xs/6 tracking-tight font-light;
   }
 }
 

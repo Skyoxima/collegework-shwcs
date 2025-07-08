@@ -20,22 +20,22 @@
 </script>
 
 {#snippet bgLogoVector()}
-  <LogoVector className="w-[calc(100%-2rem)] h-auto absolute -translate-1/2 top-1/2 left-1/2 [&_path]:stroke-black [&_path]:stroke-[0.25] -z-1" />
+  <LogoVector className="w-[calc(100%-2rem)] h-auto max-h-[calc(100%-1rem)] absolute -translate-1/2 top-1/2 left-1/2 [&_path]:stroke-white/25 lg:[&_path]:stroke-black [&_path]:stroke-[0.25]" />
 {/snippet}
 
 {#snippet titlePage()}
-  <div class="p-4 w-full h-full flex flex-col gap-16 items-center">
+  <div class="p-4 w-full h-full flex flex-col gap-8 md:gap-16 items-center">
     <div class="h-2/3">
       <LogoVector className="w-full h-full" />
     </div>
-    <div class="w-full text-center font-playwrite-in text-3xl">
+    <div class="w-full text-center font-playwrite-in text-2xl md:text-3xl">
       What's this project?
     </div>
   </div>
 {/snippet}
 
 {#snippet frontpage1()}
-  <p class="font-playwrite-in text-base/10 font-light">
+  <p class="playwrite-base-light">
     Throughout my college career, I've put in considerable effort in learning
     the material through practical assignments. To me, this was Engineering. I
     didn't mind spending time on these assignments, it was always a learning
@@ -83,11 +83,11 @@
 {/snippet}
 
 {#snippet frontpage3()}
-  <p class="font-playwrite-in text-base/10 font-light">
+  <p class="playwrite-base-light">
     This project is made using <strong>Svelte 5</strong>; it is entirely client-side as of v2.
     Other tech and tools used are:
   </p>
-  <ul class="font-playwrite-in text-base/10 font-light list-disc ml-4">
+  <ul class="playwrite-base-light list-disc ml-4">
     <li class=""><strong>Rehype Pretty Code</strong>, for Code display and interaction.</li>
     <li class=""><strong>Kanagawa Dragon</strong> Theme.</li>
     <li class=""><strong>IBM Plex Mono</strong> as the primary font, <strong>Playwrite IN</strong> as the secondary.</li>
@@ -100,39 +100,39 @@
 <!-- I think I couldn't have done it with in: without also using the same if, readers won't take a set amount of time and in: works based on knowing the incoming time -->
 {#snippet backpage1(flipCount: number)}
   {#if flipCount === 1}
+    {@render bgLogoVector()}
     <div
-      class="w-full h-full flex-center text-3xl font-bold tracking-wide font-playwrite-in"
+      class="w-full h-full flex-center playwrite-3xl-bold relative"
       out:fade={{ delay: 250 }}
     >
       Motive
     </div>
-    {@render bgLogoVector()}
   {/if}
 {/snippet}
 
 {#snippet backpage2()}
+  {@render bgLogoVector()}
   <div
-    class="w-full h-full flex-center text-3xl font-bold tracking-wide font-playwrite-in"
+    class="w-full h-full flex-center playwrite-3xl-bold relative"
   >
     Structure
   </div>
-  {@render bgLogoVector()}
 {/snippet}
 
 {#snippet backpage3ex()}
+  {@render bgLogoVector()}
   <div
-    class="w-full h-full flex-center text-3xl font-bold tracking-wide font-playwrite-in"
+    class="w-full h-full flex-center playwrite-3xl-bold relative"
   >
     Structure ||
   </div>
-  {@render bgLogoVector()}
 {/snippet}
 
 {#snippet backpage3()}
+  {@render bgLogoVector()}
   <div
-    class="w-full h-full flex-center text-3xl font-bold tracking-wide font-playwrite-in"
+    class="w-full h-full flex-center playwrite-3xl-bold relative"
   >
     Specifications
   </div>
-  {@render bgLogoVector()}
 {/snippet}

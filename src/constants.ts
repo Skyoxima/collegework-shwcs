@@ -8,4 +8,5 @@ export const subjectFullnames: { [key: string]: string } = {
   "SNA": "Social Network Analysis"
 }
 
-export const noofAboutPages = 5
+export const noofAboutPages = 5;
+export const noofAboutPagesMobile = 9;
