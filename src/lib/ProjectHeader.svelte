@@ -1,31 +1,19 @@
 <script lang="ts">
   import { currentProject } from "../state.svelte";
-  import { subjectFullnames } from "../constants";
-
-  const subjectName = $derived(subjectFullnames[currentProject.subject.split("-")[1]])
-  const semester = $derived.by(() => {
-    const semesterFull = currentProject.subject.split('-')[0].split('_')
-    return `${semesterFull[0]}ester-${semesterFull[1]}`
-  })
+  import { processSemesterName, processSubjectName, isDesktop, processProjectEntry } from "../auxiliary";
   
-  const isDesktop = () => {
-    return window.matchMedia('screen and (width >= 64rem)').matches;
-  }
+  const subjectName = $derived(processSubjectName(currentProject.subject))
+  const semester = $derived.by(() => processSemesterName(currentProject.subject))
+  
 </script>
 
-
-{#snippet headerText(text: string, className?: string)}
-  <p class={['px-2', className]}>{text}</p>
-{/snippet}
-
 {#snippet headerRevamped()}
-
   {#if isDesktop()}
     <div class="w-1/3">
       {semester}
     </div>
     <div class="w-1/3 lg:text-center">
-      {currentProject.projectName}
+      {processProjectEntry(currentProject.projectName)}
     </div>
     <div class="w-1/3 lg:text-right">
       {subjectName}
@@ -36,11 +24,12 @@
       {semester} | {subjectName}
     </div>
     <div class="text-center">
-      {currentProject.projectName}
+      {processProjectEntry(currentProject.projectName)}
     </div>
   {/if}
   
 {/snippet}
+
 
 <div
   class="w-full lg:px-4 flex justify-center text-2xs lg:text-xs text-kwdr-bg"
@@ -52,6 +41,7 @@
   {@render headerRevamped()}
   </div>
 </div>
+
 
 <style>
   #header-content::before {

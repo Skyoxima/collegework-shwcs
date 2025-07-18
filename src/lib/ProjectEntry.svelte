@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { processProjectEntry } from "../auxiliary";
   import { currentProject, currHltdLine } from "../state.svelte";
   import type { ProjectEntryProps, subject, ObjCodebaseItemBody } from "../types";
 
@@ -29,7 +30,8 @@
       ? "border-b-2 border-b-kwdr-bg/25"
       : ""}
   >
-    {projectName}
+    <!-- {projectName} -->
+    {processProjectEntry(projectName)}
   </span>
 </button>
 

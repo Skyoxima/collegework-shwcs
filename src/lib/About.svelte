@@ -18,8 +18,6 @@
   let dialogRef: HTMLDialogElement | undefined = $state(undefined);
   let flipCount = $state(0);
 
-  $inspect(showAboutModal)
-
   // It's a bit convoluted for handling modals because showModal is necessary to properly activate the element, whereas in LeftSheet it was okay to just use CSS...
   // and the state was used inside the component definition whereas here a HeaderButton needs to activate this component, so an external state is warranted.
   $effect(() => {

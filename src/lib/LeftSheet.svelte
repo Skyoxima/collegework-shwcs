@@ -3,6 +3,7 @@
   import ProjectEntry from "./ProjectEntry.svelte";
   import RightArrow from "./SVGAsComponent/RightArrow.svelte";
   import { fade } from "svelte/transition";
+  import { processSubjectName, processSemesterName } from "../auxiliary";
 
   let sheetMode = $state(false);
 </script>
@@ -28,7 +29,7 @@
         {#each CodebaseEntries as [subjectName, codeItem]}
           <article>
             <h2 class="text-sm md:text-base subject px-2">
-              {subjectName}
+              {processSubjectName(subjectName)}
             </h2>
             {#each Object.entries(codeItem) as [projectName, projectBody]}
               <ProjectEntry {subjectName} {projectName} {projectBody} />
