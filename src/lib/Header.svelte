@@ -13,7 +13,7 @@
   <div class="bg-kwdr-bg p-2.5">
     <div class="w-full h-full flex justify-between items-center">
       <h2 class="text-kwdr-fg text-sm font-bold md:text-xl md:tracking-wide">
-        Skyoxima's Collegework Showcase
+        Skyoxima's Effortarium
       </h2>
       <div class="w-6/10 flex justify-end items-center gap-4">
         <HeaderButton buttonID="info-icon" handler={modalSwitchClick} />
