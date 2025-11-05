@@ -3,6 +3,8 @@
   import remarkParse from "remark-parse";
   import remarkRehype from "remark-rehype";
   import rehypePrettyCode from "rehype-pretty-code";
+  // prettyCode is much faster than shiki
+  // import rehypeShiki from '@shikijs/rehype';
   import rehypeStringify from "rehype-stringify";
   import { currHltdLine, currentProject } from "../state.svelte";
   import type { Action } from "svelte/action";
@@ -30,6 +32,8 @@
     )
   );
 
+  // Actions run immediately when the HTML element is mounted on the window
+  // TODO: This is pretty expensive to do I think... linear time   but expensive.
   const lineHlt: Action = (node: HTMLElement) => {
     $effect(() => {
       // When there indeed is some line to highlight
