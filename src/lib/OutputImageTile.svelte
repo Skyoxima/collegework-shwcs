@@ -11,7 +11,7 @@
   style={`
           background: ${currentProject.projectBody.bgColors[processAlt(src)]}; 
           box-shadow: 0 4px 2px 0 color-mix(in srgb, ${currentProject.projectBody.bgColors[processAlt(src)]} 50%, transparent);
-          `}
+  `}
   onclick={() => {currentImage.src = src}}
   >
   <img 

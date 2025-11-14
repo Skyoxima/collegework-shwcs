@@ -2,20 +2,36 @@
   import { unified } from "unified";
   import remarkParse from "remark-parse";
   import remarkRehype from "remark-rehype";
-  import rehypePrettyCode from "rehype-pretty-code";
+  import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
+  import { createHighlighterCore } from "shiki/core";
+  import { createOnigurumaEngine } from "shiki/engine/oniguruma";
   import rehypeStringify from "rehype-stringify";
+
   import { currHltdLine, currentProject } from "../state.svelte";
   import type { Action } from "svelte/action";
+  import type { HighlighterCore, HighlighterGeneric } from "shiki/core";
+  import { onDestroy } from "svelte";
 
+  let highlighter: HighlighterCore;
   async function processCode(lang: string, codeString: string) {
-    const markdown = "```" + lang + " showLineNumbers" + "\n" + codeString;
+    const markdown = "```" + lang + "\n" + codeString;
+
+    // ~ code-splitting for not importing the whole shiki library... that's why have to use shiki instead of rehype-pretty-code
+    highlighter = await createHighlighterCore({
+      themes: [
+        import('@shikijs/themes/kanagawa-dragon')
+      ],
+      langs: [
+        import('@shikijs/langs/python'),
+        import('@shikijs/langs/c')
+      ],
+      engine: createOnigurumaEngine(() => import('shiki/wasm'))
+    })
 
     const file = await unified()
       .use(remarkParse)
       .use(remarkRehype)
-      .use(rehypePrettyCode, {
-        theme: "kanagawa-dragon",
-      })
+      .use(rehypeShikiFromHighlighter, highlighter as HighlighterGeneric<any, any>, {theme: 'kanagawa-dragon'})
       .use(rehypeStringify)
       .process(markdown);
 
@@ -29,30 +45,35 @@
       currentProject.projectBody.codeString
     )
   );
+  // above derived is deriving from the currentProject state variable.
 
   const lineHlt: Action = (node: HTMLElement) => {
+    // I want to keep a pointer to all the children span nodes once the whole 'code' block is mounted
+    const allLines = node.querySelectorAll('span.line');
+    
+    // effect tracks currHltdLine... now I want to only apply this to the number mentioned in this variable and remove from the rest if existed
+    // to make it more efficient, I can use the keys of the comments properties to only check for those who could possibly have the highlights
     $effect(() => {
-      // When there indeed is some line to highlight
       if (currHltdLine.value > 0) {
-        const allLines = node.querySelectorAll("[data-line]");
-        // remove existing highlights first
-        allLines.forEach((ele) => {
-          ele.classList.remove("highlighted-line");
-        });
+        // this will be O(m), m being the number of comments for the codeblock. Previously this was O(n) with n being the number of lines
+        for (const hltable of Object.keys(currentProject.projectBody.comments).map((val) => Number(val) - 1)) {
+          allLines[hltable].classList.remove('highlighted-line');
+        }
 
-        // now apply/update the highlight
-        const hltLine = allLines[currHltdLine.value - 1] as HTMLSpanElement;
-        hltLine.classList.add("highlighted-line");
-
-        // scrolling to the line being highlighted
-        hltLine.scrollIntoView({
+        allLines[currHltdLine.value - 1].classList.add('highlighted-line');
+        allLines[currHltdLine.value - 1].scrollIntoView({
           behavior: "smooth",
           block: "center",
           inline: "start",
-        });
+        })
       }
-    });
-  };
+    })
+  }
+
+  // "Shiki Highlighter Core must be a singleton", hence dispose the unused/previously used (by a previous codeblock)
+  onDestroy(() => {
+    highlighter.dispose();
+  })
 </script>
 
 <!-- Actions and use: directive go hand-in-hand, and it was a godsent here! -->
@@ -93,39 +114,25 @@
   }
 
   #injected-html :global {
-    pre [data-line] {
+    span.line {
       padding: 0 1rem;
     }
-
-    /* This is for line numbers */
-    code[data-line-numbers] {
-      counter-reset: line;
+    
+    /* CSS for line number on the left side of codeblock */
+    code {
+      counter-reset: step;
+      counter-increment: step 0;
     }
 
-    code[data-line-numbers] > [data-line]::before {
-      counter-increment: line;
-      content: counter(line);
-
+    code span.line::before {
+      content: counter(step);
+      counter-increment: step;
+      width: 1rem;
+      margin-right: 1.5rem;
       display: inline-block;
-      width: 0.75rem;
-      margin-right: 2rem;
       text-align: right;
-      color: gray;
+      color: var(--color-kwdr-fg--muted);
     }
-
-    code[data-line-numbers-max-digits="2"] > [data-line]::before {
-      width: 1.25rem;
-    }
-
-    code[data-line-numbers-max-digits="3"] > [data-line]::before {
-      width: 1.75rem;
-    }
-
-    code[data-line-numbers-max-digits="4"] > [data-line]::before {
-      width: 2.25rem;
-    }
-    /* Line number styling ends here. */
-
     span.highlighted-line {
       background: color-mix(
         in srgb,
