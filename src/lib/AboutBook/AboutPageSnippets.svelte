@@ -1,10 +1,10 @@
 <script lang="ts" module>
   import LogoVector from "../SVGAsComponent/LogoVector.svelte";
   import { fade } from "svelte/transition";
-  import ProjectLayout from "../SVGAsComponent/ProjectLayout.svelte";
-  import LeftSheetLayout from "../SVGAsComponent/LeftSheetLayout.svelte";
-  import LeftSheetLayoutRetracted from "../SVGAsComponent/LeftSheetLayout_Retracted.svelte";
-  import MdLayout from "../SVGAsComponent/MDLayout.svelte";
+  import Manual_1 from '/images/Manual_1.png';
+  import Manual_2 from '/images/Manual_2.png';
+  import Manual_3 from '/images/Manual_3.png';
+  import Manual_4 from '/images/Manual_4.png';
 
   export {
     titlePage,
@@ -56,15 +56,15 @@
     side:
   </p>
   <div class="flex-center gap-2.5 my-2">
-    <LeftSheetLayoutRetracted className="w-40 h-auto" />
-    <LeftSheetLayout className="w-40 h-auto" />
+    <img src={Manual_1} class="w-40" alt="Manual-1">
+    <img src={Manual_2} class="w-40" alt="Manual-2"/>
   </div>
 
   <p class="playwrite-base-light">
     Once a project is loaded, the core is laid out as the following:
   </p>
   <div class="flex-center my-2">
-    <ProjectLayout className="w-40 h-auto" />
+    <img src={Manual_3} class="w-40" alt="Manual-3"/>
   </div>
   <ul class="playwrite-base-light mb-2">
     <li>All the blocks are scrollable in both directions whenever necessary.</li>
@@ -78,7 +78,7 @@
     <li>Some projects have an additional <strong>Markdown</strong> section on the <strong>right side</strong>.</li>
   </ul>
   <div class="flex-center my-2">
-    <MdLayout className="w-48 h-auto" />
+    <img src={Manual_4} class="mt-4 w-48" alt="Manual-4" title="Manual-4">
   </div>
 {/snippet}
 
@@ -88,7 +88,7 @@
     Other tech and tools used are:
   </p>
   <ul class="playwrite-base-light list-disc ml-4">
-    <li class=""><strong>Rehype Pretty Code</strong>, for Code display and interaction.</li>
+    <li class=""><strong>Shiki/Rehype</strong>, for Code display and interaction.</li>
     <li class=""><strong>Kanagawa Dragon</strong> Theme.</li>
     <li class=""><strong>IBM Plex Mono</strong> as the primary font, <strong>Playwrite IN</strong> as the secondary.</li>
     <li class=""><strong>Figma</strong> for custom assets: Icons, Logo, App Design.</li>
@@ -115,7 +115,7 @@
   <div
     class="w-full h-full flex-center playwrite-3xl-bold relative"
   >
-    Structure
+    Structure Ⅰ
   </div>
 {/snippet}
 
@@ -124,7 +124,7 @@
   <div
     class="w-full h-full flex-center playwrite-3xl-bold relative"
   >
-    Structure ||
+    Structure ⅠⅠ
   </div>
 {/snippet}
 
