@@ -25,12 +25,6 @@ export interface ObjCodebase {
 
 export type subject = keyof ObjCodebase;
 
-export interface currentProjectType  {
-  subject: string;
-  projectName: string;
-  projectBody: ObjCodebaseItemBody | ''
-}
-
 export interface HeaderButtonProps {
   buttonID: string;
   state?: boolean;
@@ -43,25 +37,20 @@ export interface ProjectEntryProps {
   clickHandler: (projectID: string, projectName: string) => void;
 }
 
-export interface ProjectRowType {
-  id: string;
-  project_name: string;
-  subject: string;
+export interface ProjectBodyT {
   lang: string;
   code: string;
   markdown?: string[];
 }
 
 //~ type guard for supabase requested data
-export function checkProjectRow(x: any): x is ProjectRowType {
+export function checkProjectBodyT(x: any): x is ProjectBodyT {
   return (
     x != null &&
     typeof x === 'object' &&
-    typeof x.id === 'string' &&
-    typeof x.project_name === 'string' &&
-    typeof x.subject === 'string' &&
     typeof x.lang === 'string' &&
-    typeof x.code === 'string'
+    typeof x.code === 'string' &&
+    (x.markdown === null || x.markdown === undefined || Array.isArray(x.markdown))
   )
 }
 

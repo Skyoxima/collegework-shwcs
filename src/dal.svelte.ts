@@ -1,5 +1,5 @@
 import { currentProject, supabase } from './state.svelte';
-import { type ProjPerSub } from './types';
+import { checkProjectBodyT, type ProjectBodyT, type ProjPerSub } from './types';
 
 
 export async function getProjectsPerSubject(): Promise<ProjPerSub> {
@@ -38,20 +38,30 @@ export async function getProjectsPerSubject(): Promise<ProjPerSub> {
   }
 }
 
-export async function getProjectBody() {
-  if(!localStorage.getItem('PB')) {
-    if(currentProject.projectDBID !== '') {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('lang,code,markdown')
-        .eq('id', currentProject.projectDBID)
-        .single()
-      if (error) throw error;
-  
-      console.log(data)
-      return data
-    }
+export async function getProjectBody(): Promise<ProjectBodyT> {
+  const LSKey = `${currentProject.projectDBID}-code`;
+
+  // first time fetch.
+  if (!localStorage.getItem(LSKey)) {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('lang,code,markdown')
+      .eq('id', currentProject.projectDBID)
+      .single()
+    if (error) throw error;
+    if (!checkProjectBodyT(data)) throw new Error("Invalid project body from DB");
+    
+    localStorage.setItem(LSKey, JSON.stringify(data));
+    return data;
   }
+
+  // if already exists in localStorage
+  const raw = localStorage.getItem(LSKey);
+  if (!raw) throw new Error('Cache unavailable...') // TODO add a re-call to retrieve from supabase
+  const parsed = JSON.parse(raw);
+  if (!checkProjectBodyT(parsed)) throw new Error("Cached project body is invalid");
+
+  return parsed;
 }
 
 export async function getProjectComments(projectName: string) {

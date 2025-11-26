@@ -10,7 +10,7 @@
   // promise is returned by processCode too, which then goes to the await block and then is shown on screen when resolved
   let processedCode = $state<Promise<string>>();
   
-  // To get the singleton highlightercore... previously it was creating multiple instances per project click
+  // To refer to the singleton highlightercore across files... previously it was creating multiple instances per project click
   let highlighter: HighlighterCore;
   shikiInstance().then(res => { highlighter = res });
 
@@ -21,7 +21,7 @@
       
       // await is not allowed in effects so .then works
       processedCode = projectBody
-        .then(res => processCode(res?.lang, res?.code, highlighter))
+        .then(res => processCode(res.lang, res.code, highlighter))
     }
   })
 
