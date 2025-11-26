@@ -5,7 +5,7 @@ export interface ObjCodebaseItemBody {
   lang: string;
   codeString: string;
   comments: { [key: string]: string } | {};
-  outputSrcs: string[] | string;
+  outputSrcs: string[];
   bgColors: { [key: string]: string };
   markdown?: string[];
 }
@@ -25,6 +25,12 @@ export interface ObjCodebase {
 
 export type subject = keyof ObjCodebase;
 
+export interface currentProjectType  {
+  subject: string;
+  projectName: string;
+  projectBody: ObjCodebaseItemBody | ''
+}
+
 export interface HeaderButtonProps {
   buttonID: string;
   state?: boolean;
@@ -32,10 +38,35 @@ export interface HeaderButtonProps {
 }
 
 export interface ProjectEntryProps {
-  subjectName: subject;
+  projectID: string;
   projectName: string;
-  projectBody: ObjCodebaseItemBody;
+  clickHandler: (projectID: string, projectName: string) => void;
 }
+
+export interface ProjectRowType {
+  id: string;
+  project_name: string;
+  subject: string;
+  lang: string;
+  code: string;
+  markdown?: string[];
+}
+
+//~ type guard for supabase requested data
+export function checkProjectRow(x: any): x is ProjectRowType {
+  return (
+    x != null &&
+    typeof x === 'object' &&
+    typeof x.id === 'string' &&
+    typeof x.project_name === 'string' &&
+    typeof x.subject === 'string' &&
+    typeof x.lang === 'string' &&
+    typeof x.code === 'string'
+  )
+}
+
+// used for getProjectPerSub DAL function
+export type ProjPerSub = Record<string, [string, string][]>;
 
 export interface AboutCardProps {
   key: number;

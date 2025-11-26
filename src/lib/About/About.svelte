@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { showAboutModal } from "../state.svelte";
-  import AboutPage from "./AboutBook/AboutPage.svelte";
+  import { showAboutModal } from "../../state.svelte";
+  import AboutPage from "../AboutBook/AboutPage.svelte";
   import {
     titlePage,
     frontpage1,
@@ -11,9 +11,9 @@
     backpage2,
     backpage3,
     backpage3ex,
-  } from "./AboutBook/AboutPageSnippets.svelte";
-  import { noofAboutPages } from "../constants";
-  import ModalClose from "./ModalClose.svelte";
+  } from "../AboutBook/AboutPageSnippets.svelte";
+  import { noofAboutPages } from "../../constants";
+  import ModalClose from "../ModalClose.svelte";
 
   let dialogRef: HTMLDialogElement | undefined = $state(undefined);
   let flipCount = $state(0);

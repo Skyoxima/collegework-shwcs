@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Codeblock from "./Codeblock.svelte";
+  import Codeblock from "./Codeblock/Codeblock.svelte";
   import CommentBlock from "./CommentBlock.svelte";
   import OutputBlock from "./OutputBlock.svelte";
 </script>
@@ -8,8 +8,8 @@
   <div class="w-full h-full flex flex-col lg:flex-row gap-2.5">
     <Codeblock />
     <div class="h-2/3 lg:h-full flex flex-col w-full gap-2.5">
-      <CommentBlock />
-      <OutputBlock />
+      <!-- <CommentBlock /> -->
+      <!-- <OutputBlock /> -->
     </div>
   </div>
 </section>

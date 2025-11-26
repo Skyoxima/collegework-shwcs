@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentProject, currentImage } from "../state.svelte";
+  // import { currentProject, currentImage } from "../state.svelte";
   import { processAlt } from "../auxiliary";
   const { src }: { src: string } = $props();
 

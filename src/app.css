@@ -57,6 +57,10 @@
     @apply flex justify-center items-center;
   }
 
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 -translate-1/2;
+  }
+
   .playwrite-3xl-bold {
     @apply font-playwrite-in text-3xl font-bold tracking-wide;
   }

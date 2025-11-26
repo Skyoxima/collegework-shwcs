@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentProject } from "../state.svelte";
+  // import { currentProject } from "../state.svelte";
   import OutputImageTile from "./OutputImageTile.svelte";
 </script>
 

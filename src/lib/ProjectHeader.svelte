@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentProject } from "../state.svelte";
+  // import { currentProject } from "../state.svelte";
   import { processSemesterName, processSubjectName, isDesktop, processProjectEntry } from "../auxiliary";
   
   const subjectName = $derived(processSubjectName(currentProject.subject))

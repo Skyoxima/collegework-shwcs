@@ -1,6 +1,6 @@
 <script lang="ts">
   import { screenChange } from "../../state.svelte";
-  import About from "../About.svelte";
+  import About from "../About/About.svelte";
   import AboutMobile from "./AboutMobile.svelte";
 
   window.addEventListener('resize', (e) => {

@@ -10,9 +10,9 @@
 
 <main>
   <Header />
-  <AboutDelegator />
+  <!-- <AboutDelegator /> -->
   <MainLayout />
   <LeftSheet />
-  <OutputImgModal />
-  <RightSheet />
+  <!-- <OutputImgModal /> -->
+  <!-- <RightSheet /> -->
 </main>

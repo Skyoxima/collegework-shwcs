@@ -1,17 +1,23 @@
 <script lang="ts">
-  import { CodebaseEntries } from "../state.svelte";
+  import { getProjectsPerSubject } from "../dal.svelte";
+  import { currentProject } from "../state.svelte";
   import ProjectEntry from "./ProjectEntry.svelte";
   import RightArrow from "./SVGAsComponent/RightArrow.svelte";
   import { fade } from "svelte/transition";
-  import { processSubjectName, processSemesterName } from "../auxiliary";
-
+  // import { processSubjectName, processSemesterName } from "../auxiliary";
   let sheetMode = $state(false);
+
+  // master handler given to each entry button to handle state change
+  const ProjEntryClickHandler = (projectID: string, projectName: string) => {
+    currentProject.projectDBID = projectID;
+    currentProject.projectName = projectName;
+  }
 </script>
 
 <aside
   id="left-sheet-wrapper"
   class={[
-    "fixed top-0 w-[80%] md:w-[40%] h-[100lvh] transition-[left] duration-[500ms]",
+    "fixed top-0 w-[80%] md:w-[40%] h-[100lvh] transition-[left] duration-[500ms] opacity-100",
     sheetMode ? "left-0" : "-left-8/10 md:-left-[40%]",
   ]}
 >
@@ -19,23 +25,23 @@
     id="left-sheet"
     class="w-full h-full bg-kwdr-fg border-r-4 border-r-kwdr-fg--muted overflow-y-auto custom-scrollbar"
   >
-  {#if sheetMode}
-  <div out:fade={{ delay: 250, duration: 500 }}>
+    {#if sheetMode}
+      <div out:fade={{ delay: 250, duration: 500 }}>
         <h2
           class="p-2 sticky top-0 bg-kwdr-fg--muted text-lg md:text-2xl text-kwdr-bg"
         >
           Subjects
         </h2>
-        {#each CodebaseEntries as [subjectName, codeItem]}
-          <article>
-            <h2 class="text-sm md:text-base subject px-2">
-              {processSubjectName(subjectName)}
-            </h2>
-            {#each Object.entries(codeItem) as [projectName, projectBody]}
-              <ProjectEntry {subjectName} {projectName} {projectBody} />
+          {#await getProjectsPerSubject()}
+            <div>Getting all projects...</div>
+          {:then Pps}
+            {#each Object.entries(Pps) as [subject, projects]}
+              <div class="text-sm md:text-base subject px-2">{subject}</div>
+              {#each projects as [projectID, projectName]}
+                <ProjectEntry projectName={projectName} projectID={projectID} clickHandler={ProjEntryClickHandler} />
+              {/each}
             {/each}
-          </article>
-        {/each}
+          {/await}
       </div>
     {/if}
   </div>
@@ -59,3 +65,14 @@
     );
   }
 </style>
+
+<!-- {#each CodebaseEntries as [subjectName, codeItem]}
+  <article>
+    <h2 class="text-sm md:text-base subject px-2">
+      {processSubjectName(subjectName)}
+    </h2>
+    {#each Object.entries(codeItem) as [projectName, projectBody]}
+      <ProjectEntry {subjectName} {projectName} {projectBody} />
+    {/each}
+  </article>
+{/each} -->

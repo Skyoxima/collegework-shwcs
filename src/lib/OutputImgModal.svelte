@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentImage, currentProject } from "../state.svelte";
+  // import { currentImage, currentProject } from "../state.svelte";
   import { processAlt } from "../auxiliary";
   import ModalClose from "./ModalClose.svelte";
 
