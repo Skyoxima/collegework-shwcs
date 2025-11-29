@@ -1,3 +1,4 @@
+<!-- A reminder, Svelte <script> code is ran only once on component mounting. Repeatable codes are written inside callbacks for $effect and $derived  -->
 <script lang="ts">
   import processCode from "./processShiki";
   import { shikiInstance } from "./processShiki";
@@ -5,27 +6,38 @@
   import { onDestroy } from "svelte";
   import { type HighlighterCore } from "shiki";
   import { currentProject } from "../../state.svelte";
-  import { getProjectBody } from "../../dal.svelte";
+  import { getCurrentProjectLangCode } from "../../dal.svelte";
   
   // promise is returned by processCode too, which then goes to the await block and then is shown on screen when resolved
-  let processedCode = $state<Promise<string>>();
+  let processedCode = $state<Promise<string>|null>(null);
   
   // To refer to the singleton highlightercore across files... previously it was creating multiple instances per project click
   let highlighter: HighlighterCore;
   shikiInstance().then(res => { highlighter = res });
-
+  
   $effect(() => {
+    // To avoid race conditions
+    const currentProjectID = currentProject.projectDBID;
     // this is to avoid error at the very first effect, i.e., the default state where strings are empty.
     if(currentProject.projectDBID !== '') {
-      const projectBody = getProjectBody();
-      
-      // await is not allowed in effects so .then works
-      processedCode = projectBody
-        .then(res => processCode(res.lang, res.code, highlighter))
+      // the IIFE async has checks to ensure stale requests (on quick project changes) don't respond, only the latest one do - Claude suggested this
+      processedCode = (async () => {
+        const projectBody =  await getCurrentProjectLangCode(currentProject.projectDBID);
+        
+        if (currentProject.projectDBID !== currentProjectID)
+          throw new Error("Stale Project...")
+        
+        const result = await processCode(projectBody.lang, projectBody.code, highlighter);
+        
+        if (currentProject.projectDBID !== currentProjectID)
+          throw new Error("Stale Project...")
+
+        return result;
+      })();
     }
   })
 
-  // "Shiki Highlighter Core must be a singleton", hence dispose the unused/previously used (by a previous project's codeblock)
+  // "Shiki Highlighter Core must be a singleton", on unmounting or remounting the highlightercore used previously is destroyed and new one is instated above
   onDestroy(() => {
     highlighter.dispose();
   });

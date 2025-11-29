@@ -1,6 +1,6 @@
 <script lang="ts">
   import HeaderButton from "./HeaderButton.svelte";
-  import ProjectHeader from "./ProjectHeader.svelte";
+  import ProjectHeader from "./ProjectHeader/ProjectHeader.svelte";
   import { showAboutModal } from "../state.svelte";
   import type { MouseEventHandler } from "svelte/elements";
 
@@ -18,9 +18,9 @@
       <div class="w-6/10 flex justify-end items-center gap-4">
         <HeaderButton buttonID="info-icon" handler={modalSwitchClick} />
         <HeaderButton buttonID="logo-github" />
-        <div class="font-bold text-kwdr-fg">v2</div>
+        <div class="font-bold text-kwdr-fg">v3</div>
       </div>
     </div>
   </div>
-  <!-- <ProjectHeader /> -->
+  <ProjectHeader />
 </header>

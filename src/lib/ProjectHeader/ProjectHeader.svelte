@@ -1,11 +1,12 @@
 <script lang="ts">
-  // import { currentProject } from "../state.svelte";
-  import { processSemesterName, processSubjectName, isDesktop, processProjectEntry } from "../auxiliary";
-  
+  import { currentProject } from "../../state.svelte";
+  import { processProjectEntry } from "../../common_auxiliary";
+  import { processSemesterName, processSubjectName, isDesktop } from "./ProjectHeaderAux";
+
   const subjectName = $derived(processSubjectName(currentProject.subject))
-  const semester = $derived.by(() => processSemesterName(currentProject.subject))
-  
+  const semester = $derived.by(() => processSemesterName(currentProject.subject))  
 </script>
+
 
 {#snippet headerRevamped()}
   {#if isDesktop()}
@@ -32,7 +33,7 @@
 
 
 <div
-  class="w-full lg:px-4 flex justify-center text-2xs lg:text-xs text-kwdr-bg"
+  class="w-full h-3 lg:h-4.5 lg:px-4 flex justify-center text-2xs lg:text-xs text-kwdr-bg"
 >
   <div
     id="header-content"
@@ -44,6 +45,8 @@
 
 
 <style>
+
+  /* Inverted border radii L&R */
   #header-content::before {
     --size: 10px;
     
@@ -55,8 +58,7 @@
     border-radius: 50%;
     box-shadow: inset calc(-1 * var(--size)/2) calc(var(--size)/2) 0 0 var(--color-kwdr-fg--muted);
     clip-path: inset(50% 0% 0% 0%);
-  }
-  #header-content::after {
+  } #header-content::after {
     --size: 10px;
     
     content: '';

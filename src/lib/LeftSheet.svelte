@@ -8,9 +8,10 @@
   let sheetMode = $state(false);
 
   // master handler given to each entry button to handle state change
-  const ProjEntryClickHandler = (projectID: string, projectName: string) => {
+  const ProjEntryClickHandler = (projectID: string, projectName: string, subject: string) => {
     currentProject.projectDBID = projectID;
     currentProject.projectName = projectName;
+    currentProject.subject = subject
   }
 </script>
 
@@ -38,7 +39,7 @@
             {#each Object.entries(Pps) as [subject, projects]}
               <div class="text-sm md:text-base subject px-2">{subject}</div>
               {#each projects as [projectID, projectName]}
-                <ProjectEntry projectName={projectName} projectID={projectID} clickHandler={ProjEntryClickHandler} />
+                <ProjectEntry {subject} projectName={projectName} projectID={projectID} clickHandler={ProjEntryClickHandler} />
               {/each}
             {/each}
           {/await}

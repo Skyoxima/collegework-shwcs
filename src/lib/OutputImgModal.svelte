@@ -1,6 +1,6 @@
 <script lang="ts">
   // import { currentImage, currentProject } from "../state.svelte";
-  import { processAlt } from "../auxiliary";
+  import { processAlt } from "../common_auxiliary";
   import ModalClose from "./ModalClose.svelte";
 
   let dialogRef: HTMLDialogElement | undefined = $state(undefined); // this way, it can be properly passed to the ModalClose component, it will get the dialogElement in its ref (try $inspect and check)
