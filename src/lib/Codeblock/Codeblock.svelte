@@ -13,22 +13,31 @@
   
   // To refer to the singleton highlightercore across files... previously it was creating multiple instances per project click
   let highlighter: HighlighterCore;
-  shikiInstance().then(res => { highlighter = res });
   
+  // This is how to use await on (almost) top level (previous .then method effectively is the same)
+  (async() => {
+    highlighter = await shikiInstance();
+  })();
+  
+  //>> processedCode being assigned here is NOT an ANTI PATTERN - https://svelte.dev/docs/svelte/$effect#:~:text=Values%20that%20are%20read%20asynchronously%20%E2%80%94%20after%20an%20await%20or%20inside%20a%20setTimeout%2C%20for%20example%20%E2%80%94%20will%20not%20be%20tracked
   $effect(() => {
     // To avoid race conditions
     const currentProjectID = currentProject.projectDBID;
+    
     // this is to avoid error at the very first effect, i.e., the default state where strings are empty.
     if(currentProject.projectDBID !== '') {
+      
       // the IIFE async has checks to ensure stale requests (on quick project changes) don't respond, only the latest one do - Claude suggested this
       processedCode = (async () => {
         const projectBody =  await getCurrentProjectLangCode(currentProject.projectDBID);
         
+        // 1st check after an await
         if (currentProject.projectDBID !== currentProjectID)
           throw new Error("Stale Project...")
         
         const result = await processCode(projectBody.lang, projectBody.code, highlighter);
         
+        // 2nd check after an await
         if (currentProject.projectDBID !== currentProjectID)
           throw new Error("Stale Project...")
 

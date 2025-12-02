@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { type currentProjectMetaT } from "./types";
 
 const SUPABASE_URL = import.meta.env.VITE_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY!;
@@ -10,13 +9,6 @@ export let currentProject = $state({
   projectName: '',
   projectDBID: '',
   subject: ''
-});
-
-export let currentProjectMeta: currentProjectMetaT = $state({
-  subject: '',
-  comments: {},
-  outputIMGs: {},
-  markdown: null
 });
 
 export let currHltdLine = $state({ value: 0 });

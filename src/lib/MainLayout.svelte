@@ -8,8 +8,8 @@
   <div class="size-full flex flex-col lg:flex-row gap-2.5">
     <Codeblock />
     <div class="h-2/3 lg:h-full flex flex-col w-full gap-2.5">
-      <!-- <CommentBlock /> -->
-      <!-- <OutputBlock /> -->
+      <CommentBlock />
+      <OutputBlock />
     </div>
   </div>
 </section>
