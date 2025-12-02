@@ -5,7 +5,8 @@
 </script>
 
 <article
-  class="h-1/2 p-2 rounded-2xl bg-kwdr-fg--muted border-y-1 border-t-kwdr-bg/25 border-b-white/75 overflow-hidden"
+  class="h-1/2 p-2 rounded-2xl bg-kwdr-fg--muted border-y-1 border-t-kwdr-bg/25
+        border-b-white/75 overflow-hidden"
 >
 {#if currentProject.projectDBID !== ''}
   {#await getCurrentProjectOPImgs(currentProject.projectDBID)}

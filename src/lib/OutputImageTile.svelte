@@ -12,7 +12,7 @@
           background: ${bgColor}; 
           box-shadow: 0 4px 2px 0 color-mix(in srgb, ${bgColor} 50%, transparent);
   `}
-  onclick={() => {currentImage.src = src}}
+  onclick={() => {currentImage.src = src; currentImage.bg_color = bgColor}}
   >
   <img 
     {src} 

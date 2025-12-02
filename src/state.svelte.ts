@@ -11,7 +11,7 @@ export let currentProject = $state({
   subject: ''
 });
 
-export let currHltdLine = $state({ value: 0 });
+export let currHltdLine = $state({ value: 0, prev: 0 });
 export let showAboutModal = $state({ value: false });
-export let currentImage = $state({src: ''});
+export let currentImage = $state({src: '', bg_color: ''});
 export let screenChange = $state({value: window.innerWidth});

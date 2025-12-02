@@ -1,11 +1,15 @@
 <script lang="ts">
-  // import { currentProject } from "../state.svelte";
+  import { currentProject } from "../state.svelte";
+  import MDs from '../data/MD_Final.json';
   import RightArrow from "./SVGAsComponent/RightArrow.svelte";
 
+  const MD_Final: {[key: string]: string[]} = MDs;
   let sheetMode = $state(false);
+  const keys = Object.keys(MDs);
 </script>
 
-{#if currentProject.projectBody.markdown && currentProject.projectBody.markdown.length > 0}
+{#if keys.includes(currentProject.projectDBID)}
+{@const markdown = MD_Final[currentProject.projectDBID]}
   <aside
   class={[
       "fixed top-0 w-[80%] md:w-[40%] h-[100lvh] transition-[right] duration-[500ms]",
@@ -18,7 +22,7 @@
   <div
     class="w-full h-full p-4 bg-kwdr-fg border-l-4 border-l-kwdr-fg--muted overflow-y-auto custom-scrollbar"
   >
-    {#each currentProject.projectBody.markdown as md}
+    {#each markdown as md}
       <article class="mb-4 p-4 bg-kwdr-fg--muted rounded-2xl border-y-1 border-t-kwdr-bg/25 border-b-white/75">
         {@html md}
       </article>

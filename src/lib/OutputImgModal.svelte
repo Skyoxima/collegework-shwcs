@@ -1,5 +1,5 @@
 <script lang="ts">
-  // import { currentImage, currentProject } from "../state.svelte";
+  import { currentImage, currentProject } from "../state.svelte";
   import { processAlt } from "../common_auxiliary";
   import ModalClose from "./ModalClose.svelte";
 
@@ -22,7 +22,7 @@
   <div
     id="dialog-content"
     class="relative w-full h-full p-2 lg:p-8 rounded-xl lg:rounded-3xl overflow-hidden"
-    style={`background: ${currentProject.projectBody.bgColors[processAlt(currentImage.src)]}`}
+    style={`background: ${currentImage.bg_color}`}
   >
     <img src={currentImage.src} alt="ModalView" title="ModalView" class="w-full h-full object-contain" />
   </div>

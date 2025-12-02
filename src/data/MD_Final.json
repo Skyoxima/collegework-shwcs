@@ -1,0 +1,40 @@
+{
+  "ed74030b-40ce-448e-9252-9a6bb75d2ba2": [
+    "Categorical (One-Hot Encoded) array was formed from the y_train (and test too) we take out from the dataset, this is how data is usually represented in the output layer (when categorical data) and we calculate the loss by comparing the calculated output y (same dims as this array) and the corresponding array itself",
+    "Indices of the highest softmax value (probability) is the number (digit) in the image itself. We had originally One-Hot Encoded the 'y' array in this way only."
+  ],
+  "425c9936-0d94-4e8a-9b6d-321ca5d73bcd": [
+    "Making each review of uniform length, 600 characters",
+    "As it can be seen, most of the predictions lie at either 0 or 1, we can apply further thresholding to finalize the categories"
+  ],
+  "542ce04b-10de-4062-8f5a-ee8888ab05ad": [
+    "Batch Gradient Descent - Weight updation: After <i><b>all</b></i> the records (rows) i.e, at the end of every epoch",
+    "Stochastic Gradient Descent - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch.",
+    "Mini-Batch Gradient Descent - Weight Updation: After <i><b>batch-size</b></i> number of record(s) (row(s)) in an epoch.",
+    "Stochastic Gradient Descent with Momentum - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but indirectly, i.e considering updation caused by past records as well (I am carrying it out similar to SGD)",
+    "Nesterov Accelerated Gradient Descent - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but indirectly in two steps, first by only the history then by the current derivative of the loss function w.r.t weight(s).",
+    "Adagrad - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but learning rate changes over time",
+    "AdaDelta-RMSprop - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but learning rate changes over time gradually",
+    "Adam - Weight Updation: After <i><b>each and every</b></i> record (row) in an epoch, but learning rate changes over time gradually and so does the weights",
+    "Collective Comparisons are done using: i) Weights v/s Epochs ii) Bias v/s Epochs iii) Mean Squared Error v/s Epochs",
+    "Conclusion: Hence it can be seen that the <b>Adam</b> optimization technique is the best performing optimization."
+  ],
+  "7473f7bb-28c4-418a-9c5a-d4ac60bd3b4b": [
+    "Functions - Step and Perceptron",
+    "The activation function is Binary Step function."
+  ],
+  "388cc330-0be1-48aa-97ca-dbaf0763c2da": [
+    "With an **increase** in **m** i.e the number of edges to be formed per node, we see an decrease in Diameter and Average Path Length all the while Average Clustering Coefficient increases.",
+    "With **increase** in **N**, we can see an increase in Diameter, ACC and APL, understandably due to more nodes to be covered when m is kept constant."
+  ],
+  "f8ab8f86-db22-423b-b830-fa4cb142cffe": [
+    "Above demonstration is of 1 iteration of Clique Percolation Community Detection, which uses 3cliques to form communities w/ (3  1 = 2) overlaps criterion.",
+    "The \"Nodes involved\" list can be further used to combine (3 + 1 = 4) cliques, this can be continued until only 2 communities (as seen in the graph above) are the only 2 sets remaining."
+  ],
+  "8a91a91c-c5b0-446a-af9e-eab841c6116d": [
+    "Parameters<br>N: Number of nodes in the graph<br>p: Probability of edge formation between nodes<br>",
+    "When changing (increasing) the number of nodes in a network, while not changing the probability of edges forming between any, we see that the Diameter and the Average Clustering Coefficient (ACC) do not change significantly.",
+    "Diameter does seems to slowly decrease, could be interpreted as new nodes providing shorter direct paths than the previous shorter paths.",
+    "While, if we change the probability for a constant number of nodes, Diameter of the network decreases and the ACC increases."
+  ]
+}
