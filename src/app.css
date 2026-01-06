@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -21,7 +21,12 @@
     box-sizing: border-box;
     font-family: var(--font-plex-mono);
   }
-  span, strong, b, i, div > p, ul > li {
+  span,
+  strong,
+  b,
+  i,
+  div > p,
+  ul > li {
     font-family: inherit;
   }
 }
@@ -50,7 +55,7 @@
   }
 
   .header-btn {
-    @apply w-8 h-8 bg-kwdr-fg rounded-lg flex justify-center items-center active:scale-95 transition-[scale] cursor-pointer;
+    @apply size-8 bg-kwdr-bg outline-1 outline-kwdr-fg rounded-lg flex justify-center items-center active:scale-95 transition-[scale] cursor-pointer;
   }
 
   .flex-center {
@@ -65,8 +70,16 @@
     @apply font-playwrite-in text-3xl font-bold tracking-wide;
   }
 
+  .playwrite-6xl-reg {
+    @apply font-playwrite-in text-6xl;
+  }
+
   .playwrite-base-light {
     @apply font-playwrite-in text-xs/7.5 min-[425px]:text-sm/8 md:text-base/10 font-light;
+  }
+
+  .playwrite-lg-light {
+    @apply font-playwrite-in text-sm/8 min-[425px]:text-base/10 md:text-lg/12 font-light;
   }
 
   .playwrite-small-light {
@@ -76,9 +89,37 @@
   .playwrite-xs-light {
     @apply font-playwrite-in text-2xs/6 md:text-xs/7 tracking-tight font-light;
   }
-  
+
   .playwrite-2xs-light {
     @apply font-playwrite-in text-3xs/5 md:text-2xs/6 tracking-tight font-light;
+  }
+
+  .hero-madras {
+    background-color: #181616;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent 5px, hsla(197, 62%, 11%, 0.5) 5px, hsla(197, 62%, 11%, 0.5) 10px,                  
+        hsla(5, 53%, 63%, 0) 10px, hsla(5, 53%, 63%, 0) 35px, hsla(5, 53%, 63%, 0.5) 35px, hsla(5, 53%, 63%, 0.5) 40px,
+        hsla(197, 62%, 11%, 0.5) 40px, hsla(197, 62%, 11%, 0.5) 50px, hsla(197, 62%, 11%, 0) 50px, hsla(197, 62%, 11%, 0) 60px,                
+        hsla(5, 53%, 63%, 0.5) 60px, hsla(5, 53%, 63%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 80px,
+        hsla(35, 91%, 65%, 0) 80px, hsla(35, 91%, 65%, 0) 90px, hsla(5, 53%, 63%, 0.5) 90px, hsla(5, 53%, 63%, 0.5) 110px,
+        hsla(5, 53%, 63%, 0) 110px, hsla(5, 53%, 63%, 0) 120px, hsla(197, 62%, 11%, 0.5) 120px, hsla(197, 62%, 11%, 0.5) 140px       
+    ),
+    repeating-linear-gradient(135deg, transparent 5px, hsla(197, 62%, 11%, 0.5) 5px, hsla(197, 62%, 11%, 0.5) 10px, 
+      hsla(5, 53%, 63%, 0) 10px, hsla(5, 53%, 63%, 0) 35px, hsla(5, 53%, 63%, 0.5) 35px, hsla(5, 53%, 63%, 0.5) 40px,
+      hsla(197, 62%, 11%, 0.5) 40px, hsla(197, 62%, 11%, 0.5) 50px, hsla(197, 62%, 11%, 0) 50px, hsla(197, 62%, 11%, 0) 60px,                
+      hsla(5, 53%, 63%, 0.5) 60px, hsla(5, 53%, 63%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 80px,
+      hsla(35, 91%, 65%, 0) 80px, hsla(35, 91%, 65%, 0) 90px, hsla(5, 53%, 63%, 0.5) 90px, hsla(5, 53%, 63%, 0.5) 110px,
+      hsla(5, 53%, 63%, 0) 110px, hsla(5, 53%, 63%, 0) 140px, hsla(197, 62%, 11%, 0.5) 140px, hsla(197, 62%, 11%, 0.5) 160px       
+    );
+  }
+  
+  .hero-squares {
+    --border-color: hsl(0, 4%, 16%);
+    --size: 720px;
+    background: 
+      repeating-linear-gradient(90deg, var(--border-color) 0, var(--border-color) 1rem, transparent 0, transparent 50%) 0 / var(--size) var(--size), 
+      repeating-linear-gradient(180deg, var(--border-color) 0, var(--border-color) 1rem, transparent 0, transparent 50%) 0 / var(--size) var(--size);
+    background-position: -50% -50%;
   }
 }
 

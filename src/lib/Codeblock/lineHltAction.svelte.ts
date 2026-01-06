@@ -5,7 +5,6 @@ export const lineHlt: Action = (node: HTMLElement) => {
   const allLines = node.querySelectorAll("span.line");
 
   $effect(() => {
-    console.log("Main ran");
     if (currHltdLine.value > 0) {
 
       if (currHltdLine.prev > 0)

@@ -9,7 +9,7 @@
 {#if buttonID === "info-icon"}
   <button class="header-btn" onclick={handler}>
     <InfoIcon
-      className="w-6 h-6 [&>path]:stroke-kwdr-bg [&_rect]:fill-kwdr-bg"
+      className="w-6 h-6 [&>path]:stroke-kwdr-fg [&_rect]:fill-kwdr-fg"
     />
   </button>
 {:else}
@@ -19,6 +19,6 @@
     aria-label="Skyoxima's Github Page"
     target="_blank"
   >
-    <LogoGithub className="w-6 h-6 [&>path]:fill-kwdr-bg" />
+    <LogoGithub className="w-6 h-6 [&>path]:fill-kwdr-fg" />
   </a>
 {/if}

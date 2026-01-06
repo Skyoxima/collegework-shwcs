@@ -9,18 +9,10 @@
   };
 </script>
 
-<header class="relative">
-  <div class="bg-kwdr-bg p-2.5">
-    <div class="w-full h-full flex justify-between items-center">
-      <h2 class="text-kwdr-fg text-sm font-bold md:text-xl md:tracking-wide">
-        Skyoxima's Effortarium
-      </h2>
-      <div class="w-6/10 flex justify-end items-center gap-4">
-        <HeaderButton buttonID="info-icon" handler={modalSwitchClick} />
-        <HeaderButton buttonID="logo-github" />
-        <div class="font-bold text-kwdr-fg">v3</div>
-      </div>
-    </div>
+<header class="absolute top-0 right-0 z-100 px-4 py-2">
+  <div class="flex justify-end gap-4">
+    <HeaderButton buttonID="info-icon" handler={modalSwitchClick} />
+    <HeaderButton buttonID="logo-github" />
+    <span class="playwrite-base-light text-kwdr-fg">v3</span>
   </div>
-  <ProjectHeader />
 </header>

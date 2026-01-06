@@ -55,7 +55,7 @@
 <!-- Actions and use: directive go hand-in-hand, and it was a godsent here! -->
 <section
   id="code-side"
-  class="w-full h-1/3 md:h-auto p-2 rounded-2xl bg-kwdr-bg text-2xs md:text-sm border-y-1 border-t-black border-b-white overflow-hidden"
+  class="w-full h-1/3 lg:h-auto p-2 rounded-2xl bg-kwdr-bg text-2xs md:text-sm border-y-1 border-t-black border-b-white overflow-hidden"
 >
   <div class="size-full relative pr-2 overflow-auto custom-scrollbar cs-dark">
     {#await processedCode} 
@@ -110,6 +110,11 @@
       display: inline-block;
       text-align: right;
       color: var(--color-kwdr-fg--muted);
+    }
+    @media screen and (max-width: 768px) {
+      code span.line::before {
+        width: 0.5rem;
+      }
     }
     span.highlighted-line {
       background: color-mix(
