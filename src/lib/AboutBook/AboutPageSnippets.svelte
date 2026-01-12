@@ -35,7 +35,7 @@
 {/snippet}
 
 {#snippet frontpage1()}
-  <p class="playwrite-base-light">
+  <p class="playwrite-light-base">
     Throughout my college career, I've put in considerable effort in learning
     the material through practical assignments. To me, this was Engineering. I
     didn't mind spending time on these assignments, it was always a learning
@@ -51,7 +51,7 @@
 {/snippet}
 
 {#snippet frontpage2()}
-  <p class="playwrite-base-light">
+  <p class="playwrite-light-base">
     Firstly, projects can be accessed <strong>subject-wise</strong> by pulling the sheet from the left
     side:
   </p>
@@ -60,19 +60,19 @@
     <img src={Manual_2} class="w-40" alt="Manual-2"/>
   </div>
 
-  <p class="playwrite-base-light">
+  <p class="playwrite-light-base">
     Once a project is loaded, the core is laid out as the following:
   </p>
   <div class="flex-center my-2">
     <img src={Manual_3} class="w-40" alt="Manual-3"/>
   </div>
-  <ul class="playwrite-base-light mb-2">
+  <ul class="playwrite-light-base mb-2">
     <li>All the blocks are scrollable in both directions whenever necessary.</li>
   </ul>
   {/snippet}
   
 {#snippet frontpage2ex()}
-  <ul class="playwrite-base-light mb-2">
+  <ul class="playwrite-light-base mb-2">
     <li>Comment buttons can be clicked to scroll to the corresponding line.</li>
     <li>Output images can be clicked to open a Modal view.</li>
     <li>Some projects have an additional <strong>Markdown</strong> section on the <strong>right side</strong>.</li>
@@ -83,11 +83,11 @@
 {/snippet}
 
 {#snippet frontpage3()}
-  <p class="playwrite-base-light">
+  <p class="playwrite-light-base">
     This project is made using <strong>Svelte 5</strong>; it is entirely client-side as of v2.
     Other tech and tools used are:
   </p>
-  <ul class="playwrite-base-light list-disc ml-4">
+  <ul class="playwrite-light-base list-disc ml-4">
     <li class=""><strong>Shiki/Rehype</strong>, for Code display and interaction.</li>
     <li class=""><strong>Kanagawa Dragon</strong> Theme.</li>
     <li class=""><strong>IBM Plex Mono</strong> as the primary font, <strong>Playwrite IN</strong> as the secondary.</li>

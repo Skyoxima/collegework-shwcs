@@ -5,15 +5,14 @@
   import OutputImgModal from "./lib/OutputImgModal.svelte";
   import RightSheet from "./lib/RightSheet.svelte";
   import AboutDelegator from "./lib/AboutBook/AboutDelegator.svelte";
-  import Hero from "./lib/Hero.svelte";
+  import Hero from "./lib/Hero/Hero.svelte";
 </script>
 
 <main class="relative">
-  <Header />
+  <!-- <Header /> -->
   <Hero />
   <AboutDelegator />
   <MainLayout />
-  <!-- <LeftSheet /> -->
   <OutputImgModal />
   <RightSheet />
 </main>

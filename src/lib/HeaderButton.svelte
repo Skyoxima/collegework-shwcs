@@ -1,24 +1,13 @@
 <script lang="ts">
-  import type { HeaderButtonProps } from "../types";
-  import InfoIcon from "./SVGAsComponent/InfoIcon.svelte";
   import LogoGithub from "./SVGAsComponent/LogoGithub.svelte";
-
-  const { buttonID, handler }: HeaderButtonProps = $props();
+  const { buttonID }: { buttonID: string } = $props();
 </script>
 
-{#if buttonID === "info-icon"}
-  <button class="header-btn" onclick={handler}>
-    <InfoIcon
-      className="w-6 h-6 [&>path]:stroke-kwdr-fg [&_rect]:fill-kwdr-fg"
-    />
-  </button>
-{:else}
-  <a
-    class="header-btn"
-    href="https://github.com/Skyoxima"
-    aria-label="Skyoxima's Github Page"
-    target="_blank"
-  >
-    <LogoGithub className="w-6 h-6 [&>path]:fill-kwdr-fg" />
-  </a>
-{/if}
+<a
+  class="header-btn"
+  href="https://github.com/Skyoxima"
+  aria-label="Skyoxima's Github Page"
+  target="_blank"
+>
+  <LogoGithub className="w-6 h-6 [&>path]:fill-kwdr-fg" />
+</a>

@@ -18,7 +18,7 @@
 <aside
   id="left-sheet-wrapper"
   class={[
-    "fixed top-0 w-[80%] md:w-[40%] h-[100lvh] transition-[left] duration-[500ms] opacity-100",
+    "absolute z-100 top-0 w-[80%] md:w-[40%] h-full transition-[left] duration-[500ms] opacity-100",
     sheetMode ? "left-0" : "-left-8/10 md:-left-[40%]",
   ]}
 >

@@ -3,9 +3,11 @@
   import CommentBlock from "./CommentBlock.svelte";
   import OutputBlock from "./OutputBlock.svelte";
   import NewProjectHeader from "./NewProjectHeader.svelte";
+  import LeftSheet from "./LeftSheet.svelte";
 </script>
 
-<section class="w-full h-[170vh] lg:h-[85vh] px-8 mt-4 mb-4 md:mb-0">
+<section class="relative w-full min-h-[100dvh] px-8 py-4">
+  <LeftSheet />
   <NewProjectHeader />
   <div class="size-full flex flex-col lg:flex-row gap-2.5">
     <Codeblock />

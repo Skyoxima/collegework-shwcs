@@ -1,11 +1,4 @@
 import type { Snippet } from "svelte";
-import type { MouseEventHandler } from "svelte/elements";
-
-export interface HeaderButtonProps {
-  buttonID: string;
-  state?: boolean;
-  handler?: MouseEventHandler<HTMLButtonElement>;
-}
 
 export interface ProjectEntryProps {
   projectID: string;
