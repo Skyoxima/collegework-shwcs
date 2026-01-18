@@ -112,7 +112,11 @@
       color: var(--color-kwdr-fg--muted);
     }
     @media screen and (max-width: 768px) {
+      span.line {
+        padding: 0 0.5rem;
+      }
       code span.line::before {
+        margin-right: 1rem;
         width: 0.5rem;
       }
     }

@@ -28,10 +28,10 @@
 
 <section class="relative h-dvh bg-kwdr-bg overflow-hidden">
   <div class="absolute hero-squares"></div>  <!--Decorative -->
+  
   <Header />
   
-  
-  <div class="relative w-full">     <!-- relative here is only added to stack children correctly on top of hero squares (ref: stacking order rules)-->
+  <div class="relative w-full h-[calc(100%-3rem-0.5rem)] lg:h-[calc(100%-3rem-1rem)]">     <!-- relative here is only added to stack children correctly on top of hero squares (ref: stacking order rules)-->
     <div class="lg:flex">
       <!-- HERO TITLE & SUBTITLE -->
       <div class="lg:px-4 pb-6 text-kwdr-fg w-full">
@@ -40,20 +40,20 @@
         </h1>
         <h6 class="playwrite-light-sm lg:playwrite-light-lg xl:playwrite-light-xl text-center">View my journey</h6>
       </div>
-      <!-- HERO NAV BUTTONS -->
+
+      <!-- DESKTOP HERO NAV BUTTONS -->
       <div class="hidden px-4 w-full lg:flex flex-col lg:flex-row items-center gap-4 lg:gap-8">
         <HeroButton body={openStory} clickHandler={modalSwitchClick} />
         <HeroButton body={scrollToMain} clickHandler={modalSwitchClick} />
       </div>
     </div>
     
-    <!-- HERO IMAGES -->
-    <div class="relative p-4 w-full pointer-events-none outline-2 outline-green-400">
-      <div class="w-75/100 lg:w-auto mx-auto outline-2 outline-teal-500 lg:h-full">
-        <HeroImg />
-      </div>
+    <!-- HERO IMAGE -->
+    <div class="relative h-72/100 lg:h-8/10 p-2 pointer-events-none">
+      <HeroImg addnClass="absolute-center h-full lg:h-auto" />
     </div>
 
+    <!-- MOBILE HERO BUTTONS -->
     <div class="lg:hidden px-4 mt-4 w-full flex justify-center gap-4 lg:gap-8">
       <HeroButton body={openStory} clickHandler={modalSwitchClick} />
       <HeroButton body={scrollToMain} clickHandler={modalSwitchClick} />
