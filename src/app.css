@@ -93,41 +93,6 @@
     @apply absolute top-1/2 left-1/2 -translate-1/2;
   }
 
-  /* .playwrite-3xl-bold {
-    @apply font-playwrite-in text-3xl font-bold tracking-wide;
-  }
-
-  .playwrite-2xl-reg {
-    @apply font-playwrite-in text-2xl/12;
-  }
-
-  .playwrite-4xl-reg {
-    @apply font-playwrite-in text-4xl/16;
-  }
-
-  .playwrite-6xl-reg {
-    @apply font-playwrite-in text-6xl/24;
-  }
-
-  .playwrite-base-light {
-    @apply font-playwrite-in text-xs/7.5 min-[425px]:text-sm/8 md:text-base/10 font-light;
-  }
-
-  
-
-  .playwrite-small-light {
-    @apply font-playwrite-in text-xs/7 md:text-sm/8 font-light;
-  }
-
-  .playwrite-xs-light {
-    @apply font-playwrite-in text-2xs/6 md:text-xs/7 tracking-tight font-light;
-  }
-
-  .playwrite-2xs-light {
-    @apply font-playwrite-in text-3xs/5 md:text-2xs/6 tracking-tight font-light;
-  } */
-
-
   .hero-squares {
     @apply size-full;
     --border-color: hsl(0, 4%, 16%);

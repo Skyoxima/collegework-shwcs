@@ -7,6 +7,8 @@
   import { type HighlighterCore } from "shiki";
   import { currentProject } from "../../state.svelte";
   import { getCurrentProjectLangCode } from "../../dal.svelte";
+  import MyError from "../MyError.svelte";
+  import ThreeDots from "../SVGC/ThreeDots.svelte";
   
   // promise is returned by processCode too, which then goes to the await block and then is shown on screen when resolved
   let processedCode = $state<Promise<string>|null>(null);
@@ -29,19 +31,24 @@
       
       // the IIFE async has checks to ensure stale requests (on quick project changes) don't respond, only the latest one do - Claude suggested this
       processedCode = (async () => {
-        const projectBody =  await getCurrentProjectLangCode(currentProject.projectDBID);
+        try {
+          const projectBody =  await getCurrentProjectLangCode(currentProject.projectDBID);
+          
+          // 1st check after an await
+          if (currentProject.projectDBID !== currentProjectID)
+            throw new Error("Stale Project...")
+          
+          const result = await processCode(projectBody.lang, projectBody.code, highlighter);
+          
+          // 2nd check after an await
+          if (currentProject.projectDBID !== currentProjectID)
+            throw new Error("Stale Project...")
+          
+          return result;
         
-        // 1st check after an await
-        if (currentProject.projectDBID !== currentProjectID)
-          throw new Error("Stale Project...")
-        
-        const result = await processCode(projectBody.lang, projectBody.code, highlighter);
-        
-        // 2nd check after an await
-        if (currentProject.projectDBID !== currentProjectID)
-          throw new Error("Stale Project...")
-
-        return result;
+        } catch (error) {
+          throw error;
+        }
       })();
     }
   })
@@ -59,11 +66,13 @@
 >
   <div class="size-full relative pr-2 overflow-auto custom-scrollbar cs-dark">
     {#await processedCode} 
-      <div class="absolute-center text-kwdr-fg">Making the Codeblock...</div>  
+      <div class="absolute-center text-kwdr-fg">Making the Codeblock<ThreeDots class="inline-block ml-2 size-[1.25em]" /></div>  
     {:then htmlString}
       <div id="injected-html" use:lineHlt>
         {@html htmlString}
       </div>
+    {:catch error}
+      <MyError addnClass="text-white">{error}</MyError>
     {/await}
   </div>
 </section>

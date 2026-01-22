@@ -1,6 +1,7 @@
 export const subjectFullnames: { [key: string]: string } = {
   "DAOA": "Design and Analysis of Algorithms",
   "SF": "System Fundamentals",
+  "DL": "Deep Learning",
   "IS": "Information Security",
   "IPCV": "IPCV",
   "RL": "Reinforcement Learning",

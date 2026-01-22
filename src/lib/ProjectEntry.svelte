@@ -8,7 +8,7 @@
 
 <button
   class={[
-    "mx-4 block text-2xs/6 lg:text-sm/6 hover:bg-kwdr-fg--muted/50 transition-[background] duration-500 cursor-pointer",
+    "mx-4 block text-left text-2xs/6 lg:text-sm/6 hover:bg-kwdr-fg--muted/50 transition-[background] duration-500 cursor-pointer",
   , currentProject.projectDBID === projectID ? 'border-b-2' : '']}
   onclick={() => {
     clickHandler(projectID, projectName, subject);

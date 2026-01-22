@@ -4,7 +4,9 @@
   import ProjectEntry from "./ProjectEntry.svelte";
   import RightArrow from "./SVGAsComponent/RightArrow.svelte";
   import { fade } from "svelte/transition";
-  // import { processSubjectName, processSemesterName } from "../auxiliary";
+  import MyError from "./MyError.svelte";
+  import SixDotsMiddle from "./SVGC/SixDotsMiddle.svelte";
+
   let sheetMode = $state(false);
 
   // master handler given to each entry button to handle state change
@@ -18,7 +20,7 @@
 <aside
   id="left-sheet-wrapper"
   class={[
-    "absolute z-100 top-0 w-[80%] md:w-[40%] h-full transition-[left] duration-[500ms] opacity-100",
+    "absolute z-100 top-0 w-[80%] md:w-[40%] h-full transition-[left] duration-[500ms]",
     sheetMode ? "left-0" : "-left-8/10 md:-left-[40%]",
   ]}
 >
@@ -34,7 +36,9 @@
           Subjects
         </h2>
           {#await getProjectsPerSubject()}
-            <div>Getting all projects...</div>
+            <div class="absolute-center"><SixDotsMiddle class="inline-block size-16 lg:size-32" /></div>
+          {:catch error}
+            <MyError>{error}</MyError>
           {:then Pps}
             {#each Object.entries(Pps) as [subject, projects]}
               <div class="text-sm md:text-base subject px-2">{subject}</div>
@@ -42,6 +46,7 @@
                 <ProjectEntry {subject} projectName={projectName} projectID={projectID} clickHandler={ProjEntryClickHandler} />
               {/each}
             {/each}
+          
           {/await}
       </div>
     {/if}

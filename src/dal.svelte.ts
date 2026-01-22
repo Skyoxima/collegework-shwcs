@@ -19,6 +19,7 @@ async function fetchProjectsSubjects(): Promise<ProjectSubjectT[]> {
     .order("subject");
 
   if (error) throw error;
+
   if (!data.every(checkProjectSubjectT))
     throw new Error("Invalid response from the Database...");
 
@@ -44,10 +45,14 @@ export async function getProjectsPerSubject(): Promise<ProjPerSub> {
   if (cache) return JSON.parse(cache);
 
   // will only reach here if there is no cache in the browser
-  const data = await fetchProjectsSubjects();
-  const projectsPerSubject = zipProjectsSubject(data);
-  localStorage.setItem("PPS", JSON.stringify(projectsPerSubject));
-  return projectsPerSubject;
+  try {
+    const data = await fetchProjectsSubjects();
+    const projectsPerSubject = zipProjectsSubject(data);
+    localStorage.setItem("PPS", JSON.stringify(projectsPerSubject));
+    return projectsPerSubject;
+  } catch(error) {
+    throw (error as Error).message;  // this is going up to the svelte await block's catch
+  }
 }
 
 // Claude suggested separated fetching and setting so did this.
@@ -76,10 +81,15 @@ export async function getCurrentProjectLangCode(
 
   if (cache) return JSON.parse(cache);
 
+  try {
+    const data = await fetchCurrentProjectLangCode(projectID);
+    localStorage.setItem(LSKey, JSON.stringify(data));
+    return data;
+  } catch (error) {
+    console.error(error)
+    throw (error as Error).message;
+  }
   // will only reach here if there is nothing in LS
-  const data = await fetchCurrentProjectLangCode(projectID);
-  localStorage.setItem(LSKey, JSON.stringify(data));
-  return data;
 }
 
 async function fetchCurrentProjectComments(

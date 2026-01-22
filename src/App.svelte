@@ -1,15 +1,26 @@
 <script lang="ts">
-  import Header from "./lib/Header.svelte";
   import MainLayout from "./lib/MainLayout.svelte";
-  import LeftSheet from "./lib/LeftSheet.svelte";
   import OutputImgModal from "./lib/OutputImgModal.svelte";
   import RightSheet from "./lib/RightSheet.svelte";
   import AboutDelegator from "./lib/AboutBook/AboutDelegator.svelte";
   import Hero from "./lib/Hero/Hero.svelte";
+  import { screenChange } from "./state.svelte";
+  import { onDestroy } from "svelte";
+
+  const resizeHandler = (e: Event) => {
+    console.log('Window was resized');
+    screenChange.value = (e.currentTarget as Window).innerWidth;
+  }
+
+  window.addEventListener('resize', resizeHandler);
+
+  onDestroy(() => {
+    window.removeEventListener('resize', resizeHandler)
+  })
+  
 </script>
 
 <main class="relative">
-  <!-- <Header /> -->
   <Hero />
   <AboutDelegator />
   <MainLayout />
