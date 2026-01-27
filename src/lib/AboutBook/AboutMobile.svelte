@@ -7,11 +7,13 @@
     frontpage2,
     frontpage2ex,
     frontpage3,
+  } from "./AboutSnippetsFront.svelte";
+  import { 
     backpage1,
     backpage2,
     backpage3,
-    backpage3ex,
-  } from "../AboutBook/AboutPageSnippets.svelte";
+    backpage3ex
+  } from '../AboutBook/AboutSnippetsBack.svelte'
   import { noofAboutPages, noofAboutPagesMobile } from "../../constants";
   import ModalClose from "../ModalClose.svelte";
 
